@@ -4,12 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.Producto;
 
 
 
 /**
+ * Ejemplo de como cerrar los recursos abiertos con versiones anteriores a Java 7
+ * @see https://www.arquitecturajava.com/jdbc-java-try-with-resources/
  * 
  * @see http://www.chuidiang.org/java/mysql/EjemploJava.php
  * @author javaee
@@ -18,26 +22,27 @@ import com.ipartek.formacion.modelo.Producto;
 public class ListaProductos {
 
 	public static void main(String[] args) {
-
-		final String URL = "jdbc:mysql://localhost/supermercado";
-		final String USUARIO = "debian-sys-maint";
-		final String PASS = "o8lAkaNtX91xMUcV";
+		
 		final String SQL = " SELECT id, nombre FROM producto ORDER BY id DESC; ";
+		
+		Connection conexion = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
 
 		try {
 			
-			//comprobar que tengamos el .jar de MySQL
-			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Existe el .jar para mysql");
-			
+						
 			// conectarnos a la bbdd supermercado			
-			Connection conexion = DriverManager.getConnection ( URL, USUARIO, PASS);
+			//conexion = DriverManager.getConnection ( URL, USUARIO, PASS);
+			conexion = ConnectionManager.getConnection();
+			
 			System.out.println("Conexion con exito");
 			
 			
 			//Realizar una consulta
-			PreparedStatement pst =  conexion.prepareStatement(SQL);
-			ResultSet rs = pst.executeQuery();
+			pst =  conexion.prepareStatement(SQL);
+			rs = pst.executeQuery();
 			
 			System.out.println("Listado de productos");
 			System.out.println("--------------------------------------");
@@ -64,6 +69,34 @@ public class ListaProductos {
 		} catch (Exception e) {
 			
 			e.printStackTrace();
+			
+		}finally {                                        // este bloque siempre se ejecuta
+			
+			
+			try {
+				if ( rs != null ) {
+					rs.close();
+				}	
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}
+			
+			try {
+				if ( pst != null ) {
+					pst.close();
+				}	
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}
+			
+			try {
+				if ( conexion != null ) {
+					conexion.close();
+				}	
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}
+			
 		}
 
 		

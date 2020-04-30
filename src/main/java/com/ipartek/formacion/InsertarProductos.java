@@ -21,23 +21,22 @@ public class InsertarProductos {
 		final String SQL = " INSERT INTO producto (nombre, id_usuario) VALUES ( ? , 1) ; ";
 		boolean continuar = true; 
 
-		try {
+		try(
+				Connection conexion = DriverManager.getConnection(URL, USUARIO, PASS);	
+				PreparedStatement pst = conexion.prepareStatement(SQL);
+				Scanner sc = new Scanner(System.in);
+				
+				) {
 
-			Scanner sc = new Scanner(System.in);
+			
 
 			// comprobar que tengamos el .jar de MySQL
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Existe el .jar para mysql");
 
-			// conectarnos a la bbdd supermercado
-			Connection conexion = DriverManager.getConnection(URL, USUARIO, PASS);
-			System.out.println("Conexion con exito");
-
-			// Realizar una consulta
-			PreparedStatement pst = conexion.prepareStatement(SQL);
-
-			System.out.println("Dime un producto a guardar");
 			
+			
+		
 			
 			do {
 			
