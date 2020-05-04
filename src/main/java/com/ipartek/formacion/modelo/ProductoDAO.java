@@ -5,9 +5,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class ProductoDAO implements CrudAble<Producto>{
-
+public class ProductoDAO implements CrudAble<Producto> {
 	
+	private static ProductoDAO INSTANCE = null;
+	
+	private ProductoDAO() {
+		super();	
+	}
+	
+	public static synchronized ProductoDAO getInstance() {
+		
+		if ( INSTANCE == null ) {
+			INSTANCE = new ProductoDAO();
+		}
+		
+		return INSTANCE;
+	}
+	
+
 	private final String SQL_GET_ALL = " SELECT id, nombre FROM producto ORDER BY id DESC; ";
 	//TODO resto de SQLs
 	

@@ -25,7 +25,8 @@ public class ListaProductosUsandoDAO {
 
 	public static void main(String[] args) {
 		
-		ProductoDAO dao = new ProductoDAO(); 
+		// ProductoDAO dao = new ProductoDAO(); 
+		ProductoDAO dao = ProductoDAO.getInstance();
 		
 		ArrayList<Producto> productos = dao.getAll();
 		

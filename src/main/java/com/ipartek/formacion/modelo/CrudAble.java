@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  */
 public interface CrudAble<P> {
-
+	
 	
 	ArrayList<P> getAll();
 	
