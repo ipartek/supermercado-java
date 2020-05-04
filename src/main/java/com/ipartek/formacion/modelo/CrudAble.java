@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author javaee
  *
  */
-public interface CrudAble<P> {
+public interface CrudAble<P>  {
 	
 	
 	ArrayList<P> getAll();
