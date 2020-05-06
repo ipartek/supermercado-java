@@ -2,40 +2,40 @@ package com.ipartek.formacion.modelo;
 
 import java.util.ArrayList;
 
-public class AlumnoDAOImpl implements AlumnoDAO {
+public class UsuarioDAOImpl implements UsuarioDAO {
 
 	@Override
-	public ArrayList<Alumno> getAll() {
+	public ArrayList<Usuario> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Alumno getById(int id) throws Exception {
+	public Usuario getById(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Alumno delete(int id) throws Exception {
+	public Usuario delete(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Alumno insert(Alumno pojo) throws Exception {
+	public Usuario insert(Usuario pojo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Alumno update(Alumno pojo) throws Exception {
+	public Usuario update(Usuario pojo) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Alumno> getAllByNombre(String palabraBuscada) {
+	public ArrayList<Usuario> getAllByNombre(String palabraBuscada) {
 		// TODO Auto-generated method stub
 		return null;
 	}

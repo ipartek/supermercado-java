@@ -1,11 +1,11 @@
 package com.ipartek.formacion.modelo;
 
-public class Alumno {
+public class Usuario {
 	
 	private int id;
 	private String nombre;
 	
-	public Alumno() {
+	public Usuario() {
 		super();
 		this.id = 0;
 		this.nombre = "";

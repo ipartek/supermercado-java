@@ -2,7 +2,7 @@ package com.ipartek.formacion.modelo;
 
 import java.util.ArrayList;
 
-public interface AlumnoDAO extends CrudAble<Alumno> {
+public interface UsuarioDAO extends CrudAble<Usuario> {
 	
 	/**
 	 * Busca alumnos que contengan la palabraBuscada
@@ -16,6 +16,6 @@ public interface AlumnoDAO extends CrudAble<Alumno> {
 	 *  SQL = SELECT id, nombre FROM alumno WHERE nombre LIKE '%a%' ORDER BY nopmbre ASC;   
 	 * 
 	 */
-	ArrayList<Alumno> getAllByNombre( String palabraBuscada );
+	ArrayList<Usuario> getAllByNombre( String palabraBuscada );
 	
 }

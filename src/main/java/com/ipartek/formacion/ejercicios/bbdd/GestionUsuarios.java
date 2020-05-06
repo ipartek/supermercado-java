@@ -5,7 +5,7 @@ package com.ipartek.formacion.ejercicios.bbdd;
  * @author javaee
  *
  */
-public class GestionAlumnos {
+public class GestionUsuarios {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
