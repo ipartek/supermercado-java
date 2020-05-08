@@ -10,7 +10,7 @@ public class BuscarAlumnosPorNombre {
 	public static void main(String[] args) {
 	
 		
-		UsuarioDAOImpl dao = new UsuarioDAOImpl();
+		UsuarioDAOImpl dao = UsuarioDAOImpl.getInstance();
 		
 		ArrayList<Usuario> lista = dao.getAllByNombre("MANOLO");
 		
