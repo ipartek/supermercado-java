@@ -6,3 +6,5 @@
 %>
 
 <a href="ver-tabla-alumnos">Ver alumnos en tabla</a>
+<br>
+<a href="productos">Ver Productos</a>
