@@ -41,21 +41,30 @@ public class SumarController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		//recoger parametros del formulario
-		String parametro1 = request.getParameter("op1");
-		String parametro2 = request.getParameter("op2");
-		
-		
-		
-		// Parsear a int y sumar
-		int resultado = Integer.parseInt(parametro1) + Integer.parseInt(parametro2);
-		
-		//volver a enviar los PARAMETROS recibido como ATRIBUTOS
-		request.setAttribute("op1", parametro1);		
-		request.setAttribute("op2", parametro2);
-		
-		request.setAttribute("resultado", resultado);
-		request.getRequestDispatcher("getYpost.jsp").forward(request, response);
+		try {
+			//recoger parametros del formulario
+			String parametro1 = request.getParameter("op1");
+			String parametro2 = request.getParameter("op2");
+			
+			//volver a enviar los PARAMETROS recibido como ATRIBUTOS
+			request.setAttribute("op1", parametro1);		
+			request.setAttribute("op2", parametro2);
+			
+				
+			// Parsear a int y sumar
+			int resultado = Integer.parseInt(parametro1) + Integer.parseInt(parametro2);
+			request.setAttribute("resultado", resultado);			
+			
+		}catch (NumberFormatException e) {	
+			request.setAttribute("mensaje", "No es un numero valido.");
+			
+		}catch (Exception e) {
+			request.setAttribute("mensaje", "Lo sentimos, no se puede sumar prueba con numeros.");
+			
+		}finally {
+			request.getRequestDispatcher("getYpost.jsp").forward(request, response);
+		}	
+			
 	}
 
 }
