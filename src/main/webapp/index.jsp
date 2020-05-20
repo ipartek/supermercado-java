@@ -5,6 +5,9 @@
 	out.print("<p>Esta linea esta en Java</p>");
 %>
 
+
+<a href="MiPrimerServlet?nombre=ander&apellido=uraga&email=aaa@aaaa.com">Mi Primer Servlet Ejemplo</a>
+<br>
 <a href="getYpost.jsp">GET y POST</a>
 <br>
 <a href="formulario.jsp">Ejemplo Formulario Completo</a>
