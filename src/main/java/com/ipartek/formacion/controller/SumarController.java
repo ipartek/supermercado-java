@@ -25,8 +25,8 @@ public class SumarController extends HttpServlet {
 		String parametro1 = request.getParameter("op1");
 		String parametro2 = request.getParameter("op2");
 		
-		//TODO Parsear a int y sumar
-		String resultado = parametro1 + parametro2;
+		// Parsear a int y sumar
+		int resultado = Integer.parseInt(parametro1) + Integer.parseInt(parametro2);
 		
 		//volver a enviar los PARAMETROS recibido como ATRIBUTOS
 		request.setAttribute("op1", parametro1);		
@@ -45,8 +45,10 @@ public class SumarController extends HttpServlet {
 		String parametro1 = request.getParameter("op1");
 		String parametro2 = request.getParameter("op2");
 		
-		//TODO Parsear a int y sumar
-		String resultado = parametro1 + parametro2;
+		
+		
+		// Parsear a int y sumar
+		int resultado = Integer.parseInt(parametro1) + Integer.parseInt(parametro2);
 		
 		//volver a enviar los PARAMETROS recibido como ATRIBUTOS
 		request.setAttribute("op1", parametro1);		
