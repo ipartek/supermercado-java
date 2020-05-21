@@ -32,6 +32,17 @@
 		<input type="text" name="apellidos" value="${apellidos}" placeholder="Tus Apellidos">
 		<br>
 		
+		 <label for="cars">Choose a car:</label>
+
+		<p style="background-color:yellow;">ATRIBUTO DEBUG => ${cars}</p>
+		<select name="cars" id="cars"> 
+		  <option value="volvo"    ${ ( cars eq "volvo" ) ? "selected" : "" } >Volvo</option>
+		  <option value="saab"     ${ ( cars eq "saab" ) ? "selected" : "" } >Saab</option>
+		  <option value="mercedes" ${ ( cars eq "mercedes" ) ? "selected" : "" }>Mercedes</option>
+		  <option value="audi"     ${ ( cars eq "audi" ) ? "selected" : "" }>Audi</option>
+		</select> 
+		<br>
+		
 		<input type="submit" value="Enviar Formulario">
 	
 	</form>

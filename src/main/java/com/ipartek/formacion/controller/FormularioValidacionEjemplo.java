@@ -37,6 +37,8 @@ public class FormularioValidacionEjemplo extends HttpServlet {
 		//recoger parametros
 		String nombre = request.getParameter("nombre");
 		String apellidos = request.getParameter("apellidos");
+		String cars = request.getParameter("cars");
+		
 		
 		//validar
 		if ( "".equalsIgnoreCase(nombre)) {
@@ -48,6 +50,7 @@ public class FormularioValidacionEjemplo extends HttpServlet {
 		}
 		
 		// enviar atribustos a a vista
+		request.setAttribute("cars", cars);
 		request.setAttribute("nombre", nombre);
 		request.setAttribute("apellidos", apellidos);
 		request.setAttribute("validaciones", validaciones);
