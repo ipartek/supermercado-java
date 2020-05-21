@@ -10,6 +10,8 @@
 <br>
 <a href="getYpost.jsp">GET y POST</a>
 <br>
+<a href="formulario-validacion.jsp">Ejemplo Formulario Validacion</a>
+<br>
 <a href="formulario.jsp">Ejemplo Formulario Completo</a>
 <br>
 <a href="ver-tabla-alumnos">Ver alumnos en tabla</a>
