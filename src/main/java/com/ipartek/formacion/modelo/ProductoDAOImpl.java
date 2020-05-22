@@ -24,8 +24,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 	
 	// excuteQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT id, nombre FROM producto ORDER BY id DESC; ";
-	private final String SQL_GET_BY_ID = " SELECT id, nombre FROM producto WHERE id = ? ; ";
+	private final String SQL_GET_ALL = " SELECT id, nombre, imagen, precio  FROM producto ORDER BY id DESC; ";
+	private final String SQL_GET_BY_ID = " SELECT id, imagen, precio, nombre FROM producto WHERE id = ? ; ";
 	
 	// excuteUpdate => int numero de filas afectadas
 	private final String SQL_INSERT = " INSERT INTO producto (nombre, id_usuario) VALUES ( ? , 1) ; ";
@@ -53,9 +53,13 @@ public class ProductoDAOImpl implements ProductoDAO {
 				
 				int id        = rs.getInt("id");
 				String nombre = rs.getString("nombre");
+				String foto = rs.getString("imagen");
+				float precio = rs.getFloat("precio");
 				
 				Producto p = new Producto(nombre);
 				p.setId(id);
+				p.setImagen(foto);
+				p.setPrecio(precio);
 								
 				// guardar en lista
 				registros.add(p);
@@ -89,6 +93,9 @@ public class ProductoDAOImpl implements ProductoDAO {
 					
 					registro.setId( rs.getInt("id"));
 					registro.setNombre( rs.getString("nombre"));
+					registro.setImagen(rs.getString("imagen"));
+					registro.setPrecio(rs.getFloat("precio"));
+										
 					
 				}else {
 					throw new Exception("No se puede encontrar registro con id=" + id);					

@@ -24,12 +24,15 @@
 		// suele ser mas comodo que tener que usar < % % >, a estos porcentajes se les llama SCRIPLETS
 		// ademas se pueden combinar con JSTL - Java Servlet Tag Libraries
 	%>	
+
 	
 	<table>
 		<thead>
 			<tr>
 				<td>Id</td>
 				<td>Nombre</td>
+				<td>Precio</td>
+				<td>Imagen</td>
 				<td>Operaciones</td>
 			</tr>
 		</thead>
@@ -38,6 +41,8 @@
 				<tr>
 					<td>${p.id}</td> <% // no hace falta usar el getter p.id == p.getId() %>
 					<td>${p.nombre}</td>
+					<td>${p.precio} &euro;</td>
+					<td><img src="${p.imagen}" alt="imagen..."></td>
 					<td>
 						<a href="producto?id=${p.id}">EDITAR</a>
 						<a href="producto-eliminar?id=${p.id}">ELIMINAR</a>
