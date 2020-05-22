@@ -11,9 +11,13 @@
 </head>
 <body>
 
+	<a href="index.jsp">Volver</a>
 
 	<h1>Listado Productos</h1>
 	<p>${mensaje}</p>
+
+
+	<a href="producto">Ir a formulario para Crear Nuevo Producto</a>
 
 	<%
 		// Podemos usar el ${}  EL - Expresion Lenguage en los JSPs
@@ -34,7 +38,10 @@
 				<tr>
 					<td>${p.id}</td> <% // no hace falta usar el getter p.id == p.getId() %>
 					<td>${p.nombre}</td>
-					<td><a href="producto-eliminar?id=${p.id}">ELIMINAR</a></td>
+					<td>
+						<a href="producto?id=${p.id}">EDITAR</a>
+						<a href="producto-eliminar?id=${p.id}">ELIMINAR</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

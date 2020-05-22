@@ -7,16 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<a href="index.jsp">Volver</a>
 
-	<h1>Formulario Para Crear Producto</h1>
+	<h1>Formulario Para Crear/Modificar Producto</h1>
 	
 	<p>${mensaje}</p>
 	
-	<form action="producto-crear" method="post">
+	<form action="producto" method="post">
 	
-		<input type="text" name="nombre" placeholder="Escribe el nombre del producto" >
-	
-		<input type="submit" value="Crear">
+		<label for="id">id:</label>
+		<input type="text" name="id" id="id" value="${producto.id}" readonly >
+		<br>
+		<label for="nombre">nombre:</label>
+		<input type="text" name="nombre" id="nombre" value="${producto.nombre}" placeholder="Escribe el nombre del producto" >
+		<br>
+		<input type="submit" value="Guardar">
 	</form>
 	
 
