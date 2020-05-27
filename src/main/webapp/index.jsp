@@ -1,4 +1,5 @@
 
+<%! String title = "Inicio";  %>
 <%@include file="includes/cabecera.jsp" %>
 
 <h1>Pagina principal</h1>
@@ -19,7 +20,7 @@
 
 <a href="MiPrimerServlet?nombre=ander&apellido=uraga&email=aaa@aaaa.com">Mi Primer Servlet Ejemplo</a>
 <br>
-<a href="getYpost.jsp">GET y POST</a>
+<a href="getYpost.jsp?title=GetPost">GET y POST</a>
 <br>
 <a href="formulario-validacion.jsp">Ejemplo Formulario Validacion</a>
 <br>

@@ -16,7 +16,7 @@
 
 
 
-    <title>Supermercado App</title>
+    <title> <%=title%> | Supermercado</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
