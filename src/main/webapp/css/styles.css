@@ -1,0 +1,41 @@
+/* Custom Css
+   @author: Ander Uraga
+   @version: 1.0
+   @github: .......
+************************************************************/
+
+main[role="main"] {
+    margin-top: 4rem;
+    min-height: 80vh;
+}
+
+
+footer {
+    color: #FFF;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-producto {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+}
+
+td {
+    vertical-align: middle !important;    
+}
+
+
+#login i {
+    display: block;
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
