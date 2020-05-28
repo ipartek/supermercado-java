@@ -11,6 +11,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+	<!-- datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 
@@ -19,7 +22,7 @@
     <title> ${param.title} | Supermercado</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
         <!-- logo -->
         <a class="navbar-brand" href="index.html">
             <i class="fas fa-shopping-cart"></i>
@@ -38,15 +41,14 @@
             </li>
             <li class="nav-item">
               <a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="tabla-productos.html">Tabla Producto</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Iniciar Sesión</a>
-            </li>
+            </li>           
+        
             
           </ul>
+        
+         <span class="form-inline">
+              <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
+         </span>
         
         </div>
       </nav>
