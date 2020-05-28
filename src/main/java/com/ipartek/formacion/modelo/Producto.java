@@ -6,6 +6,7 @@ public class Producto {
 	private String nombre;
 	private String imagen;
 	private float precio;
+	//TODO usuario
 	
 	public Producto() {
 		super();

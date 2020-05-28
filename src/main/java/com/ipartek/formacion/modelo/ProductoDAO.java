@@ -13,5 +13,7 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	
 	ArrayList<Producto> getAllByNombre( String nombre );
 	
+	ArrayList<Producto> getAllRangoPrecio( int precioMinimo, int precioMaximo );
+	
 	
 }

@@ -21,6 +21,7 @@
 	%>	
 
 	
+	
 	<table class="tabla table table-striped">
 		<thead>
 			<tr>

@@ -28,9 +28,11 @@ public class ProductoDAOImpl implements ProductoDAO {
 	private final String SQL_GET_BY_ID = " SELECT id, imagen, precio, nombre FROM producto WHERE id = ? ; ";
 	
 	// excuteUpdate => int numero de filas afectadas
-	private final String SQL_INSERT = " INSERT INTO producto (nombre, id_usuario) VALUES ( ? , 1) ; ";
-	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
+	//TODO faltan campos imagen y precio
+	private final String SQL_INSERT = " INSERT INTO producto (nombre, id_usuario) VALUES ( ? , 1) ; ";	
 	private final String SQL_UPDATE = " UPDATE producto SET nombre = ? WHERE id = ? ; ";
+	
+	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
 	
 	
 	public ArrayList<Producto> getAllByNombre( String nombre ) {
@@ -197,6 +199,12 @@ public class ProductoDAOImpl implements ProductoDAO {
 		
 		
 		return pojo;
+	}
+
+	@Override
+	public ArrayList<Producto> getAllRangoPrecio(int precioMinimo, int precioMaximo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
