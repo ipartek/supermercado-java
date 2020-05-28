@@ -3,15 +3,10 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-	<a href="index.jsp">Volver</a>
+<jsp:include page="includes/cabecera.jsp" >
+  <jsp:param name="pagina" value="productos" />
+  <jsp:param name="title" value="Productos" /> 
+</jsp:include>
 
 	<h1>Listado Productos</h1>
 	<p>${mensaje}</p>
@@ -52,7 +47,4 @@
 		</tbody>
 	</table>
 	
-
-
-</body>
-</html>
+<%@include file="includes/pie.jsp" %>

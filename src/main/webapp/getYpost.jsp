@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
 
+<%! String pagina = "GetPost";  %>
 <%! String title = "Get y Post";  %>
-
 <%@include file="includes/cabecera.jsp" %>
 
 

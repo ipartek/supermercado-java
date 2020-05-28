@@ -16,7 +16,7 @@
 
 
 
-    <title> <%=title%> | Supermercado</title>
+    <title> ${param.title} | Supermercado</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -33,11 +33,11 @@
         <!-- lista enlaces -->
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.jsp">Inicio</a>
+            <li class="nav-item"  >
+              <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="index.jsp">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="crear-producto.html">Crear Producto</a>
+              <a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="tabla-productos.html">Tabla Producto</a>
@@ -52,3 +52,5 @@
       </nav>
       
       <main role="main" class="container">
+      
+      
