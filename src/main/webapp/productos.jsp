@@ -38,7 +38,7 @@
 					<td>${p.id}</td> <% // no hace falta usar el getter p.id == p.getId() %>
 					<td>${p.nombre}</td>
 					<td>${p.precio} &euro;</td>
-					<td><img src="${p.imagen}" alt="imagen..."></td>
+					<td><img src="${p.imagen}"  class="img-thumbnail" alt="imagen..."></td>
 					<td>
 						<a href="producto?id=${p.id}" class="mr-4"> <i class="far fa-edit fa-2x" title="Editar Producto"></i></a>
 						<a href="producto-eliminar?id=${p.id}"><i class="fas fa-trash fa-2x" title="Eliminar Producto"></i></a>

@@ -29,8 +29,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 	
 	// excuteUpdate => int numero de filas afectadas
 	//TODO faltan campos imagen y precio
-	private final String SQL_INSERT = " INSERT INTO producto (nombre, id_usuario) VALUES ( ? , 1) ; ";	
-	private final String SQL_UPDATE = " UPDATE producto SET nombre = ? WHERE id = ? ; ";
+	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario) VALUES ( ? , ?, ? , 1 ) ; ";	
+	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ? WHERE id = ? ; ";
 	
 	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
 	
@@ -147,6 +147,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 			){
 		
 			pst.setString(1, pojo.getNombre() );
+			pst.setString(2, pojo.getImagen() );
+			pst.setFloat(3, pojo.getPrecio() );
 			int affectedRows = pst.executeUpdate();
 			
 			if ( affectedRows == 1 ) {
@@ -184,7 +186,9 @@ public class ProductoDAOImpl implements ProductoDAO {
 			){
 						
 				pst.setString(1, pojo.getNombre() );
-				pst.setInt(2, pojo.getId() );
+				pst.setString(2, pojo.getImagen() );
+				pst.setFloat(3, pojo.getPrecio() );
+				pst.setInt(4, pojo.getId() );
 
 				
 				int affectedRows = pst.executeUpdate();

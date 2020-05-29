@@ -55,4 +55,7 @@
       
       <main role="main" class="container">
       
+      	
+      	<jsp:include page="alerta.jsp"></jsp:include>
+      
       

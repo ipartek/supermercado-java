@@ -54,7 +54,7 @@ public class ProductoGuardarController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String mensaje = "";
+		Alerta alerta = new Alerta();
 		Producto producto = new Producto();		
 		
 		try {
@@ -62,14 +62,20 @@ public class ProductoGuardarController extends HttpServlet {
 			// recoger los valores del formulario
 			String idParametro = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
+			String precio = request.getParameter("precio");
+			String imagen = request.getParameter("imagen");
 			
 			int id = Integer.parseInt(idParametro);
+			float precioFloat = Float.parseFloat(precio);
 			
 			ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
 			
 			
 			producto.setId(id);
 			producto.setNombre(nombre);
+			producto.setImagen(imagen);
+			producto.setPrecio(precioFloat);
+			
 			
 			if ( id == 0 ) {
 				dao.insert(producto);
@@ -79,18 +85,18 @@ public class ProductoGuardarController extends HttpServlet {
 			}
 				
 			
-			mensaje = "Producto guardado con exito";
+			alerta = new Alerta( "success", "Producto guardado con exito");
 			
 		} catch (Exception e) {
 			
-			mensaje = "Lo sentimos pero hemos tenido una Excepcion " + e.getMessage();
+			alerta = new Alerta( "danger", "Lo sentimos pero hemos tenido una Excepcion " + e.getMessage());
 			e.printStackTrace();
 			
 		}finally {
 		
 
 			// enviar datos a la vista
-			request.setAttribute("mensaje", mensaje);
+			request.setAttribute("alerta", alerta);
 			request.setAttribute("producto", producto);			
 
 			// ir a la nueva vista o jsp

@@ -9,22 +9,42 @@
 
 	<h1>Formulario Para Crear/Modificar Producto</h1>
 	
-	<p>${mensaje}</p>
+	<div class="row">
 	
-	<form action="producto" method="post">
-	
-		<div class="form-group">
-			<label for="id">id:</label>
-			<input type="text" name="id" id="id" value="${producto.id}" readonly class="form-control">
-		</div>	
-		
-		<div class="form-group">
-			<label for="nombre">nombre:</label>
-			<input type="text" name="nombre" id="nombre" value="${producto.nombre}" class="form-control" placeholder="Escribe el nombre del producto" >
+		<div class="col">
+				<form action="producto" method="post">
+			
+				<div class="form-group">
+					<label for="id">id:</label>
+					<input type="text" name="id" id="id" value="${producto.id}" readonly class="form-control">
+				</div>	
+				
+				<div class="form-group">
+					<label for="nombre">nombre:</label>
+					<input type="text" name="nombre" id="nombre" value="${producto.nombre}" class="form-control" placeholder="Escribe el nombre del producto" >
+				</div>
+				
+				<div class="form-group">
+					<label for="precio">precio:</label>
+					<input type="text" name="precio" id="precio" value="${producto.precio}" class="form-control" placeholder="0.0 €" >
+				</div>
+				
+				<div class="form-group">
+					<label for="imagen">Imagen:</label>
+					<input type="text" name="imagen" id="imagen" value="${producto.imagen}" class="form-control" placeholder="URL de la imagen (.jpg o .png)" >
+				</div>
+				
+				<input type="submit" value="Guardar" class="btn btn-primary btn-block">
+			</form>
 		</div>
 		
-		<input type="submit" value="Guardar" class="btn btn-primary btn-block">
-	</form>
+		<div class="col">
+			<img src="${producto.imagen}" class="img-thumbnail" alt="imagen del producto a modificar">
+		</div>
+	</div>
+	
+	
+	
 
 
 <jsp:include page="includes/pie.jsp"  />	
