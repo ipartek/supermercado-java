@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -39,15 +42,26 @@
             <li class="nav-item"  >
               <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="index.jsp">Inicio</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
-            </li>           
+            
+             <c:if test="${ not empty isLogeado }">
+            	<li class="nav-item">
+              		<a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
+            	</li>
+            </c:if>	           
         
             
           </ul>
         
          <span class="form-inline">
-              <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
+         	<c:if test="${ empty isLogeado }">
+            	  <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
+            </c:if>	  
+            
+            <c:if test="${ not empty isLogeado }">
+            	<span class="text-primary">${nombreUsuario}</span>
+            	<a class="nav-link  btn btn-outline-warning" href="logout">Cerrar Sesión</a>
+            </c:if>
+              
          </span>
         
         </div>
