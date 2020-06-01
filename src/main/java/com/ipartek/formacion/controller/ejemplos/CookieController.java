@@ -1,6 +1,10 @@
 package com.ipartek.formacion.controller.ejemplos;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -35,8 +39,12 @@ public class CookieController extends HttpServlet {
 		
 		
 		// Guardar una cookie con la ultima visita
-		Cookie cUltimaVisita = new Cookie("ultima_visita", "1_de_junio_2020");
-		cUltimaVisita.setMaxAge( 60 * 1 *60 *24 * 365  );  // 1 año
+		
+		LocalDateTime tiempo = LocalDateTime.now();
+		String formattedDate = tiempo.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy_HH:mm"));		
+		Cookie cUltimaVisita = new Cookie("ultima_visita",formattedDate );
+		
+		cUltimaVisita.setMaxAge( 60 * 1 * 60 * 24 * 365  );  // 1 año
 		response.addCookie(cUltimaVisita);
 		
 		
