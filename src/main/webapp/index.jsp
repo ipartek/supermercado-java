@@ -35,6 +35,9 @@
 <br>
 <a href="formulario-producto.jsp">Crear Producto</a>
 
+<br>
+<a href="cookies.jsp">Cookies</a>
+
 
 <%@include file="includes/pie.jsp" %>
 
