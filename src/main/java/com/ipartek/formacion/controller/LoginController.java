@@ -47,6 +47,7 @@ public class LoginController extends HttpServlet {
 		if ( "admin".equals(nombre) && "123456".equals(pass) ){
 		
 			
+			session.setMaxInactiveInterval( 60 * 5 ); // 5 minutos sin peticiones, se invalida la session del usuario
 			session.setAttribute("isLogeado", true );
 			session.setAttribute("nombreUsuario", "Admin" );
 			
@@ -58,8 +59,7 @@ public class LoginController extends HttpServlet {
 			
 			//TODO logoout controller
 			session.invalidate();
-			session = null;
-			
+						
 			request.setAttribute("alerta", new Alerta("warning", "Credenciales Incorrectas"));
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 			

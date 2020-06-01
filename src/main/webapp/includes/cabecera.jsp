@@ -58,8 +58,8 @@
             </c:if>	  
             
             <c:if test="${ not empty isLogeado }">
-            	<span class="text-primary">${nombreUsuario}</span>
-            	<a class="nav-link  btn btn-outline-warning" href="logout">Cerrar Sesión</a>
+            	<span class="badge badge-pill badge-light mr-3">${nombreUsuario}</span>
+            	<a class="nav-link  btn btn-outline-light" href="logout">Cerrar Sesión</a>
             </c:if>
               
          </span>
