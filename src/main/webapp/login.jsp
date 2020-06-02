@@ -5,21 +5,25 @@
 </jsp:include>
 
 	
-	<form action="login" method="post">
+	<form action="login" method="post" class="form-login">
 	
-	
-		<input type="text" name="nombre" placeholder="Tu Nombre">
-		<br>
-		<input type="password" name="pass" placeholder="Tu Contraseña">
-		<br>
-		<select name="idioma" class="custom-select">		  
-		  <option value="es">Castellano</option>
-		  <option value="eu">Euskera</option>
-		  <option value="en">Ingles</option>
-		</select>
+	 	<div class="form-group">
+			<input type="text" name="nombre" placeholder="Tu Nombre"  class="form-control">
+		</div>
 		
-		<br>
-		<input type="submit" value="Iniciar Sesión">
+		<div class="form-group">
+			<input type="password" name="pass" placeholder="Tu Contraseña"  class="form-control">
+		</div>
+		
+		<div class="form-group">
+			<select name="idioma" class="custom-select">		  
+			  <option value="es">Castellano</option>
+			  <option value="eu">Euskera</option>
+			  <option value="en">Ingles</option>
+			</select>
+		</div>
+		
+		<input type="submit" value="Iniciar Sesión" class="btn btn-primary btn-block">
 	
 	</form>
 	
