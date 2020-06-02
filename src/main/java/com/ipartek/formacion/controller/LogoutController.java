@@ -36,13 +36,15 @@ public class LogoutController extends HttpServlet {
 		
 		// recuperar cookie de Idioma para mensaje de salida		
 		Cookie[] cookies = request.getCookies();
-		for ( Cookie c : cookies ) {			
-			if ( "cIdioma".equals(c.getName()) ) {   // cookie encontrada
-				idioma = c.getValue();
-				break;
-			}			
-		}
-		
+		if ( cookies != null ) {
+			for ( Cookie c : cookies ) {			
+				if ( "cIdioma".equals(c.getName()) ) {   // cookie encontrada
+					idioma = c.getValue();
+					break;
+				}			
+			}
+		}	
+			
 		switch (idioma) {
 		case "es":
 			mensaje = "Adios nos vemos pronto";
@@ -53,7 +55,7 @@ public class LogoutController extends HttpServlet {
 			break;	
 
 		default:
-			mensaje = "You are welccome to the hell";
+			mensaje = "You are wellcome to the hell";
 			break;
 		}
 	
