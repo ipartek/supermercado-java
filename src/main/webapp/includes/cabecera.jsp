@@ -43,6 +43,10 @@
               <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="index.jsp">Inicio</a>
             </li>
             
+            <li class="nav-item"  >
+              <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="ejemplos.jsp">Ejemplos</a>
+            </li>
+            
              <c:if test="${ not empty isLogeado }">
             	<li class="nav-item">
               		<a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
