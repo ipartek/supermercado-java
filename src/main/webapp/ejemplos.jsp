@@ -34,6 +34,8 @@
 <a href="productos">Ver Productos</a>
 <br>
 <a href="formulario-producto.jsp">Crear Producto</a>
+<br>
+<a href="apartadoA.jsp">Apartado A - Cookies</a>
 
 <br>
 <a href="cookies.jsp">Cookies</a>
