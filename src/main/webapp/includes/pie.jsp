@@ -18,25 +18,9 @@
 	<!-- cifrado en MD5 -->
  	<script src="js/md5.min.js"></script>
 
-    <!-- custom js -->
-    <script>
-        // ejecuta la funcion cuando todo el documento de html DOM este listo y cargado
-        $(document).ready(function() {
-            // seleccion por id => #example y ejecuta el plugin .DataTable();
-            $('.tabla').DataTable();
-        });
-        
-        function init() {
-        	console.log('Documento cargado y listo');
-        	
-        	var pass = '123456';
-        	var hax = md5( pass );
-        	console.debug("pass: " + pass);
-        	console.debug("hax: " + hax);
-        }
-        
-        
-    </script>    
+    <!-- nuestro javascript -->
+    <script src="js/custom.js"></script>
+    
     
   </body>
 </html>

@@ -29,31 +29,5 @@
 	
 	
 
-<%@include file="includes/pie.jsp" %>	
-
-
-<script>
-	
-	console.log('Estoy en el formulario');
-	
-	function cifrar() {
-		
-		console.log('cifrar y conseguir hash');
-		
-		//recupero la contraseña del input a atves de su ID
-		var contrasenia = document.getElementById('pass').value;
-		
-		//consigo el hash mediante la libreria incluida en el pie.jsp
-		var hash = md5(contrasenia);
-		
-		
-		//guardo en el inpput el codigo hash
-		document.getElementById('pass').value = hash;		
-		
-		//enviar formulario
-		return true; // si ponemos false no se envia el formulario
-		
-	}
-
-</script>
+<%@include file="includes/pie.jsp" %>
 
