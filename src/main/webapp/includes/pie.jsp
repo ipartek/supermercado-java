@@ -15,6 +15,9 @@
     <!-- datatables -->
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
+	<!-- cifrado en MD5 -->
+ 	<script src="js/md5.min.js"></script>
+
     <!-- custom js -->
     <script>
         // ejecuta la funcion cuando todo el documento de html DOM este listo y cargado
@@ -22,6 +25,17 @@
             // seleccion por id => #example y ejecuta el plugin .DataTable();
             $('.tabla').DataTable();
         });
+        
+        function init() {
+        	console.log('Documento cargado y listo');
+        	
+        	let pass = '123456';
+        	let hax = md5( pass );
+        	console.debug("pass: " + pass);
+        	console.debug("hax: " + hax);
+        }
+        
+        
     </script>    
     
   </body>

@@ -24,7 +24,7 @@
 
     <title> ${param.title} | Supermercado</title>
   </head>
-  <body>
+  <body onload="init()">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
         <!-- logo -->
         <a class="navbar-brand" href="index.html">
@@ -56,7 +56,7 @@
             
           </ul>
           
-          ${usuario_login}
+       TOSTRING =>   ${usuario_login}
         
          <span class="form-inline">
          	<c:if test="${ empty usuario_login }">

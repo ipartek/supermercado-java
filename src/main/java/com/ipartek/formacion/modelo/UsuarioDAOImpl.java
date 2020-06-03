@@ -216,6 +216,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 					usuario = new Usuario();
 					usuario.setId(rs.getInt("id"));
 					usuario.setNombre(rs.getString("nombre"));
+					usuario.setContrasenia( rs.getString("contrasenia"));
+					usuario.setIdRol( rs.getInt("id_rol"));					
+					
 				} 
 
 			} // 2º try
