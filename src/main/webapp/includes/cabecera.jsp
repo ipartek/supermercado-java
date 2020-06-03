@@ -47,7 +47,7 @@
               <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="ejemplos.jsp">Ejemplos</a>
             </li>
             
-             <c:if test="${ not empty isLogeado }">
+             <c:if test="${ not empty usuario_login }">
             	<li class="nav-item">
               		<a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
             	</li>
@@ -55,14 +55,16 @@
         
             
           </ul>
+          
+          ${usuario_login}
         
          <span class="form-inline">
-         	<c:if test="${ empty isLogeado }">
+         	<c:if test="${ empty usuario_login }">
             	  <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
             </c:if>	  
             
-            <c:if test="${ not empty isLogeado }">
-            	<span class="badge badge-pill badge-light mr-3">${nombreUsuario}</span>
+            <c:if test="${ not empty usuario_login }">
+            	<span class="badge badge-pill badge-light mr-3">${usuario_login.nombre}</span>
             	<a class="nav-link  btn btn-outline-light" href="logout">Cerrar Sesión</a>
             </c:if>
               
