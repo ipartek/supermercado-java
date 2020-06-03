@@ -47,10 +47,17 @@
               <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="ejemplos.jsp">Ejemplos</a>
             </li>
             
+            <!-- opciones cuando el usuario esta Logeado -->
+            
              <c:if test="${ not empty usuario_login }">
+             
             	<li class="nav-item">
               		<a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
             	</li>
+            	<li class="nav-item">
+              		<a class="nav-link ${ ( 'usuario' eq param.pagina ) ? 'active' : '' } "  href="usuario">Usuarios</a>
+            	</li>
+            	
             </c:if>	           
         
             

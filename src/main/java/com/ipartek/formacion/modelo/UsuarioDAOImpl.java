@@ -3,6 +3,7 @@ package com.ipartek.formacion.modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
@@ -10,15 +11,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	private static UsuarioDAOImpl INSTANCE = null;
 
 	// exceuteQuerys => ResultSet
-	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT id, nombre FROM usuario WHERE nombre LIKE ? ;   ";
-	static final String SQL_GET_ALL = " SELECT id, nombre FROM usuario ORDER BY id DESC; ";
-	static final String SQL_GET_BY_ID = " SELECT id, nombre FROM usuario WHERE id = ? ; ";
-	static final String SQL_EXISTE = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE nombre = ? AND contrasenia = ? ; ";
+	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE nombre LIKE ? ;   ";
+	static final String SQL_GET_ALL           = " SELECT id, nombre, contrasenia, id_rol FROM usuario ORDER BY id DESC; ";
+	static final String SQL_GET_BY_ID         = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE id = ? ; ";
+	static final String SQL_EXISTE            = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE nombre = ? AND contrasenia = ? ; ";
 
 	// executeUpdate => int
 	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol) VALUES( ? ,'11111',1 ); ";
-	static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ? ;";
-	static final String SQL_UPDATE = "UPDATE usuario SET nombre = ? WHERE id = ? ; ";
+	static final String SQL_DELETE = " DELETE FROM usuario WHERE id = ? ;";
+	static final String SQL_UPDATE = " UPDATE usuario SET nombre = ? WHERE id = ? ; ";
 
 	private UsuarioDAOImpl() {
 		super();
@@ -45,17 +46,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			System.out.println("SQL= " + pst);
 
-			while (rs.next()) {
-
-				int id = rs.getInt("id");
-				String nombre = rs.getString("nombre");
-
-				Usuario u = new Usuario();
-				u.setId(id);
-				u.setNombre(nombre);
-
-				usuarios.add(u);
-
+			while (rs.next()) {				
+				usuarios.add( mapper(rs) );
 			}
 
 		} catch (Exception e) {
@@ -82,8 +74,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				if (rs.next()) {
-					usuario.setId(rs.getInt("id"));
-					usuario.setNombre(rs.getString("nombre"));
+					usuario = mapper(rs);
 				} else {
 					throw new Exception("Usuario no encontrado id = " + id);
 				}
@@ -174,15 +165,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
-
-					int id = rs.getInt("id");
-					String nombre = rs.getString("nombre");
-
-					Usuario u = new Usuario();
-					u.setId(id);
-					u.setNombre(nombre);
-
-					registros.add(u);
+					registros.add( mapper(rs) );
 				} // while
 
 			} // 2º try
@@ -213,12 +196,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				if (rs.next()) {
-					usuario = new Usuario();
-					usuario.setId(rs.getInt("id"));
-					usuario.setNombre(rs.getString("nombre"));
-					usuario.setContrasenia( rs.getString("contrasenia"));
-					usuario.setIdRol( rs.getInt("id_rol"));					
-					
+					usuario = mapper(rs);
 				} 
 
 			} // 2º try
@@ -228,6 +206,20 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 
 		return usuario;
+	}
+	
+	
+	private Usuario mapper( ResultSet rs ) throws SQLException {
+		
+		Usuario usuario = new Usuario();
+		
+		usuario.setId(rs.getInt("id"));
+		usuario.setNombre(rs.getString("nombre"));
+		usuario.setContrasenia( rs.getString("contrasenia"));
+		usuario.setIdRol( rs.getInt("id_rol"));
+		
+		return usuario;
+		
 	}
 
 }
