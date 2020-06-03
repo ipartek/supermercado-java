@@ -5,14 +5,14 @@
 </jsp:include>
 
 	
-	<form action="login" method="post" class="form-login">
+	<form action="login" method="post" class="form-login" onsubmit="cifrar()">
 	
 	 	<div class="form-group">
 			<input type="text" name="nombre" placeholder="Tu Nombre"  class="form-control">
 		</div>
 		
 		<div class="form-group">
-			<input type="password" name="pass" placeholder="Tu Contraseña"  class="form-control">
+			<input type="password" id="pass" name="pass" placeholder="Tu Contraseña"  class="form-control">
 		</div>
 		
 		<div class="form-group">
@@ -30,3 +30,30 @@
 	
 
 <%@include file="includes/pie.jsp" %>	
+
+
+<script>
+	
+	console.log('Estoy en el formulario');
+	
+	function cifrar() {
+		
+		console.log('cifrar y conseguir hash');
+		
+		//recupero la contraseña del input a atves de su ID
+		var contrasenia = document.getElementById('pass').value;
+		
+		//consigo el hash mediante la libreria incluida en el pie.jsp
+		var hash = md5(contrasenia);
+		
+		
+		//guardo en el inpput el codigo hash
+		document.getElementById('pass').value = hash;		
+		
+		//enviar formulario
+		return true; // si ponemos false no se envia el formulario
+		
+	}
+
+</script>
+

@@ -29,8 +29,8 @@
         function init() {
         	console.log('Documento cargado y listo');
         	
-        	let pass = '123456';
-        	let hax = md5( pass );
+        	var pass = '123456';
+        	var hax = md5( pass );
         	console.debug("pass: " + pass);
         	console.debug("hax: " + hax);
         }
