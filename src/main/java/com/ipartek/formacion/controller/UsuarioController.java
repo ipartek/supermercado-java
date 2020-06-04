@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.modelo.Rol;
 import com.ipartek.formacion.modelo.Usuario;
 import com.ipartek.formacion.modelo.UsuarioDAOImpl;
 
@@ -84,12 +85,11 @@ public class UsuarioController extends HttpServlet {
 		try {
 		
 			int id = Integer.parseInt(idParametro);
-			int idRol = Integer.parseInt(rol);
-			
-			
-			usuario.setId(id);
-			usuario.setIdRol(idRol);
+			usuario.setId(id);			
 			usuario.setNombre(nombre);
+						
+			int idRol = Integer.parseInt(rol);			
+			usuario.setRol( new Rol(idRol) );
 			
 			
 			if ( id == 0 ) {

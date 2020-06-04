@@ -19,7 +19,13 @@
 		
 		<div class="form-group">
 			<label for="id">Rol:</label>
-			<input type="text" name="rol" id="rol" value="${usuario.idRol}" readonly class="form-control">
+			
+			<select name="rol"  class="form-control">
+				<option value="1" ${ ( 1 == usuario.rol.id ) ? "selected" : "" }>normal</option>
+				<option value="2" ${ ( 2 == usuario.rol.id ) ? "selected" : "" }>Administrador</option>
+			</select>
+			
+			
 		</div>		
 		
 		<div class="form-group">

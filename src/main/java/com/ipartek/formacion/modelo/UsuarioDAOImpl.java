@@ -11,15 +11,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	private static UsuarioDAOImpl INSTANCE = null;
 
 	// exceuteQuerys => ResultSet
-	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE nombre LIKE ? ;   ";
-	static final String SQL_GET_ALL           = " SELECT id, nombre, contrasenia, id_rol FROM usuario ORDER BY id DESC; ";
-	static final String SQL_GET_BY_ID         = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE id = ? ; ";
-	static final String SQL_EXISTE            = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE nombre = ? AND contrasenia = ? ; ";
+	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE nombre LIKE ? ;   ";
+	static final String SQL_GET_ALL           = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id ORDER BY u.id DESC; ";
+	static final String SQL_GET_BY_ID         = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.id = ? ; ";
+	static final String SQL_EXISTE            = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre = ? AND contrasenia = ? ; ";
 
 	// executeUpdate => int
-	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol) VALUES( ? ,'11111',1 ); ";
+	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol) VALUES( ? , ? , ? ); ";
 	static final String SQL_DELETE = " DELETE FROM usuario WHERE id = ? ;";
-	static final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, contrasenia = ? WHERE id = ? ; ";
+	static final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, contrasenia = ? , id_rol = ? WHERE id = ? ; ";
 
 	private UsuarioDAOImpl() {
 		super();
@@ -113,8 +113,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);) {
 
-			pst.setString(1, pojo.getNombre());
-
+			pst.setString(1, pojo.getNombre() );
+			pst.setString(2, pojo.getContrasenia() );
+			pst.setInt(3, pojo.getRol().getId() );
+			
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows == 1) {
 
@@ -142,7 +144,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getContrasenia());
-			pst.setInt(3, pojo.getId());
+			pst.setInt(3, pojo.getRol().getId());
+			pst.setInt(4, pojo.getId());
 
 			if (pst.executeUpdate() != 1) {
 				throw new Exception("No se puede modificar registro " + pojo);
@@ -217,7 +220,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		usuario.setId(rs.getInt("id"));
 		usuario.setNombre(rs.getString("nombre"));
 		usuario.setContrasenia( rs.getString("contrasenia"));
-		usuario.setIdRol( rs.getInt("id_rol"));
+		
+		//rol
+		Rol rol = new Rol();
+		rol.setId(rs.getInt("id_rol"));
+		rol.setNombre(rs.getString("nombre_rol"));
+		
+		// setear el rol al usuario
+		usuario.setRol(rol);
 		
 		return usuario;
 		

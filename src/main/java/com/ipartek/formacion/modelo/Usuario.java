@@ -4,16 +4,15 @@ public class Usuario {
 	
 	private int id;
 	private String nombre;
-	private String contrasenia;
-	//TODO Rol usar Objeto
-	private int idRol;
+	private String contrasenia;	
+	private Rol rol;
 	
 	public Usuario() {
 		super();
 		this.id = 0;
 		this.nombre = "";
 		this.contrasenia = "";
-		this.idRol = 0;
+		this.rol = new Rol();
 	}
 
 	public int getId() {
@@ -40,17 +39,19 @@ public class Usuario {
 		this.contrasenia = contrasenia;
 	}
 
-	public int getIdRol() {
-		return idRol;
+	public Rol getRol() {
+		return rol;
 	}
 
-	public void setIdRol(int idRol) {
-		this.idRol = idRol;
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", idRol=" + idRol + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", rol=" + rol + "]";
 	}
+
+	
 
 }

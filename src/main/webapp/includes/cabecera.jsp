@@ -62,8 +62,7 @@
         
             
           </ul>
-          
-       TOSTRING =>   ${usuario_login}
+       
         
          <span class="form-inline">
          	<c:if test="${ empty usuario_login }">
