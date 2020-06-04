@@ -71,7 +71,13 @@ public class UsuarioController extends HttpServlet {
 		String idParametro = request.getParameter("id");
 		String rol = request.getParameter("rol");
 		String nombre = request.getParameter("nombre");
+		
+		// contraseña si es nuevo usuario
 		String pass = request.getParameter("pass");
+		
+		// parametros para cambio contraseña
+		String passNuevo = request.getParameter("passNuevo");
+		String passNuevoConfirmacion = request.getParameter("passNuevoConfirmacion");
 		
 		Usuario usuario = new Usuario();
 				
@@ -94,9 +100,28 @@ public class UsuarioController extends HttpServlet {
 				
 			}else {
 				
-				//recupero la contrseña de la bbdd TODO mirar como cambiarla 
-				Usuario uGuardado = daoUsuario.getById(id);				
-				usuario.setContrasenia( uGuardado.getContrasenia() );
+				
+				if ( !"".equals(passNuevoConfirmacion) ) {
+					
+					if (passNuevo.equals(passNuevoConfirmacion)) {				
+					
+						// cambio de contraseña
+						usuario.setContrasenia(passNuevo);
+						
+					}else {
+						
+						throw new Exception("Las contraseñas no coinciden");
+					}	
+					
+					
+				}else {
+				
+					// mantener la contraseña y NO cambiarla
+					// recupero usuario de la base datos para mantener su contraseña y no cambiarla 
+					Usuario uGuardado = daoUsuario.getById(id);				
+					usuario.setContrasenia( uGuardado.getContrasenia() );
+					
+				}
 				
 				daoUsuario.update(usuario);
 			}

@@ -34,6 +34,38 @@
 			</div>
 		</c:if>					
 				
+		<c:if test="${ usuario.id != 0}">
+		
+			<div class="accordion mb-4" id="accordionExample">
+			  <div class="card">
+			  
+			    <div class="card-header" id="headingOne">
+			      <h2 class="mb-0">
+			        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			          Resetear Contraseña
+			        </button>
+			      </h2>
+			    </div>
+			
+			    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+			      <div class="card-body">
+			      
+			        <input type="password" id="pass" name="passNuevo" class="form-control" placeholder="Nueva Contraseña">
+					<input type="password" id="repass" name="passNuevoConfirmacion" class="form-control"  placeholder="Repitela para confirmar" >
+					
+			      </div>
+			    </div>
+			    
+			  </div>
+			  <!-- /.card -->
+			  
+			</div>
+			<!--  accordion -->
+			
+				
+			
+			</c:if>		
+				
 				
 		<input type="submit" value="Guardar" class="btn btn-primary btn-block">
 	</form>

@@ -19,7 +19,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	// executeUpdate => int
 	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol) VALUES( ? ,'11111',1 ); ";
 	static final String SQL_DELETE = " DELETE FROM usuario WHERE id = ? ;";
-	static final String SQL_UPDATE = " UPDATE usuario SET nombre = ? WHERE id = ? ; ";
+	static final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, contrasenia = ? WHERE id = ? ; ";
 
 	private UsuarioDAOImpl() {
 		super();
@@ -141,7 +141,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement pst = con.prepareStatement(SQL_UPDATE);) {
 
 			pst.setString(1, pojo.getNombre());
-			pst.setInt(2, pojo.getId());
+			pst.setString(2, pojo.getContrasenia());
+			pst.setInt(3, pojo.getId());
 
 			if (pst.executeUpdate() != 1) {
 				throw new Exception("No se puede modificar registro " + pojo);
