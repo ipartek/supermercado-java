@@ -10,4 +10,9 @@
 	  </button>
 	</div>
 	
+	<%
+		// eliminar se sesion el atributo despues de pintarlo
+		session.setAttribute("alerta", null);
+	%>
+	
 </c:if>	

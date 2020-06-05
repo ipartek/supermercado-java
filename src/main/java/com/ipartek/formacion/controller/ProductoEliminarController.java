@@ -19,14 +19,7 @@ import com.ipartek.formacion.modelo.ProductoDAOImpl;
 public class ProductoEliminarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductoEliminarController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+   
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -40,24 +33,24 @@ public class ProductoEliminarController extends HttpServlet {
 		// llamr modelo
 		ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
 		String mensaje  = "";
+		Producto p = new Producto();
 		
 		try {
-			Producto p = dao.delete(id);
+			p = dao.delete(id);
 			mensaje = "Eliminado " + p.getNombre();
 			
 		} catch (Exception e) {
 			mensaje = "Error " + e.getMessage();
 			e.printStackTrace();
+		}finally {
+		
+			// guardar datos en session para el mensaje de la vista
+			request.getSession().setAttribute("alerta", new Alerta("success", mensaje ) );
+			
+			// pedimos al cliente que realize una segunda REQUEST
+			response.sendRedirect("productos");
 		}
 		
-		// enviar datos a la vista
-		ArrayList<Producto> productos = dao.getAll();
-		request.setAttribute("productos", productos);
-		request.setAttribute("mensaje", mensaje);
-	
-		
-		// ir a la nueva vista o jsp
-		request.getRequestDispatcher("productos.jsp").forward(request, response);
 	
 	
 	
