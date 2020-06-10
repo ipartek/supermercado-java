@@ -196,11 +196,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 					throw new Exception("No se puede podificar el registro con id=" + pojo.getId() );
 				}
 				
-		}catch ( SQLException e) {
-			
-			throw new Exception("El nombre " + pojo.getNombre() + " ya existe !!!" );
 		}
-		
 		
 		return pojo;
 	}

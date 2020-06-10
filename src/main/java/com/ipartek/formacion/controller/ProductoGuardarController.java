@@ -1,6 +1,8 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -86,10 +88,15 @@ public class ProductoGuardarController extends HttpServlet {
 				
 			
 			alerta = new Alerta( "success", "Producto guardado con exito");
+		
+		} catch ( SQLException e) {	
+			
+			alerta = new Alerta( "danger", "Lo sentimos pero ya existe ese NOMBRE, escribe otro por favor ");
+			e.printStackTrace();
 			
 		} catch (Exception e) {
 			
-			alerta = new Alerta( "danger", "Lo sentimos pero hemos tenido una Excepcion " + e.getMessage());
+			alerta = new Alerta( "danger", "Lo sentimos pero hemos tenido un ERROR inxesperado ");
 			e.printStackTrace();
 			
 		}finally {
