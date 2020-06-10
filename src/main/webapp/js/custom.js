@@ -37,3 +37,18 @@ function cifrar() {
 		return true; // si ponemos false no se envia el formulario
 		
 }
+
+
+function confirmar(nombre) {
+	
+	// The confirm() method returns true if the user clicked "OK", and false otherwise. 
+	if ( confirm('¿ Estas seguro que quires eliminar ' + nombre + ' ?') ){
+		
+		console.debug(' continua el evento por defceto del ancla ');
+		
+	}else {
+		console.debug(' prevenimos o detenemos el evento del ancla ');
+		event.preventDefault();
+	}
+	
+}
