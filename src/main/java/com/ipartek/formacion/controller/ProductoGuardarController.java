@@ -2,12 +2,17 @@ package com.ipartek.formacion.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import com.ipartek.formacion.modelo.Producto;
 import com.ipartek.formacion.modelo.ProductoDAOImpl;
@@ -19,6 +24,9 @@ import com.ipartek.formacion.modelo.ProductoDAOImpl;
 public class ProductoGuardarController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	private static ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
+	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	private static Validator validator = factory.getValidator();
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -70,8 +78,6 @@ public class ProductoGuardarController extends HttpServlet {
 			int id = Integer.parseInt(idParametro);
 			float precioFloat = Float.parseFloat(precio);
 			
-			ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
-			
 			
 			producto.setId(id);
 			producto.setNombre(nombre);
@@ -79,15 +85,28 @@ public class ProductoGuardarController extends HttpServlet {
 			producto.setPrecio(precioFloat);
 			
 			
-			if ( id == 0 ) {
-				dao.insert(producto);
-				
-			}else {
-				dao.update(producto);					
-			}
-				
+			Set<ConstraintViolation<Producto>> violations = validator.validate(producto);
 			
-			alerta = new Alerta( "success", "Producto guardado con exito");
+			if ( violations.isEmpty() ) {  // sin errores de validacion, podemos guardar en bbd
+				
+				if ( id == 0 ) {
+					dao.insert(producto);
+					
+				}else {
+					dao.update(producto);					
+				}			
+			
+				alerta = new Alerta( "success", "Producto guardado con exito");
+				
+			}else {                        // tenemos errores de validacion
+				
+				String errores = "";
+				for (ConstraintViolation<Producto> v : violations) {					
+					errores += "<p><b>" + v.getPropertyPath() + "</b>: "  + v.getMessage() + "</p>";					
+				}				
+				alerta = new Alerta( "danger", errores );
+				
+			}
 		
 		} catch ( SQLException e) {	
 			
