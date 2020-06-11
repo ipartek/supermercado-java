@@ -8,7 +8,7 @@
 	<version>0.0.1</version>
 	<name>supermercado</name>
 
-	<!-- variables comunes para todo el POM -->
+	<!-- variables comunes para todo el POM quiero un conflito soy MAnolito -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
@@ -21,6 +21,9 @@
 	<!-- librerias que vamos a usar u otros proyectos maven -->
 	<dependencies>
 
+		
+		<!-- quiero un conflito soy MAnolito -->
+		
 		<!-- Web Project 3.0 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -32,7 +35,7 @@
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>${javax.servlet.jsp.version}</version>
+			<version>2.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 
