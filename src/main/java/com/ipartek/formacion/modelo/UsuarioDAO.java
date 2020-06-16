@@ -21,8 +21,8 @@ public interface UsuarioDAO extends CrudAble<Usuario> {
 	
 	/**
 	 * Busca si existe el usuario en la base datsos
-	 * @param nombre
-	 * @param password
+	 * @param nombre String nombre del usuario
+	 * @param password String contraseña para acceder, cuidado que esta cifrada en MD5
 	 * @return Usuario con datos si lo encuentra, si no existe retorna null
 	 */
 	Usuario existe ( String nombre, String password ); 

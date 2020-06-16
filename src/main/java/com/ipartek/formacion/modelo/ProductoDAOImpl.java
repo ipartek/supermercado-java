@@ -24,7 +24,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 	
 	// excuteQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT id, nombre, imagen, precio  FROM producto ORDER BY id DESC; ";
+	private final String SQL_GET_ALL = " SELECT id, nombre, imagen, precio  FROM producto ORDER BY id DESC LIMIT 500; ";
 	private final String SQL_GET_BY_ID = " SELECT id, imagen, precio, nombre FROM producto WHERE id = ? ; ";
 	
 	// excuteUpdate => int numero de filas afectadas
