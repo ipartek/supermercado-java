@@ -20,12 +20,17 @@ public class Producto {
 	private float precio;
 	//TODO usuario
 	
+	
+	private Categoria categoria;
+	
+	
 	public Producto() {
 		super();
 		this.id = 0;
 		this.nombre = "";
 		this.precio = 0;
 		this.imagen = "https://picsum.photos/100/100";
+		this.categoria = new Categoria();
 	}
 
 	public Producto(String nombre) {
@@ -66,9 +71,21 @@ public class Producto {
 		this.precio = precio;
 	}
 
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
+		
+
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + ", precio=" + precio + "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + ", precio=" + precio
+				+ ", categoria=" + categoria + "]";
 	}
 
 	@Override

@@ -24,12 +24,30 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 	
 	// excuteQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT id, nombre, imagen, precio  FROM producto ORDER BY id DESC LIMIT 500; ";
-	private final String SQL_GET_BY_ID = " SELECT id, imagen, precio, nombre FROM producto WHERE id = ? ; ";
+	private final String SQL_GET_ALL = " SELECT " + 
+										"	 p.id     'producto_id', " + 
+										"	 p.nombre 'producto_nombre', " + 
+										"	 precio, " + 
+										"	 imagen, " + 
+										"	 c.id     'categoria_id', " + 
+										"	 c.nombre 'categoria_nombre'	" + 
+										" FROM producto p , categoria c " + 
+										" WHERE p.id_categoria  = c.id " + 
+										" ORDER BY p.id DESC LIMIT 500; ";
+	
+	private final String SQL_GET_BY_ID = 	" SELECT " + 
+													"	 p.id     'producto_id', " + 
+													"	 p.nombre 'producto_nombre', " + 
+													"	 precio, " + 
+													"	 imagen, " + 
+													"	 c.id     'categoria_id', " + 
+													"	 c.nombre 'categoria_nombre'	" + 
+											" FROM producto p , categoria c " + 
+											" WHERE p.id_categoria  = c.id AND p.id = ? ; ";
 	
 	// excuteUpdate => int numero de filas afectadas
 	//TODO faltan campos imagen y precio
-	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario) VALUES ( ? , ?, ? , 1 ) ; ";	
+	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , 1, 1 ) ; ";	
 	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ? WHERE id = ? ; ";
 	
 	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
@@ -53,18 +71,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			
 			while ( rs.next() ) {
 				
-				int id        = rs.getInt("id");
-				String nombre = rs.getString("nombre");
-				String foto = rs.getString("imagen");
-				float precio = rs.getFloat("precio");
-				
-				Producto p = new Producto(nombre);
-				p.setId(id);
-				p.setImagen(foto);
-				p.setPrecio(precio);
-								
-				// guardar en lista
-				registros.add(p);
+				registros.add( mapper(rs) );
 				
 			} // while
 			
@@ -78,6 +85,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 		
 		return registros;
 	}
+
+	
 
 	@Override
 	public Producto getById(int id) throws Exception {
@@ -93,10 +102,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				
 				if ( rs.next() ) {
 					
-					registro.setId( rs.getInt("id"));
-					registro.setNombre( rs.getString("nombre"));
-					registro.setImagen(rs.getString("imagen"));
-					registro.setPrecio(rs.getFloat("precio"));
+					registro = mapper(rs);
 										
 					
 				}else {
@@ -208,6 +214,21 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 
 	
-
+	private Producto mapper(ResultSet rs) throws SQLException {
+		
+		Producto p = new Producto();
+		Categoria c = new Categoria();
+		
+		p.setId( rs.getInt("producto_id") );
+		p.setNombre( rs.getString("producto_nombre"));
+		p.setImagen(rs.getString("imagen"));
+		p.setPrecio( rs.getFloat("precio"));
+		
+		c.setId(rs.getInt("categoria_id"));
+		c.setNombre(rs.getString("categoria_nombre"));
+		p.setCategoria(c);
+				
+		return p;
+	}
 
 }
