@@ -14,6 +14,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import com.ipartek.formacion.modelo.Categoria;
+import com.ipartek.formacion.modelo.CategoriaDAOImpl;
 import com.ipartek.formacion.modelo.Producto;
 import com.ipartek.formacion.modelo.ProductoDAOImpl;
 
@@ -24,7 +26,10 @@ import com.ipartek.formacion.modelo.ProductoDAOImpl;
 public class ProductoGuardarController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
+	
+	private static ProductoDAOImpl daoProducto = ProductoDAOImpl.getInstance();
+	private static CategoriaDAOImpl daoCategoria = CategoriaDAOImpl.getInstance();
+	
 	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	private static Validator validator = factory.getValidator();
     
@@ -53,6 +58,7 @@ public class ProductoGuardarController extends HttpServlet {
 			
 		}finally {
 			
+			request.setAttribute("categorias", daoCategoria.getAll());
 			// ir a la nueva vista o jsp
 			request.getRequestDispatcher("formulario-producto.jsp").forward(request, response);	
 		}
@@ -74,8 +80,11 @@ public class ProductoGuardarController extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 			String precio = request.getParameter("precio");
 			String imagen = request.getParameter("imagen");
+			String categoriaId = request.getParameter("categoria_id");
+			
 			
 			int id = Integer.parseInt(idParametro);
+			int idCategoria = Integer.parseInt(categoriaId);
 			float precioFloat = Float.parseFloat(precio);
 			
 			
@@ -84,16 +93,20 @@ public class ProductoGuardarController extends HttpServlet {
 			producto.setImagen(imagen);
 			producto.setPrecio(precioFloat);
 			
+			Categoria c = new Categoria();
+			c.setId(idCategoria);
+			producto.setCategoria(c);			
+			
 			
 			Set<ConstraintViolation<Producto>> violations = validator.validate(producto);
 			
 			if ( violations.isEmpty() ) {  // sin errores de validacion, podemos guardar en bbd
 				
 				if ( id == 0 ) {
-					dao.insert(producto);
+					daoProducto.insert(producto);
 					
 				}else {
-					dao.update(producto);					
+					daoProducto.update(producto);					
 				}			
 			
 				alerta = new Alerta( "success", "Producto guardado con exito");
@@ -124,6 +137,7 @@ public class ProductoGuardarController extends HttpServlet {
 			// enviar datos a la vista
 			request.setAttribute("alerta", alerta);
 			request.setAttribute("producto", producto);			
+			request.setAttribute("categorias", daoCategoria.getAll());
 
 			// ir a la nueva vista o jsp
 			request.getRequestDispatcher("formulario-producto.jsp").forward(request, response);
