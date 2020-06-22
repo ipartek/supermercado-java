@@ -35,7 +35,10 @@ public class InicioController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("productos", productoDAO.getAll() );		
+		//request.setAttribute("productos", productoDAO.getAll() );
+		
+		request.setAttribute("productos", productoDAO.getLast(2) );
+		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 		

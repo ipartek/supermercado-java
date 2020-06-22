@@ -35,6 +35,18 @@ public class ProductoDAOImpl implements ProductoDAO {
 										" WHERE p.id_categoria  = c.id " + 
 										" ORDER BY p.id DESC LIMIT 500; ";
 	
+	
+	private final String SQL_GET_LAST = " SELECT " + 
+										"	 p.id     'producto_id', " + 
+										"	 p.nombre 'producto_nombre', " + 
+										"	 precio, " + 
+										"	 imagen, " + 
+										"	 c.id     'categoria_id', " + 
+										"	 c.nombre 'categoria_nombre'	" + 
+										" FROM producto p , categoria c " + 
+										" WHERE p.id_categoria  = c.id " + 
+										" ORDER BY p.id DESC LIMIT ? ; ";
+	
 	private final String SQL_GET_BY_ID = 	" SELECT " + 
 													"	 p.id     'producto_id', " + 
 													"	 p.nombre 'producto_nombre', " + 
@@ -83,6 +95,27 @@ public class ProductoDAOImpl implements ProductoDAO {
 		}
 		
 		
+		return registros;
+	}
+	
+	@Override
+	public ArrayList<Producto> getLast(int numReg) {
+
+		ArrayList<Producto> registros = new ArrayList<Producto>();		
+		try (
+				Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_LAST);
+			) {			
+					pst.setInt( 1, numReg);
+					try ( ResultSet rs = pst.executeQuery() ){
+						while ( rs.next() ) {					
+							registros.add( mapper(rs) );					
+						}
+					}
+			
+		} catch (Exception e) {			
+			e.printStackTrace();			
+		}
 		return registros;
 	}
 
@@ -231,5 +264,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				
 		return p;
 	}
+
+
 
 }
