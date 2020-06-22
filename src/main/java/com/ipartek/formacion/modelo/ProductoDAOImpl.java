@@ -120,6 +120,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_LAST);
 			) {			
 					pst.setInt( 1, numReg);
+					System.out.println("SQL_GET_LAST: " + pst );
 					try ( ResultSet rs = pst.executeQuery() ){
 						while ( rs.next() ) {					
 							registros.add( mapper(rs) );					
@@ -142,6 +143,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			) {			
 					pst.setInt( 1, idCategoria);
 					pst.setInt( 2, numReg);
+					System.out.println("SQL_GET_BY_CATEGORIA: " + pst );
 					try ( ResultSet rs = pst.executeQuery() ){
 						while ( rs.next() ) {					
 							registros.add( mapper(rs) );					

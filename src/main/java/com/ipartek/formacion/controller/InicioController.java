@@ -35,10 +35,25 @@ public class InicioController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		String paramIdCategoria = request.getParameter("idCategoria");
+		
+		if ( paramIdCategoria != null ) {
+			
+			int idCategoria = Integer.parseInt(paramIdCategoria);
+			request.setAttribute("productos", productoDAO.getAllByCategoria( idCategoria, 10) );
+			
+		}else {
+			
+			request.setAttribute("productos", productoDAO.getLast(10) );
+		}
+		
+		
+		
 		//request.setAttribute("productos", productoDAO.getAll() );
 		
 		//request.setAttribute("productos", productoDAO.getLast(2) );
-		request.setAttribute("productos", productoDAO.getAllByCategoria( 1, 10) );
+		//request.setAttribute("productos", productoDAO.getAllByCategoria( 1, 10) );
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
