@@ -20,6 +20,16 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 */
 	ArrayList<Producto> getLast( int numReg );
 	
+	
+	/**
+	 * Obtienes los productos de una Categoria
+	 * @param idCategoria int identificador de la Categoria
+	 * @param numReg int numero de registgros a mostrar
+	 * @return ArrayList<Producto>
+	 */
+	ArrayList<Producto> getAllByCategoria( int idCategoria, int numReg );
+	
+	
 	ArrayList<Producto> getAllRangoPrecio( int precioMinimo, int precioMaximo );
 	
 	

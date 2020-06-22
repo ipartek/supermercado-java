@@ -37,7 +37,8 @@ public class InicioController extends HttpServlet {
 		
 		//request.setAttribute("productos", productoDAO.getAll() );
 		
-		request.setAttribute("productos", productoDAO.getLast(2) );
+		//request.setAttribute("productos", productoDAO.getLast(2) );
+		request.setAttribute("productos", productoDAO.getAllByCategoria( 1, 10) );
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		

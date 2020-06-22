@@ -47,6 +47,19 @@ public class ProductoDAOImpl implements ProductoDAO {
 										" WHERE p.id_categoria  = c.id " + 
 										" ORDER BY p.id DESC LIMIT ? ; ";
 	
+	
+	private final String SQL_GET_BY_CATEGORIA = " SELECT " + 
+												"	 p.id     'producto_id', " + 
+												"	 p.nombre 'producto_nombre', " + 
+												"	 precio, " + 
+												"	 imagen, " + 
+												"	 c.id     'categoria_id', " + 
+												"	 c.nombre 'categoria_nombre'	" + 
+												" FROM producto p , categoria c " + 
+												" WHERE p.id_categoria  = c.id " +
+												" AND c.id = ? " +   // filtramos por el id de la categoria
+												" ORDER BY p.id DESC LIMIT ? ; ";
+	
 	private final String SQL_GET_BY_ID = 	" SELECT " + 
 													"	 p.id     'producto_id', " + 
 													"	 p.nombre 'producto_nombre', " + 
@@ -107,6 +120,28 @@ public class ProductoDAOImpl implements ProductoDAO {
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_LAST);
 			) {			
 					pst.setInt( 1, numReg);
+					try ( ResultSet rs = pst.executeQuery() ){
+						while ( rs.next() ) {					
+							registros.add( mapper(rs) );					
+						}
+					}
+			
+		} catch (Exception e) {			
+			e.printStackTrace();			
+		}
+		return registros;
+	}
+
+	
+	@Override
+	public ArrayList<Producto> getAllByCategoria(int idCategoria, int numReg) {
+		ArrayList<Producto> registros = new ArrayList<Producto>();		
+		try (
+				Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_CATEGORIA);
+			) {			
+					pst.setInt( 1, idCategoria);
+					pst.setInt( 2, numReg);
 					try ( ResultSet rs = pst.executeQuery() ){
 						while ( rs.next() ) {					
 							registros.add( mapper(rs) );					
@@ -264,6 +299,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				
 		return p;
 	}
+
 
 
 
