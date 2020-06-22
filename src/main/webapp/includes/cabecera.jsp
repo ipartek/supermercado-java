@@ -43,6 +43,17 @@
               <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="index.jsp">Inicio</a>
             </li>
             
+            <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+		           data-toggle="dropdown" aria-haspopup="true" 
+		           aria-expanded="false">Categorias</a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		        	<c:forEach items="${categorias}" var="categoria">
+		          		<a class="dropdown-item" href="inicio?idCategoria=${categoria.id}">${categoria.nombre}</a>
+		          	</c:forEach>			          
+		        </div>
+		    </li>
+            
             <li class="nav-item"  >
               <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="ejemplos.jsp">Ejemplos</a>
             </li>
