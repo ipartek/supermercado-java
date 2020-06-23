@@ -39,3 +39,22 @@ td {
     font-size: 3rem;
     margin-bottom: 1rem;
 }
+
+
+.row-card {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.row-card .card {
+	width: 24%;
+	margin-right: 0.5%;
+	margin-bottom: 0.5%;
+	box-sizing: content-box;
+}
+
+.row-card .card img {
+	height: 10em;
+}
+
+
