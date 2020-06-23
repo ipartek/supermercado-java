@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.modelo.CategoriaDAOImpl;
 import com.ipartek.formacion.modelo.Producto;
 import com.ipartek.formacion.modelo.ProductoDAOImpl;
 
@@ -19,12 +18,9 @@ import com.ipartek.formacion.modelo.ProductoDAOImpl;
 @WebServlet("/inicio")
 public class InicioController extends HttpServlet {
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	private static final ProductoDAOImpl productoDAO = ProductoDAOImpl.getInstance();
-	private static final CategoriaDAOImpl categoriaDAO = CategoriaDAOImpl.getInstance();
-       
-   
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -43,9 +39,9 @@ public class InicioController extends HttpServlet {
 		
 		
 		String paramIdCategoria = request.getParameter("idCategoria");
-		ArrayList<Producto> productos = new ArrayList<Producto> (); 
+		String paramCatNom =  ( request.getParameter("categoria") == null ) ? "Todas las Categorias" : request.getParameter("categoria");
 		
-		
+		ArrayList<Producto> productos = new ArrayList<Producto> ();
 		if ( paramIdCategoria != null ) {
 			
 			int idCategoria = Integer.parseInt(paramIdCategoria);
@@ -55,11 +51,9 @@ public class InicioController extends HttpServlet {
 			
 			productos = productoDAO.getLast(10);
 		}
-		
-		request.setAttribute("productos", productos );
-		request.setAttribute("categorias", categoriaDAO.getAll() );		
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
+		request.setAttribute("encabezado", "<b>" + productos.size() + "</b> Útimos productos de <b>" + paramCatNom + "</b>"  );	
+		request.setAttribute("productos", productos );		
+		request.getRequestDispatcher("index.jsp").forward(request, response);		
 		
 	}
 	

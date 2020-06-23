@@ -7,7 +7,7 @@
 </jsp:include>
 
 
-<h1>Últimos Productos </h1>
+<h3>${encabezado}</h3>
 
 
 	<div class="row-card">	

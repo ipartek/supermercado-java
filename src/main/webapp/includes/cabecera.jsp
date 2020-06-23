@@ -40,7 +40,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item"  >
-              <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="index.jsp">Inicio</a>
+              <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="inicio">Inicio</a>
             </li>
             
             <li class="nav-item dropdown">
@@ -48,8 +48,9 @@
 		           data-toggle="dropdown" aria-haspopup="true" 
 		           aria-expanded="false">Categorias</a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		        	<a class="dropdown-item" href="inicio">Todas</a>
 		        	<c:forEach items="${categorias}" var="categoria">
-		          		<a class="dropdown-item" href="inicio?idCategoria=${categoria.id}">${categoria.nombre}</a>
+		          		<a class="dropdown-item" href="inicio?idCategoria=${categoria.id}&categoria=${categoria.nombre}">${categoria.nombre}</a>
 		          	</c:forEach>			          
 		        </div>
 		    </li>
