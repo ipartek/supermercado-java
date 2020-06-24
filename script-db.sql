@@ -68,7 +68,7 @@ CREATE TABLE `producto` (
   KEY `FK_categoria` (`id_categoria`),
   CONSTRAINT `FK_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`),
   CONSTRAINT `FK_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (8,'paella',1,0.00,'https://picsum.photos/100/100',2),(13,'macarrones',1,0.00,'https://picsum.photos/100/100',1),(15,'acelgas con Jamon con brillo',1,0.00,'https://picsum.photos/100/100',1),(16,'patatas',1,0.00,'https://picsum.photos/100/100',1),(26,'alubias a la vizcaina',1,6.00,'https://www.cocinatis.com/media/photologue/photos/cache/CTIS123-receta-alubias-blancas-verduras-paso-6_desktop_step.jpg',2);
+INSERT INTO `producto` VALUES (13,'macarrones con pesto',1,4.57,'https://www.hazteveg.com/img/recipes/full/201511/R24-25719.jpg',2),(15,'acelgas con Jamon con brillo',1,0.00,'https://i.blogs.es/6b70d4/acelgas-arco-jamon/1366_2000.jpg',1),(16,'patatas',1,0.66,'https://ep01.epimg.net/elcomidista/imagenes/2017/02/22/articulo/1487804099_363696_1487804800_sumario_normal.jpg',1),(26,'alubias a la vizcaina',1,6.00,'https://www.cocinatis.com/media/photologue/photos/cache/CTIS123-receta-alubias-blancas-verduras-paso-6_desktop_step.jpg',2),(27,'Tortilla de patatas',1,2.35,'https://www.hogarmania.com/archivos/201610/tortilla-patatas-xl-668x400x80xX.jpg',2);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,4 +175,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-18 12:15:53
+-- Dump completed on 2020-06-24  9:03:57
