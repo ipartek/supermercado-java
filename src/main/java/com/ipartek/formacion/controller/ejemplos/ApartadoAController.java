@@ -19,8 +19,7 @@ public class ApartadoAController extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public ApartadoAController() {
-        super();
-        // TODO Auto-generated constructor stub
+        super();        
     }
 
 	/**

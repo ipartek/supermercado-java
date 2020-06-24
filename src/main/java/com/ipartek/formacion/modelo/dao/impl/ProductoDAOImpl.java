@@ -76,7 +76,6 @@ public class ProductoDAOImpl implements ProductoDAO {
 											" WHERE p.id_categoria  = c.id AND p.id = ? ; ";
 	
 	// excuteUpdate => int numero de filas afectadas
-	//TODO faltan campos imagen y precio
 	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , 1,  ? ) ; ";	
 	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? WHERE id = ? ; ";
 	
@@ -284,9 +283,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 
 	@Override
-	public ArrayList<Producto> getAllRangoPrecio(int precioMinimo, int precioMaximo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Producto> getAllRangoPrecio(int precioMinimo, int precioMaximo) throws Exception {
+		throw new Exception("Sin implemntar");		
 	}
 
 	

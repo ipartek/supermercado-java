@@ -33,7 +33,7 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	ArrayList<Producto> getAllByCategoria( int idCategoria, int numReg );
 	
 	
-	ArrayList<Producto> getAllRangoPrecio( int precioMinimo, int precioMaximo );
+	ArrayList<Producto> getAllRangoPrecio( int precioMinimo, int precioMaximo ) throws Exception;
 	
 	
 }
