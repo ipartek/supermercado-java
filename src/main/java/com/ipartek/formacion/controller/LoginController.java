@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.modelo.Usuario;
-import com.ipartek.formacion.modelo.UsuarioDAOImpl;
+import com.ipartek.formacion.modelo.dao.impl.UsuarioDAOImpl;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 
 /**
  * Servlet implementation class LoginController

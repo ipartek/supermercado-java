@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.ipartek.formacion.modelo.ConnectionManager;
-import com.ipartek.formacion.modelo.Producto;
+import com.ipartek.formacion.modelo.pojo.Producto;
 
 
 

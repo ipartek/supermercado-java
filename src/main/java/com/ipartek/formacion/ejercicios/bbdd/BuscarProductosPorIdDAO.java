@@ -2,8 +2,8 @@ package com.ipartek.formacion.ejercicios.bbdd;
 
 import java.util.ArrayList;
 
-import com.ipartek.formacion.modelo.Producto;
-import com.ipartek.formacion.modelo.ProductoDAOImpl;
+import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
+import com.ipartek.formacion.modelo.pojo.Producto;
 
 
 

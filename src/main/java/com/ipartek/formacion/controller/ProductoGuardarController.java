@@ -14,10 +14,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import com.ipartek.formacion.modelo.Categoria;
-import com.ipartek.formacion.modelo.CategoriaDAOImpl;
-import com.ipartek.formacion.modelo.Producto;
-import com.ipartek.formacion.modelo.ProductoDAOImpl;
+
+import com.ipartek.formacion.modelo.dao.impl.CategoriaDAOImpl;
+import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
+import com.ipartek.formacion.modelo.pojo.Categoria;
+import com.ipartek.formacion.modelo.pojo.Producto;
 
 /**
  * Servlet implementation class ProductoCrearController

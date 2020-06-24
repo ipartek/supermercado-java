@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.ipartek.formacion.modelo.Usuario;
-import com.ipartek.formacion.modelo.UsuarioDAOImpl;
+import com.ipartek.formacion.modelo.dao.impl.UsuarioDAOImpl;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 
 /**
  * Poder ver todos los alumnos, crear nuevos, eliminar, editar y buscar por nombre

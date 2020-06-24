@@ -1,6 +1,9 @@
-package com.ipartek.formacion.modelo;
+package com.ipartek.formacion.modelo.dao;
 
 import java.util.ArrayList;
+
+import com.ipartek.formacion.modelo.CrudAble;
+import com.ipartek.formacion.modelo.pojo.Producto;
 
 /**
  * Hereda los metodos basicos de la interfaz CrudAble

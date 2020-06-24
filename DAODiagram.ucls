@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="2" language="java" name="com.ipartek.formacion.modelo.UsuarioDAO" project="supermercado-java" 
-    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/UsuarioDAO.java" binary="false" 
+  <interface id="2" language="java" name="com.ipartek.formacion.modelo.dao.impl.UsuarioDAO" project="supermercado-java" 
+    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/dao/impl/UsuarioDAO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="458" y="201"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -21,8 +21,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="com.ipartek.formacion.modelo.UsuarioDAOImpl" project="supermercado-java" 
-    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/UsuarioDAOImpl.java" binary="false" 
+  <class id="3" language="java" name="com.ipartek.formacion.modelo.dao.impl.UsuarioDAOImpl" project="supermercado-java" 
+    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/dao/impl/UsuarioDAOImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="443" y="445"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -41,8 +41,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="5" language="java" name="com.ipartek.formacion.modelo.ProductoDAO" project="supermercado-java" 
-    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/ProductoDAO.java" binary="false" 
+  <interface id="5" language="java" name="com.ipartek.formacion.modelo.dao.impl.ProductoDAO" project="supermercado-java" 
+    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/dao/impl/ProductoDAO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="780" y="198"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -51,8 +51,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="6" language="java" name="com.ipartek.formacion.modelo.ProductoDAOImpl" project="supermercado-java" 
-    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/ProductoDAOImpl.java" binary="false" 
+  <class id="6" language="java" name="com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl" project="supermercado-java" 
+    file="/supermercado-java/src/main/java/com/ipartek/formacion/modelo/dao/impl/ProductoDAOImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="806" y="512"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -62,29 +62,33 @@
     </display>  
   </class>  
   <generalization id="7">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <association id="8">    
+  <realization id="8">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="9">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="9" name="INSTANCE"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
+      <attribute id="10" name="INSTANCE">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
   <realization id="12">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="5"/>  
   </realization>  
-  <realization id="13">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

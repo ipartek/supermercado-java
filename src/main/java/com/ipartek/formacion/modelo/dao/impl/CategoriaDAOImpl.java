@@ -1,4 +1,4 @@
-package com.ipartek.formacion.modelo;
+package com.ipartek.formacion.modelo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CategoriaDAOImpl implements CateoriaDAO {
+import com.ipartek.formacion.modelo.ConnectionManager;
+import com.ipartek.formacion.modelo.dao.CategoriaDAO;
+import com.ipartek.formacion.modelo.pojo.Categoria;
+
+public class CategoriaDAOImpl implements CategoriaDAO {
 
 	private static CategoriaDAOImpl INSTANCE = null;
 

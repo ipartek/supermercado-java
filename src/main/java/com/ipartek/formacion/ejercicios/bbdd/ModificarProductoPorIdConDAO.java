@@ -1,13 +1,9 @@
 package com.ipartek.formacion.ejercicios.bbdd;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Scanner;
 
-import com.ipartek.formacion.modelo.ConnectionManager;
-import com.ipartek.formacion.modelo.Producto;
-import com.ipartek.formacion.modelo.ProductoDAOImpl;
+import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
+import com.ipartek.formacion.modelo.pojo.Producto;
 
 public class ModificarProductoPorIdConDAO {
 

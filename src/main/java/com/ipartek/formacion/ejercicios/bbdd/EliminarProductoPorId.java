@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 import com.ipartek.formacion.modelo.ConnectionManager;
-import com.ipartek.formacion.modelo.Producto;
+import com.ipartek.formacion.modelo.pojo.Producto;
 
 public class EliminarProductoPorId {
 

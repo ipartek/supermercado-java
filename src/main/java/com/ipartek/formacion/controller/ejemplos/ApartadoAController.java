@@ -39,6 +39,7 @@ public class ApartadoAController extends HttpServlet {
 		String color = request.getParameter("color");
 		
 		String browser = request.getHeader("User-Agent");
+		System.out.println("Navegador: " + browser);
 		
 		Cookie c = new Cookie("cColor", color);
 		c.setMaxAge( 60 * 2 * 60 );

@@ -1,10 +1,15 @@
-package com.ipartek.formacion.modelo;
+package com.ipartek.formacion.modelo.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.ipartek.formacion.modelo.ConnectionManager;
+import com.ipartek.formacion.modelo.dao.UsuarioDAO;
+import com.ipartek.formacion.modelo.pojo.Rol;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 

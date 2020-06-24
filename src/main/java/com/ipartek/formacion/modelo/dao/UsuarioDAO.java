@@ -1,6 +1,9 @@
-package com.ipartek.formacion.modelo;
+package com.ipartek.formacion.modelo.dao;
 
 import java.util.ArrayList;
+
+import com.ipartek.formacion.modelo.CrudAble;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 
 public interface UsuarioDAO extends CrudAble<Usuario> {
 	

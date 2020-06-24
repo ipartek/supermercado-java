@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.ipartek.formacion.modelo.Producto;
+import com.ipartek.formacion.modelo.pojo.Producto;
 
 public class EqualsTest {
 

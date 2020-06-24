@@ -1,4 +1,4 @@
-package com.ipartek.formacion.modelo;
+package com.ipartek.formacion.modelo.pojo;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;

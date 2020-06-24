@@ -6,7 +6,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import com.ipartek.formacion.controller.Alerta;
-import com.ipartek.formacion.modelo.CategoriaDAOImpl;
+import com.ipartek.formacion.modelo.dao.impl.CategoriaDAOImpl;
 
 /**
  * Application Lifecycle Listener implementation class InicioAppListenner

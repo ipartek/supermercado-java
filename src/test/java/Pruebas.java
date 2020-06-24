@@ -5,12 +5,12 @@ public class Pruebas {
 		
 		
 		
-		String idioma = null;
+		String idioma = "hola";
 		
-		idioma.length();
+		//idioma.length();
 		
 		if (  idioma != null && idioma.length() > 3 ) {
-			
+			System.out.println("algo haremos");
 		}
 				
 		if ( "es".equals( idioma ) ) {

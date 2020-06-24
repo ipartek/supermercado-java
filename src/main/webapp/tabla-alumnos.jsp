@@ -1,5 +1,5 @@
 
-<%@page import="com.ipartek.formacion.modelo.Usuario"%>
+<%@page import="com.ipartek.formacion.modelo.pojo.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 
 <a href="index.jsp">VOLVER</a>
