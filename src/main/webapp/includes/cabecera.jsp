@@ -48,7 +48,7 @@
 		           data-toggle="dropdown" aria-haspopup="true" 
 		           aria-expanded="false">Categorias</a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		        	<a class="dropdown-item" href="inicio?idCategoria=-1">TODAS</a>
+		        	<a class="dropdown-item" href="inicio">TODAS</a>
 		        	<c:forEach items="${categorias}" var="categoria">
 		          		<a class="dropdown-item" href="inicio?idCategoria=${categoria.id}&categoria=${categoria.nombre}">${categoria.nombre}</a>
 		          	</c:forEach>			          
