@@ -12,7 +12,7 @@
 
 	<div class="row-card">	
 
-			<c:forEach items="${productos}" var="p" varStatus="loop">
+			<c:forEach items="${productos}" var="p">
 						
 					<div class="card">
 					  <img src="${p.imagen}" class="card-img-top" alt="${p.nombre}">
@@ -24,7 +24,33 @@
 					</div>
 				
 			</c:forEach>
-	</div>
+	</div>		
+			
+			
+			<c:forEach items="${categoriasConProductos}" var="c">
+				
+				<h4>${c.nombre}</h4>
+				
+				<div class="row-card">
+						
+					<c:forEach items="${c.productos}" var="p">	
+						
+						<div class="card">
+						  <img src="${p.imagen}" class="card-img-top" alt="${p.nombre}">
+						  <div class="card-body">
+						    <h5 class="card-title">${p.nombre}</h5>
+						    <p><span class="badge badge-secondary">${p.categoria.nombre}</span></p>
+						    <p class="precio">${p.precio} €</p>					    					    
+						  </div>
+						</div>
+						
+					</c:forEach>
+					
+				</div>
+				
+			</c:forEach>
+			
+
 
 
 
