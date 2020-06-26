@@ -27,6 +27,7 @@ public class InicioAppListenner implements ServletContextListener {
      */
     public void contextDestroyed(ServletContextEvent sce)  { 
          // cuando paramos la App
+    	LOG.info("Apagando Servidor");
     }
 
 	/**

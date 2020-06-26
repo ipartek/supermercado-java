@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.dao.ProductoDAO;
 import com.ipartek.formacion.modelo.pojo.Categoria;
@@ -13,6 +15,7 @@ import com.ipartek.formacion.modelo.pojo.Producto;
 
 public class ProductoDAOImpl implements ProductoDAO {
 	
+	private final static Logger LOG = Logger.getLogger(ProductoDAOImpl.class);
 	private static ProductoDAOImpl INSTANCE = null;
 	
 	private ProductoDAOImpl() {
@@ -98,6 +101,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				
 			) {
 			
+			LOG.debug(pst);
 			while ( rs.next() ) {
 				
 				registros.add( mapper(rs) );
@@ -105,10 +109,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 			} // while
 			
 			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			
+		} catch (Exception e) {			
+			LOG.error(e);			
 		}
 		
 		
@@ -124,7 +126,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_LAST);
 			) {			
 					pst.setInt( 1, numReg);
-					System.out.println("SQL_GET_LAST: " + pst );
+					LOG.debug(pst);
 					try ( ResultSet rs = pst.executeQuery() ){
 						while ( rs.next() ) {					
 							registros.add( mapper(rs) );					
@@ -132,7 +134,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 					}
 			
 		} catch (Exception e) {			
-			e.printStackTrace();			
+			LOG.error(e);		
 		}
 		return registros;
 	}
@@ -147,7 +149,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			) {			
 					pst.setInt( 1, idCategoria);
 					pst.setInt( 2, numReg);
-					System.out.println("SQL_GET_BY_CATEGORIA: " + pst );
+					LOG.debug(pst);
 					try ( ResultSet rs = pst.executeQuery() ){
 						while ( rs.next() ) {					
 							registros.add( mapper(rs) );					
@@ -155,7 +157,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 					}
 			
 		} catch (Exception e) {			
-			e.printStackTrace();			
+			LOG.error(e);		
 		}
 		return registros;
 	}
@@ -172,6 +174,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			) {
 			
 				pst.setInt(1, id);
+				LOG.debug(pst);
 				ResultSet rs = pst.executeQuery();
 				
 				if ( rs.next() ) {
@@ -199,10 +202,10 @@ public class ProductoDAOImpl implements ProductoDAO {
 				Connection conexion = ConnectionManager.getConnection();	
 				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE);				
 				
-			){
-			
+			){			
 			
 			pst.setInt(1, id);
+			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 			
 			if ( affectedRows != 1 ) {
@@ -230,6 +233,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			pst.setString(2, pojo.getImagen() );
 			pst.setFloat(3, pojo.getPrecio() );
 			pst.setInt(4, pojo.getCategoria().getId() );
+			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 			
 			if ( affectedRows == 1 ) {
@@ -246,8 +250,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				}
 				
 				
-			}else {
-				
+			}else {				
 				throw new Exception("No se ha podido guardar el registro " + pojo );
 			}
 			
@@ -271,7 +274,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				pst.setFloat(3, pojo.getPrecio() );
 				pst.setInt(4, pojo.getCategoria().getId() );
 				pst.setInt(5, pojo.getId() );
-				
+				LOG.debug(pst);
 				int affectedRows = pst.executeUpdate();
 				if ( affectedRows != 1 ) {
 					throw new Exception("No se puede podificar el registro con id=" + pojo.getId() );
