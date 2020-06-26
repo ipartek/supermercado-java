@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.dao.UsuarioDAO;
 import com.ipartek.formacion.modelo.pojo.Rol;
@@ -14,6 +16,7 @@ import com.ipartek.formacion.modelo.pojo.Usuario;
 public class UsuarioDAOImpl implements UsuarioDAO {
 
 	private static UsuarioDAOImpl INSTANCE = null;
+	private final static Logger LOG = Logger.getLogger(UsuarioDAOImpl.class);
 
 	// exceuteQuerys => ResultSet
 	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE nombre LIKE ? LIMIT 500 ;   ";
@@ -49,14 +52,13 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = pst.executeQuery();) {
 
-			System.out.println("SQL= " + pst);
-
+			LOG.debug(pst);
 			while (rs.next()) {				
 				usuarios.add( mapper(rs) );
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return usuarios;
@@ -73,9 +75,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		) {
 
 			pst.setInt(1, id);
-
-			System.out.println("SQL= " + pst);
-
+			LOG.debug(pst);
 			try (ResultSet rs = pst.executeQuery()) {
 
 				if (rs.next()) {
@@ -87,7 +87,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			} // 2º try
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return usuario;
@@ -102,7 +102,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement pst = con.prepareStatement(SQL_DELETE);) {
 
 			pst.setInt(1, id);
-
+			LOG.debug(pst);
 			if (pst.executeUpdate() != 1) {
 				throw new Exception("No se puede eliminar registro " + id);
 			}
@@ -122,6 +122,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			pst.setString(2, pojo.getContrasenia() );
 			pst.setInt(3, pojo.getRol().getId() );
 			
+			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows == 1) {
 
@@ -152,6 +153,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			pst.setInt(3, pojo.getRol().getId());
 			pst.setInt(4, pojo.getId());
 
+			LOG.debug(pst);
 			if (pst.executeUpdate() != 1) {
 				throw new Exception("No se puede modificar registro " + pojo);
 			}
@@ -170,7 +172,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				PreparedStatement pst = con.prepareStatement(SQL_GET_ALL_BY_NOMBRE);) {
 
 			pst.setString(1, "%" + palabraBuscada + "%");
-
+			LOG.debug(pst);
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
@@ -180,8 +182,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			} // 2º try
 
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return registros;
@@ -200,8 +201,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			pst.setString(1 , nombre);
 			pst.setString(2 , password);
 
-			System.out.println("SQL= " + pst);
-
+			LOG.debug(pst);
 			try (ResultSet rs = pst.executeQuery()) {
 
 				if (rs.next()) {
@@ -211,7 +211,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			} // 2º try
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return usuario;

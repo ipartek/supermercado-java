@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.dao.CategoriaDAO;
 import com.ipartek.formacion.modelo.pojo.Categoria;
@@ -15,6 +17,7 @@ import com.ipartek.formacion.modelo.pojo.Producto;
 public class CategoriaDAOImpl implements CategoriaDAO {
 
 	private static CategoriaDAOImpl INSTANCE = null;
+	private final static Logger LOG = Logger.getLogger(CategoriaDAOImpl.class);
 
 	private CategoriaDAOImpl() {
 		super();
@@ -43,12 +46,13 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 			  ResultSet rs = pst.executeQuery();
 		) {
 
+			LOG.debug(pst);
 			while (rs.next()) {
 				registros.add(mapper(rs));
 			} // while
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return registros;
 
@@ -65,8 +69,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 			  ResultSet rs = pst.executeQuery();
 		) {
 			
-			System.out.println(pst);
-
+			LOG.debug(pst);
 			while (rs.next()) {
 		
 				int idCategoria = rs.getInt("categoria_id") ; // key del hasmap
@@ -95,7 +98,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 			} // while
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return new ArrayList<Categoria>(registros.values());
 	}
