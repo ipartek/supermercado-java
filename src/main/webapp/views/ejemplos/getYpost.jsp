@@ -4,7 +4,7 @@
 
 <%! String pagina = "GetPost";  %>
 <%! String title = "Get y Post";  %>
-<%@include file="includes/cabecera.jsp" %>
+<%@include file="../../includes/cabecera.jsp" %>
 
 
 	<h1>Ejemplos de GET y POST</h1>
@@ -32,4 +32,4 @@
 	<h2>RESULTADO</h2>
 	${resultado}
 	
-<%@include file="includes/pie.jsp" %>
+<%@include file="../../includes/pie.jsp" %>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 
-<jsp:include page="includes/cabecera.jsp" >
+<jsp:include page="../../includes/cabecera.jsp" >
   <jsp:param name="pagina" value="inicio" />
   <jsp:param name="title" value="Inicio" /> 
 </jsp:include>
@@ -21,4 +21,4 @@
 	</form>	
 
 
-<%@include file="includes/pie.jsp" %>
+<%@include file="../../includes/pie.jsp" %>

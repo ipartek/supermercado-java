@@ -1,5 +1,5 @@
 
-<jsp:include page="includes/cabecera.jsp" >
+<jsp:include page="../includes/cabecera.jsp" >
   <jsp:param name="pagina" value="Login" />
   <jsp:param name="title" value="Login" /> 
 </jsp:include>
@@ -29,5 +29,5 @@
 	
 	
 
-<%@include file="includes/pie.jsp" %>
+<%@include file="../includes/pie.jsp" %>
 

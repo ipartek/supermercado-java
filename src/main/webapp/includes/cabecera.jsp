@@ -7,6 +7,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Todas las rutas relativas comienzan por el href indicado -->
+    <!--  ${pageContext.request.contextPath} == http://localhost:8080/supermerkado-master -->
+    <base href="${pageContext.request.contextPath}/" />
 
     <!-- fontawesome 5 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
@@ -39,7 +43,7 @@
         <!-- lista enlaces -->
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"  >
+            <li class="nav-item"  >              
               <a class="nav-link ${ ( 'inicio' eq param.pagina ) ? 'active' : '' }" href="inicio">Inicio</a>
             </li>
             
@@ -56,7 +60,7 @@
 		    </li>
             
             <li class="nav-item"  >
-              <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="ejemplos.jsp">Ejemplos</a>
+              <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="views/ejemplos/index.jsp">Ejemplos</a>
             </li>
             
             <!-- opciones cuando el usuario esta Logeado -->
@@ -78,7 +82,7 @@
         
          <span class="form-inline">
          	<c:if test="${ empty usuario_login }">
-            	  <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
+            	  <a class="nav-link  btn btn-outline-warning" href="views/login.jsp">Iniciar Sesión</a>
             </c:if>	  
             
             <c:if test="${ not empty usuario_login }">
@@ -94,6 +98,10 @@
       <main role="main" class="container">
       
       	
-      	<jsp:include page="alerta.jsp"></jsp:include>
+      	<%@ include file="alerta.jsp" %>
+      	<!-- 
+      		cuidado porque esto lo incluye en funcion de la URL en la que estamos
+      	     < jsp : include page="alerta.jsp"></ jsp : include> 
+      	-->
       
       
