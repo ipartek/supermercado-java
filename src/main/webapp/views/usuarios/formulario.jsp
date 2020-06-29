@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
-<jsp:include page="includes/cabecera.jsp" >
+<jsp:include page="../../includes/cabecera.jsp" >
   <jsp:param name="pagina" value="usuario" />
   <jsp:param name="title" value="Editar Usuario" /> 
 </jsp:include>
@@ -76,5 +76,5 @@
 		<input type="submit" value="Guardar" class="btn btn-primary btn-block">
 	</form>
 
-<%@include file="includes/pie.jsp" %>
+<%@include file="../../includes/pie.jsp" %>
 

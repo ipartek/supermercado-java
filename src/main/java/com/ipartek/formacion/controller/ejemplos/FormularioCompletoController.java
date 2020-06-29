@@ -1,4 +1,4 @@
-package com.ipartek.formacion.controller;
+package com.ipartek.formacion.controller.ejemplos;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -118,12 +118,12 @@ public class FormularioCompletoController extends HttpServlet {
 			
 			
 			if( validationes.isEmpty() ) {
-				request.getRequestDispatcher("formulario-resumen.jsp").forward(request, response);	
+				request.getRequestDispatcher("views/ejemplos/formulario-resumen.jsp").forward(request, response);	
 				
 			}else {
 				
 				request.setAttribute("validationes", validationes);
-				request.getRequestDispatcher("formulario.jsp").forward(request, response);
+				request.getRequestDispatcher("views/ejemplos/formulario.jsp").forward(request, response);
 			}
 						
 		}// finally

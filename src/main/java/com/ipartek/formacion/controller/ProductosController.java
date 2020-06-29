@@ -43,7 +43,7 @@ public class ProductosController extends HttpServlet {
 		
 		
 		// ir a la nueva vista o jsp
-		request.getRequestDispatcher("productos.jsp").forward(request, response);
+		request.getRequestDispatcher("views/productos/index.jsp").forward(request, response);
 		
 	}
 

@@ -25,9 +25,9 @@
 <br>
 <a href="views/ejemplos/getYpost.jsp?title=GetPost">GET y POST</a>
 <br>
-<a href="formulario-validacion.jsp">Ejemplo Formulario Validacion</a>
+<a href="views/ejemplos/formulario-validacion.jsp">Ejemplo Formulario Validacion</a>
 <br>
-<a href="formulario.jsp">Ejemplo Formulario Completo</a>
+<a href="views/ejemplos/formulario.jsp">Ejemplo Formulario Completo</a>
 <br>
 <a href="ver-tabla-alumnos">Ver alumnos en tabla</a>
 <br>
@@ -35,10 +35,10 @@
 <br>
 <a href="formulario-producto.jsp">Crear Producto</a>
 <br>
-<a href="apartadoA.jsp">Apartado A - Cookies</a>
+<a href="views/ejemplos/apartadoA.jsp">Apartado A - Cookies</a>
 
 <br>
-<a href="cookies.jsp">Cookies</a>
+<a href="views/ejemplos/cookies.jsp">Cookies</a>
 
 
 

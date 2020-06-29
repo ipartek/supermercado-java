@@ -6,7 +6,7 @@
 
 <%! String pagina = "formulario";  %>
 <%! String title = "Form Validacion";  %>
-<%@include file="includes/cabecera.jsp" %>
+<%@include file="../../includes/cabecera.jsp" %>
 
 	<c:if test="${not empty  validaciones}">
 	
@@ -43,5 +43,5 @@
 	</form>
 
 	
-<%@include file="includes/pie.jsp" %>	
+<%@include file="../../includes/pie.jsp" %>	
 	

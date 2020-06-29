@@ -1,4 +1,4 @@
-package com.ipartek.formacion.controller;
+package com.ipartek.formacion.controller.ejemplos;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,10 +57,10 @@ public class FormularioValidacionEjemplo extends HttpServlet {
 		
 		// ir a una vista
 		if ( validaciones.isEmpty() ) {
-			request.getRequestDispatcher("formulario-validacion-resumen.jsp").forward(request, response);
+			request.getRequestDispatcher("views/ejemplos/formulario-validacion-resumen.jsp").forward(request, response);
 			
 		}else {
-			request.getRequestDispatcher("formulario-validacion.jsp").forward(request, response);
+			request.getRequestDispatcher("views/ejemplos/formulario-validacion.jsp").forward(request, response);
 		}
 		
 		

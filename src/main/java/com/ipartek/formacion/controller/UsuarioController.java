@@ -19,8 +19,8 @@ public class UsuarioController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
     private static UsuarioDAOImpl daoUsuario = UsuarioDAOImpl.getInstance();
-    private static String VIEW_LIST = "usuario-lista.jsp";
-    private static String VIEW_FORM = "usuario-formulario.jsp";
+    private static String VIEW_LIST = "views/usuarios/index.jsp";
+    private static String VIEW_FORM = "views/usuarios/formulario.jsp";
     
 	/**
 	 * Si nos viene el parametro ID , buscar el usuario y mostrarlo en el formulario. <br>

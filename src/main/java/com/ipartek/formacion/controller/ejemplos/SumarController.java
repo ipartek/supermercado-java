@@ -1,4 +1,4 @@
-package com.ipartek.formacion.controller;
+package com.ipartek.formacion.controller.ejemplos;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -33,7 +33,7 @@ public class SumarController extends HttpServlet {
 		request.setAttribute("op2", parametro2);	
 		
 		request.setAttribute("resultado", resultado);		
-		request.getRequestDispatcher("getYpost.jsp").forward(request, response);
+		request.getRequestDispatcher("views/ejemplos/getYpost.jsp").forward(request, response);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class SumarController extends HttpServlet {
 			request.setAttribute("mensaje", "Lo sentimos, no se puede sumar prueba con numeros.");
 			
 		}finally {
-			request.getRequestDispatcher("getYpost.jsp").forward(request, response);
+			request.getRequestDispatcher("views/ejemplos/getYpost.jsp").forward(request, response);
 		}	
 			
 	}

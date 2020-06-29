@@ -61,7 +61,7 @@ public class ProductoGuardarController extends HttpServlet {
 			
 			request.setAttribute("categorias", daoCategoria.getAll());
 			// ir a la nueva vista o jsp
-			request.getRequestDispatcher("formulario-producto.jsp").forward(request, response);	
+			request.getRequestDispatcher("views/productos/formulario.jsp").forward(request, response);	
 		}
 		
 	}
@@ -141,7 +141,7 @@ public class ProductoGuardarController extends HttpServlet {
 			request.setAttribute("categorias", daoCategoria.getAll());
 
 			// ir a la nueva vista o jsp
-			request.getRequestDispatcher("formulario-producto.jsp").forward(request, response);
+			request.getRequestDispatcher("views/productos/formulario.jsp").forward(request, response);
 			
 		}
 		
