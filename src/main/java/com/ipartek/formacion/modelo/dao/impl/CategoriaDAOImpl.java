@@ -35,7 +35,13 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	// excuteQuery => ResultSet
 	private final String SQL_GET_ALL = " SELECT id, nombre FROM categoria ORDER BY nombre ASC; ";
 	private final String SQL_GET_ALL_WITH_PRODUCTS = " SELECT c.id 'categoria_id', c.nombre 'categoria_nombre', p.id 'producto_id', p.nombre 'producto_nombre', imagen, precio FROM producto p, categoria c WHERE p.id_categoria = c.id ORDER BY c.nombre ASC ; ";
+	private final String SQL_GET_BY_ID = " SELECT id, nombre FROM categoria WHERE id = ?; ";
 
+	//exceuteUpdate => int affectedRows
+	private final String SQL_INSERT = " INSERT INTO categoria ( nombre ) VALUES ( ? ) ; ";
+	private final String SQL_UPDATE = " UPDATE categoria SET nombre = ?  WHERE id = ? ; ";	
+	private final String SQL_DELETE = " DELETE FROM categoria WHERE id = ? ; ";
+	
 	@Override
 	public ArrayList<Categoria> getAll() {
 		
@@ -103,26 +109,99 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		return new ArrayList<Categoria>(registros.values());
 	}
 
-	// TODO implementar estos metodos cuando necesitemos
+	
 
 	@Override
 	public Categoria getById(int id) throws Exception {
-		throw new Exception("Sin implementar de momento");
+		
+		Categoria registro = new Categoria();		
+		try (
+				Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID);				
+			) {
+			
+				pst.setInt(1, id);
+				LOG.debug(pst);
+				ResultSet rs = pst.executeQuery();
+				
+				if ( rs.next() ) {					
+					registro = mapper(rs);
+				}else {
+					throw new Exception("No se puede encontrar registro con id=" + id);					
+				}	
+		}
+		
+		return registro;
 	}
 
 	@Override
 	public Categoria delete(int id) throws Exception {
-		throw new Exception("Sin implementar de momento");
+		
+		Categoria pojo = null;
+		
+		try(
+				Connection conexion = ConnectionManager.getConnection();	
+				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE);				
+			){
+				// recuperar antes de eliminar
+				pojo = getById(id);
+			
+				// eliminar
+				pst.setInt(1, id );			
+				LOG.debug(pst);
+				pst.executeUpdate();	
+			
+		}
+		
+		return pojo;
 	}
 
 	@Override
 	public Categoria insert(Categoria pojo) throws Exception {
-		throw new Exception("Sin implementar de momento");
+		
+		try(
+				Connection conexion = ConnectionManager.getConnection();	
+				PreparedStatement pst = conexion.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);				
+			){
+		
+				pst.setString(1, pojo.getNombre() );			
+				LOG.debug(pst);
+				
+				int affectedRows = pst.executeUpdate();			
+				if ( affectedRows == 1 ) {					
+					try( ResultSet rsKeys = pst.getGeneratedKeys() ){						
+						if ( rsKeys.next() ) {
+							int id = rsKeys.getInt(1);
+							pojo.setId(id);
+						}						
+					}				
+					
+			}else {				
+				throw new Exception("No se ha podido guardar el registro " + pojo );
+			}
+		}
+		
+		return pojo;
 	}
 
 	@Override
 	public Categoria update(Categoria pojo) throws Exception {
-		throw new Exception("Sin implementar de momento");
+
+		try(
+				Connection conexion = ConnectionManager.getConnection();	
+				PreparedStatement pst = conexion.prepareStatement(SQL_UPDATE);				
+				
+			){
+						
+				pst.setString(1, pojo.getNombre() );				
+				pst.setInt(2, pojo.getId() );
+				LOG.debug(pst);
+				int affectedRows = pst.executeUpdate();
+				if ( affectedRows != 1 ) {
+					throw new Exception("No se puede podificar el registro con id=" + pojo.getId() );
+				}
+		}		
+		return pojo;
 	}
 
 	private Categoria mapper(ResultSet rs) throws SQLException {

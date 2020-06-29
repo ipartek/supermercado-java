@@ -71,10 +71,17 @@
               		<a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
             	</li>
             	<li class="nav-item">
+              		<a class="nav-link ${ ( 'categorias' eq param.pagina ) ? 'active' : '' } "  href="categoria">Categorias</a>
+            	</li>
+            	<li class="nav-item">
               		<a class="nav-link ${ ( 'usuario' eq param.pagina ) ? 'active' : '' } "  href="usuario">Usuarios</a>
             	</li>
             	
-            </c:if>	           
+            </c:if>	  
+            
+            <li class="nav-item">
+              		<a class="nav-link ${ ( 'categorias' eq param.pagina ) ? 'active' : '' } "  href="categoria">Categorias QUITAR LUEGO***</a>
+            	</li>         
         
             
           </ul>
