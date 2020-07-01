@@ -61,7 +61,7 @@ public class LoginController extends HttpServlet {
 			session.setMaxInactiveInterval( 60 * 5 ); // 5 minutos sin peticiones, se invalida la session del usuario			
 			session.setAttribute("usuario_login", usuario );			
 			
-			//usuarios conectados recuperar y actualizar, cuidado porque la 1º vez es null
+			//usuarios conectados recuperar y actualizar, inicializado en InicioAppListenner
 			ServletContext sc = request.getServletContext();
 			int usuariosConectados = (int) sc.getAttribute("usuarios_conectados");
 			sc.setAttribute("usuarios_conectados", ++usuariosConectados);
