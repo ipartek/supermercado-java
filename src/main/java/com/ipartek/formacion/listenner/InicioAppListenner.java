@@ -41,8 +41,10 @@ public class InicioAppListenner implements ServletContextListener {
     	// Este contexto es para toda la Aplicacion y es accesible desde cualñquier JSP o Servlet    	
     	ServletContext contextoAplicacion = sce.getServletContext();
     	
-    	try {
+    	contextoAplicacion.setAttribute("usuarios_conectados", 0);
     	
+    	try {
+    									
     		contextoAplicacion.setAttribute("categorias", categoriaDAO.getAll() );
     		
     	}catch (Exception e) {

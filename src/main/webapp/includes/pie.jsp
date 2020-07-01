@@ -1,8 +1,9 @@
   	  </main>
      
      <div class="bg-dark">
-        <footer class="container p-2">
-            <p>&copy; Company 2017-2020</p>
+        <footer class="container p-2">            
+            <span class="text-white mr-3">Usuarios Conectados ${applicationScope.usuarios_conectados}</span>
+            <span class="float-right">&copy; Company 2017-2020</span>
         </footer>
      </div>
 

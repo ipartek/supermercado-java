@@ -1,6 +1,8 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -59,6 +61,13 @@ public class LogoutController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		session = null;
+		
+		
+		//usuarios conectados recuperar y actualizar
+		ServletContext sc = request.getServletContext();
+		int usuariosConectados = (int)sc.getAttribute("usuarios_conectados");
+		sc.setAttribute("usuarios_conectados", --usuariosConectados);
+		
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		

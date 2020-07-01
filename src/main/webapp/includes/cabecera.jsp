@@ -83,6 +83,9 @@
        
         
          <span class="form-inline">
+         
+         	
+         
          	<c:if test="${ empty sessionScope.usuario_login }">
             	  <a class="nav-link  btn btn-outline-warning" href="views/login.jsp">Iniciar Sesión</a>
             </c:if>	  

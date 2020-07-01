@@ -1,6 +1,8 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -50,6 +52,7 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		
+		
 		UsuarioDAOImpl dao = UsuarioDAOImpl.getInstance();
 		Usuario usuario = dao.existe(nombre, pass);
 		
@@ -57,6 +60,11 @@ public class LoginController extends HttpServlet {
 					
 			session.setMaxInactiveInterval( 60 * 5 ); // 5 minutos sin peticiones, se invalida la session del usuario			
 			session.setAttribute("usuario_login", usuario );			
+			
+			//usuarios conectados recuperar y actualizar, cuidado porque la 1º vez es null
+			ServletContext sc = request.getServletContext();
+			int usuariosConectados = (int) sc.getAttribute("usuarios_conectados");
+			sc.setAttribute("usuarios_conectados", ++usuariosConectados);
 						
 			request.setAttribute("alerta", new Alerta("success", "Ongi Etorri, ya estas Logeado"));
 			request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -66,7 +74,7 @@ public class LoginController extends HttpServlet {
 			
 						
 			request.setAttribute("alerta", new Alerta("warning", "Credenciales Incorrectas"));
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getRequestDispatcher("views/login.jsp").forward(request, response);
 			
 		}
 		
