@@ -29,6 +29,8 @@
 <br>
 <a href="views/ejemplos/formulario.jsp">Ejemplo Formulario Completo</a>
 <br>
+<a href="ejemploScopes">Ejemplo Scopes o Ambitos</a>
+<br>
 <a href="ver-tabla-alumnos">Ver alumnos en tabla</a>
 <br>
 <a href="productos">Ver Productos</a>

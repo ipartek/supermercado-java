@@ -53,7 +53,7 @@
 		           aria-expanded="false">Categorias</a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		        	<a class="dropdown-item" href="inicio">TODAS</a>
-		        	<c:forEach items="${categorias}" var="categoria">
+		        	<c:forEach items="${applicationScope.categorias}" var="categoria">
 		          		<a class="dropdown-item" href="inicio?idCategoria=${categoria.id}&categoria=${categoria.nombre}">${categoria.nombre}</a>
 		          	</c:forEach>			          
 		        </div>
@@ -65,7 +65,7 @@
             
             <!-- opciones cuando el usuario esta Logeado -->
             
-             <c:if test="${ not empty usuario_login }">
+             <c:if test="${ not empty sessionScope.usuario_login }">
              
             	<li class="nav-item">
               		<a class="nav-link ${ ( 'productos' eq param.pagina ) ? 'active' : '' } "  href="productos">Productos</a>
@@ -78,22 +78,17 @@
             	</li>
             	
             </c:if>	  
-            
-            <li class="nav-item">
-              		<a class="nav-link ${ ( 'categorias' eq param.pagina ) ? 'active' : '' } "  href="categoria">Categorias QUITAR LUEGO***</a>
-            	</li>         
-        
-            
+                    
           </ul>
        
         
          <span class="form-inline">
-         	<c:if test="${ empty usuario_login }">
+         	<c:if test="${ empty sessionScope.usuario_login }">
             	  <a class="nav-link  btn btn-outline-warning" href="views/login.jsp">Iniciar Sesión</a>
             </c:if>	  
             
-            <c:if test="${ not empty usuario_login }">
-            	<span class="badge badge-pill badge-light mr-3">${usuario_login.nombre}</span>
+            <c:if test="${ not empty sessionScope.usuario_login }">
+            	<span class="badge badge-pill badge-light mr-3">${sessionScope.usuario_login.nombre}</span>
             	<a class="nav-link  btn btn-outline-light" href="logout">Cerrar Sesión</a>
             </c:if>
               
