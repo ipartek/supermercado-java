@@ -3,9 +3,16 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
-	
+
 	<welcome-file-list>
 		<welcome-file>inicio</welcome-file>
 	</welcome-file-list>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>https://formacion.ipartek.com/jsp/tlds/ejemplos</taglib-uri>
+			<taglib-location>/WEB-INF/ejemplos.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 
 </web-app>
