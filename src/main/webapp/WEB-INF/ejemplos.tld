@@ -5,16 +5,40 @@
 	version="2.0">
 	<description>Ejemplo de Tags propios</description>
 	<tlib-version>1.0</tlib-version>
-    <jsp-version>2.0</jsp-version>
-	<shortname>ejemplos</shortname>	
+	<jsp-version>2.0</jsp-version>
+	<shortname>ejemplos</shortname>
 	<info>Etiquetas de ejemplo</info>
 
 	<tag>
 		<name>holamundo</name>
 		<tagclass>com.ipartek.formacion.tags.TagHolaMundo</tagclass>
 		<bodycontent>empty</bodycontent>
-		<info>Ejemplo para ver como crear un tag propio, solo escribe 'hola mundo'</info>
+		<info>Ejemplo para ver como crear un tag propio, solo escribe 'hola
+			mundo'</info>
 	</tag>
-	
+
+	<tag>
+		<name>holamundo2</name>
+		<tagclass>com.ipartek.formacion.tags.TagHolaMujndoSimple</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>Ejemplo para ver como crear un tag propio, solo escribe 'hola
+			mundo'</info>
+	</tag>
+
+	<tag>
+		<name>boton</name>
+		<tagclass>com.ipartek.formacion.tags.TagBoton</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>colorFondo</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>texto</name>
+			<required>true</required>
+		</attribute>
+		<info>Ejemplo para ver como crear un boton pasandole dos pametros</info>
+	</tag>
+
 
 </taglib>
