@@ -39,6 +39,29 @@
 		</attribute>
 		<info>Ejemplo para ver como crear un boton pasandole dos pametros</info>
 	</tag>
+	
+	<tag>
+		<name>card</name>
+		<tagclass>com.ipartek.formacion.tags.TagCard</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>titulo</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>urlImagen</name>
+			<required>true</required>
+		</attribute>		
+		<attribute>
+			<name>urlEnlaceBoton</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>descripcion</name>
+			<required>false</required>
+		</attribute>
+		<info>Card basada en BootStrap, tiene 3 parametros obligatorios y uno opcional</info>
+	</tag>
 
 
 </taglib>
