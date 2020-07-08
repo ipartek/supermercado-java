@@ -57,8 +57,8 @@ public class TagHolaMundo implements Tag {
 		LOG.trace("Finalizamos a escribir etiqueta");
 		// El método doEndtag se invoca cuando se encuentra la etiqueta de cierre, 
 		// en este ejemplo se devuelve EVAL_PAGE para que siga evaluando el resto de la página, 
-		// si no queremos evaluar el resto de la pagina el valor a devolver será SKIP_PAGE. 
-		return SKIP_PAGE;
+		// CUIDADO: si no queremos evaluar el resto de la pagina el valor a devolver será SKIP_PAGE, usando esto no saldra nada de HTML despues 
+		return EVAL_PAGE;
 	}
 
 	@Override
