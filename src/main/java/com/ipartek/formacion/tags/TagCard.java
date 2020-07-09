@@ -15,7 +15,7 @@ public class TagCard extends SimpleTagSupport {
 	private String titulo;
 	private String urlImagen;
 	private String urlEnlaceBoton;
-	private String descripcion; // mirar setter esta protegido de null
+	private String descripcion; // al ser opcional si no se pone, no entra en el setter
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
@@ -29,10 +29,7 @@ public class TagCard extends SimpleTagSupport {
 		this.urlEnlaceBoton = urlEnlaceBoton;
 	}
 
-	public void setDescripcion(String descripcion) {
-		if (descripcion == null) {
-			descripcion = "";
-		}
+	public void setDescripcion(String descripcion) {		
 		this.descripcion = descripcion;
 	}
 
@@ -41,6 +38,10 @@ public class TagCard extends SimpleTagSupport {
 
 		LOG.trace("Empezamos a escribir etiqueta");
 		try {
+			
+			// cuidado porque puede ser null al ser no-requerido
+			descripcion = ( descripcion == null ) ? "" : descripcion;
+			
 			JspWriter out = getJspContext().getOut();
 			out.print("<div class=\"card\" style=\"width: 18rem; margin-right:0.5rem;\">");
 				out.print("<img class=\"card-img-top\" src=\"" + urlImagen + "\" alt=\"Card image cap\">");

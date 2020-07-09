@@ -62,6 +62,21 @@
 		</attribute>
 		<info>Card basada en BootStrap, tiene 3 parametros obligatorios y uno opcional</info>
 	</tag>
-
+	
+	<tag>
+		<name>badge</name>
+		<tagclass>com.ipartek.formacion.tags.TagBadge</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>valorMostrar</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>valorComparar</name>
+			<required>true</required>
+		</attribute>
+		<info>Muestra un componente badge de bootsrap con el valorMostrar.  el color de fondos era verde si valorMostrar &gt; valorComparar, color naranja valorMostrar &lt; valorComparar, color azul si son iguales  </info>
+	</tag>
+	
 
 </taglib>

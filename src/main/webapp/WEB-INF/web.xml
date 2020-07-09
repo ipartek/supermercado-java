@@ -9,10 +9,13 @@
 	</welcome-file-list>
 
 	<jsp-config>
+	
+		<!-- definir donde se encunetra nuestra JSTL y la URI sirve para hacer la directiva en la JSP -->
 		<taglib>
 			<taglib-uri>https://formacion.ipartek.com/jsp/tlds/ejemplos</taglib-uri>
 			<taglib-location>/WEB-INF/ejemplos.tld</taglib-location>
 		</taglib>
+		
 	</jsp-config>
 
 </web-app>
