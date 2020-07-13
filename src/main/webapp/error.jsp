@@ -12,7 +12,7 @@
   <p class="lead">Lo sentimos pero tenemos un ERROR.</p>
   <hr class="my-4">
   <p>Por favor ponte en contacto con el administrador.</p>
-  <a class="btn btn-primary btn-lg" href="mailto:auraga@ipartek.com?Subject=Aquí%20el%20asunto%20del%20mail&body=Escribe%20el%20error" role="button">Enviar Email</a>
+  <a class="btn btn-primary btn-lg" href="mailto:auraga@ipartek.com?Subject=Aquí%20el%20asunto%20del%20mail&body=Motivo:<%=exception.getMessage()%>" role="button">Enviar Email</a>
 </div>
 
 
