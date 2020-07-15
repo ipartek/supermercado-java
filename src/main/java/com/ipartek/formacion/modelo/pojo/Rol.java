@@ -2,6 +2,9 @@ package com.ipartek.formacion.modelo.pojo;
 
 public class Rol {
 	
+	public static final int ADMINISTRADOR = 2;
+	public static final int USUARIO = 1;
+	
 	private int id;
 	private String nombre;
 	

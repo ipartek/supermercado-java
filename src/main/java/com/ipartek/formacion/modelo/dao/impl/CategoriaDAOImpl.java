@@ -34,7 +34,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 	// excuteQuery => ResultSet
 	private final String SQL_GET_ALL = " SELECT id, nombre FROM categoria ORDER BY nombre ASC; ";
-	private final String SQL_GET_ALL_WITH_PRODUCTS = " SELECT c.id 'categoria_id', c.nombre 'categoria_nombre', p.id 'producto_id', p.nombre 'producto_nombre', imagen, precio FROM producto p, categoria c WHERE p.id_categoria = c.id ORDER BY c.nombre ASC ; ";
+	private final String SQL_GET_ALL_WITH_PRODUCTS = " SELECT c.id 'categoria_id', c.nombre 'categoria_nombre', p.id 'producto_id', p.nombre 'producto_nombre', imagen, precio FROM producto p, categoria c WHERE p.id_categoria = c.id AND p.fecha_validado IS NOT NULL ORDER BY c.nombre ASC ; ";
 	private final String SQL_GET_BY_ID = " SELECT id, nombre FROM categoria WHERE id = ?; ";
 
 	//exceuteUpdate => int affectedRows

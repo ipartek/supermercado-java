@@ -12,8 +12,19 @@ import com.ipartek.formacion.modelo.pojo.Producto;
  *
  */
 public interface ProductoDAO extends CrudAble<Producto> {
-
 	
+	/**
+	 * Validamos el producto para que sea visible en la parte publica
+	 * @param id identificador del producto
+	 * 
+	 */
+	void validar( int id );
+
+	/**
+	 * 
+	 * @param nombre
+	 * @return
+	 */
 	ArrayList<Producto> getAllByNombre( String nombre );
 	
 	/**
@@ -32,7 +43,13 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 */
 	ArrayList<Producto> getAllByCategoria( int idCategoria, int numReg );
 	
-	
+	/**
+	 * 
+	 * @param precioMinimo
+	 * @param precioMaximo
+	 * @return
+	 * @throws Exception
+	 */
 	ArrayList<Producto> getAllRangoPrecio( int precioMinimo, int precioMaximo ) throws Exception;
 	
 	

@@ -40,7 +40,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 										"	 c.id     'categoria_id', " + 
 										"	 c.nombre 'categoria_nombre'	" + 
 										" FROM producto p , categoria c " + 
-										" WHERE p.id_categoria  = c.id " + 
+										" WHERE p.id_categoria  = c.id AND fecha_validado IS NOT NULL " + 
 										" ORDER BY p.id DESC LIMIT 500; ";
 	
 	
@@ -52,7 +52,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 										"	 c.id     'categoria_id', " + 
 										"	 c.nombre 'categoria_nombre'	" + 
 										" FROM producto p , categoria c " + 
-										" WHERE p.id_categoria  = c.id " + 
+										" WHERE p.id_categoria  = c.id AND fecha_validado IS NOT NULL " + 
 										" ORDER BY p.id DESC LIMIT ? ; ";
 	
 	
@@ -64,7 +64,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 												"	 c.id     'categoria_id', " + 
 												"	 c.nombre 'categoria_nombre'	" + 
 												" FROM producto p , categoria c " + 
-												" WHERE p.id_categoria  = c.id " +
+												" WHERE p.id_categoria  = c.id AND fecha_validado IS NOT NULL " +
 												" AND c.id = ? " +   // filtramos por el id de la categoria
 												" ORDER BY p.id DESC LIMIT ? ; ";
 	
@@ -83,6 +83,13 @@ public class ProductoDAOImpl implements ProductoDAO {
 	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? WHERE id = ? ; ";
 	
 	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
+	
+	
+	@Override
+	public void validar(int id) {
+		// TODO Auto-generated method stub
+		// UPDATE producto SET fecha_validado = NOW() WHERE id = 15;		
+	}
 	
 	
 	public ArrayList<Producto> getAllByNombre( String nombre ) {
@@ -307,6 +314,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 				
 		return p;
 	}
+
+	
 
 
 

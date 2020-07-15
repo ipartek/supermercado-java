@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.modelo.dao.impl.UsuarioDAOImpl;
+import com.ipartek.formacion.modelo.pojo.Rol;
 import com.ipartek.formacion.modelo.pojo.Usuario;
 
 /**
@@ -67,7 +68,12 @@ public class LoginController extends HttpServlet {
 			sc.setAttribute("usuarios_conectados", ++usuariosConectados);
 						
 			request.setAttribute("alerta", new Alerta("success", "Ongi Etorri, ya estas Logeado"));
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			
+			if ( usuario.getRol().getId() == Rol.ADMINISTRADOR ) {		
+				request.getRequestDispatcher("views/backoffice/index.jsp").forward(request, response);
+			}else {
+				request.getRequestDispatcher("views/frontoffice/index.jsp").forward(request, response);
+			}
 			
 			
 		}else {

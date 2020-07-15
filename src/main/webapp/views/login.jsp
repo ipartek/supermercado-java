@@ -5,6 +5,10 @@
 </jsp:include>
 
 	
+	<a href="views/backoffice/index.jsp">IR a backoffice</a>
+	<br>
+	<a href="views/frontoffice/index.jsp">IR a Frontoffice</a>
+	
 	<form action="login" method="post" class="form-login" onsubmit="cifrar()">
 	
 	 	<div class="form-group">
@@ -12,7 +16,7 @@
 		</div>
 		
 		<div class="form-group">
-			<input type="password" id="pass" name="pass" placeholder="Tu Contraseña"  class="form-control">
+			<input type="password" id="pass" value="123456" name="pass" placeholder="Tu Contraseña"  class="form-control">
 		</div>
 		
 		<div class="form-group">
