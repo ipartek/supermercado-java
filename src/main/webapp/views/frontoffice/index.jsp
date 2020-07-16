@@ -1,3 +1,6 @@
 <h1>FRONTOFFICE</h1>
 <p>Usuario Normal</p>
-<a href="views/backoffice/index.jsp">IR a backoffice</a>
+
+
+<p>productos_aprobados: ${productos_aprobados}</p>
+<p>productos_pendientes: ${productos_pendientes}</p>

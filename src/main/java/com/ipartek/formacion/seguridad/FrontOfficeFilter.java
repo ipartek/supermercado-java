@@ -27,10 +27,10 @@ import com.ipartek.formacion.modelo.pojo.Usuario;
 				DispatcherType.INCLUDE, 
 				DispatcherType.ERROR
 		}
-					, urlPatterns = { "/views/backoffice/*" })
-public class BackOfficeFilter implements Filter {
+					, urlPatterns = { "/views/frontoffice/*" })
+public class FrontOfficeFilter implements Filter {
 
-	private final static Logger LOG = Logger.getLogger(BackOfficeFilter.class);
+	private final static Logger LOG = Logger.getLogger(FrontOfficeFilter.class);
 
 	/**
 	 * @see Filter#destroy()
@@ -62,9 +62,9 @@ public class BackOfficeFilter implements Filter {
 			//res.sendRedirect( "login.jsp"); => ruta relativa, se no mete en un bucle
 			res.sendRedirect( urlInicioApp + "/views/login.jsp"); //ruta absoluta
 			
-		}else if ( usarioLogin.getRol().getId() != Rol.ADMINISTRADOR) {
+		}else if ( usarioLogin.getRol().getId() != Rol.USUARIO) {
 			
-			LOG.warn("Cuidado usuario sin privilegios de ADMINISTRADOR, SIN AUTORIZACION");
+			LOG.warn("Cuidado usuario sin privilegios de USUARIO, SIN AUTORIZACION");
 			res.sendRedirect( urlInicioApp + "/views/login.jsp");
 			
 			
