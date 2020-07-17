@@ -70,7 +70,7 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("alerta", new Alerta("success", "Ongi Etorri, ya estas Logeado"));
 			
 			if ( usuario.getRol().getId() == Rol.ADMINISTRADOR ) {		
-				request.getRequestDispatcher("views/backoffice/index.jsp").forward(request, response);
+				request.getRequestDispatcher("views/backoffice/inicio").forward(request, response);
 			}else {
 				request.getRequestDispatcher("views/frontoffice/inicio").forward(request, response);
 			}
