@@ -92,6 +92,7 @@
             
             <c:if test="${ not empty sessionScope.usuario_login }">
             	<span class="badge badge-pill badge-light mr-3">${sessionScope.usuario_login.nombre}</span>
+            	<a class="nav-link  btn btn-outline-light" href="views/frontoffice/inicio">Mi Panel</a>
             	<a class="nav-link  btn btn-outline-light" href="logout">Cerrar Sesión</a>
             </c:if>
               

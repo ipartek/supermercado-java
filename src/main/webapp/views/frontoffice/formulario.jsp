@@ -6,7 +6,15 @@
     
            
                         
-        <h2>${titulo}</h2>
+        <h2>Fomrulario</h2>
+        
+        ${producto}
+        
+        <form action="views/frontoffice/crear-producto" method="post">
+        
+        	<input type="submit" value="Crear">
+        
+        </form>
                         
   
  <jsp:include page="../../includes/office-footer.jsp" />                  
