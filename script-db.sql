@@ -44,7 +44,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'comestibles'),(3,'electronica'),(2,'platos cocinados');
+INSERT INTO `categoria` VALUES (1,'comestibles'),(3,'Electronica'),(2,'Platos Cocinados');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,6 +62,8 @@ CREATE TABLE `producto` (
   `precio` decimal(10,2) NOT NULL DEFAULT '0.00',
   `imagen` varchar(255) NOT NULL DEFAULT 'https://picsum.photos/100/100',
   `id_categoria` int(11) NOT NULL,
+  `fecha_creacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_validado` datetime DEFAULT NULL COMMENT 'si tiene valor NULL este producto no es visible en la parte publica, tiene que ser validado por un administrador',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`),
   KEY `FK_usuario` (`id_usuario`),
@@ -77,7 +79,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (13,'macarrones con pesto',1,4.57,'https://www.hazteveg.com/img/recipes/full/201511/R24-25719.jpg',2),(15,'acelgas con Jamon con brillo',1,0.00,'https://i.blogs.es/6b70d4/acelgas-arco-jamon/1366_2000.jpg',1),(16,'patatas',1,0.66,'https://ep01.epimg.net/elcomidista/imagenes/2017/02/22/articulo/1487804099_363696_1487804800_sumario_normal.jpg',1),(26,'alubias a la vizcaina',1,6.00,'https://www.cocinatis.com/media/photologue/photos/cache/CTIS123-receta-alubias-blancas-verduras-paso-6_desktop_step.jpg',2),(27,'Tortilla de patatas',1,2.35,'https://www.hogarmania.com/archivos/201610/tortilla-patatas-xl-668x400x80xX.jpg',2);
+INSERT INTO `producto` VALUES (13,'macarrones con pesto',6,4.57,'https://www.hazteveg.com/img/recipes/full/201511/R24-25719.jpg',2,'2020-07-13 12:26:38',NULL),(15,'acelgas con Jamon con brillo',6,0.00,'https://i.blogs.es/6b70d4/acelgas-arco-jamon/1366_2000.jpg',1,'2020-07-13 12:26:38',NULL),(16,'patatas',6,0.66,'https://ep01.epimg.net/elcomidista/imagenes/2017/02/22/articulo/1487804099_363696_1487804800_sumario_normal.jpg',1,'2020-07-13 12:26:38','2020-07-13 12:58:23'),(26,'alubias a la vizcaina',6,6.45,'https://www.cocinatis.com/media/photologue/photos/cache/CTIS123-receta-alubias-blancas-verduras-paso-6_desktop_step.jpg',2,'2020-07-13 12:26:38','2020-07-13 12:58:23'),(27,'Tortilla de patatas',6,2.35,'https://www.hogarmania.com/archivos/201610/tortilla-patatas-xl-668x400x80xX.jpg',2,'2020-07-13 12:26:38','2020-07-13 12:58:23');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,39 +133,8 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',2),(6,'pepe','d41d8cd98f00b204e9800998ecf8427e',1),(7,'manolito gafotas 77','e10adc3949ba59abbe56e057f20f883e',1),(8,'Dummy','11111',1);
+INSERT INTO `usuario` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',2),(6,'pepe','e10adc3949ba59abbe56e057f20f883e',1),(7,'manolito gafotas 77','e10adc3949ba59abbe56e057f20f883e',1),(8,'Dummy','e10adc3949ba59abbe56e057f20f883e',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usuarios`
---
-
-DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `surname` varchar(45) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `city` varchar(45) DEFAULT NULL,
-  `host` tinyint(4) DEFAULT NULL,
-  `about` varchar(500) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usuarios`
---
-
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Alfredo','XXX',38,'Bilbao',0,NULL,NULL,NULL),(2,'Jaizki','XXX',38,'Bilbao',0,NULL,NULL,NULL),(3,'Txen','XXX',38,'Bilbao',0,NULL,NULL,NULL),(4,'Carlos','XXX',38,'Bilbao',0,NULL,NULL,NULL),(5,'Rosi','XXX',38,'Bilbao',0,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -175,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-24  9:03:57
+-- Dump completed on 2020-07-17 12:08:36
