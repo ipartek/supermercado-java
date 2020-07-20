@@ -44,5 +44,10 @@
             <!-- CONTENIDO PRINCIPAL -->
              <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid">
+                    <div class="container-fluid mb-3">
+                    
+                    
+                    	<%@ include file="alerta.jsp" %>
+				    
+                    
             

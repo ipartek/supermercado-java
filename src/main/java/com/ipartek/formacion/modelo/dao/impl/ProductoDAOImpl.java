@@ -69,7 +69,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			+ " FROM producto p , categoria c " + " WHERE p.id_categoria  = c.id AND p.id = ? ; ";
 
 	// excuteUpdate => int numero de filas afectadas
-	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , 1,  ? ) ; ";
+	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , ?,  ? ) ; ";
 	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? WHERE id = ? ; ";
 
 	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
@@ -121,7 +121,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			
 			// TODO mirar como hacerlo con una SQL,   "IS NOT NULL" o "IS NULL"
 			// pst.setBoolean(1, isValidado); // me sustitulle con un 1 o 0
-			
+			pst.setNull(1, java.sql.Types.NULL);
 			pst.setInt(1, idUsuario);
 			
 			LOG.debug(pst);
@@ -238,7 +238,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getImagen());
 			pst.setFloat(3, pojo.getPrecio());
-			pst.setInt(4, pojo.getCategoria().getId());
+			pst.setInt(4, pojo.getUsuario().getId() );
+			pst.setInt(5, pojo.getCategoria().getId());
 			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 
