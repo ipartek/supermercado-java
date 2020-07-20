@@ -1,6 +1,6 @@
  		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="views/frontoffice/inicio">Mi Panel</a>
-                      
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>          
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item">
@@ -16,7 +16,7 @@
                         <div class="nav">
                             
                             <a class="nav-link" href="inicio">
-                                <div class="sb-nav-link-icon"><i class="fa fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa fa-globe"></i></div>
                                 Inicio
                             </a>
                             <a class="nav-link" href="views/frontoffice/inicio">
@@ -24,7 +24,7 @@
                                 Mi Panel
                             </a>
                             <a class="nav-link" href="views/frontoffice/productos">
-                                <div class="sb-nav-link-icon"><i class=""></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa fa-check-square-o"></i></div>
                                 Productos
                             </a>
                             <a class="nav-link" href="views/frontoffice/productos?validados=0">
