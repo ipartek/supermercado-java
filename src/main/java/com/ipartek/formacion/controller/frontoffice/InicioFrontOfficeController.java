@@ -1,6 +1,8 @@
 package com.ipartek.formacion.controller.frontoffice;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.seguridad.FrontOfficeFilter;
+import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
+import com.ipartek.formacion.modelo.pojo.Producto;
+import com.ipartek.formacion.modelo.pojo.ResumenUsuario;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 
 /**
  * Servlet implementation class InicioController
@@ -19,16 +24,29 @@ public class InicioFrontOfficeController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = Logger.getLogger(InicioFrontOfficeController.class);
+	private static final ProductoDAOImpl daoProducto = ProductoDAOImpl.getInstance(); 
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// TODO recueprar datos de inicio para el usuario
+		LOG.trace("Panel de Inicio");
 		
-		request.setAttribute("productos_aprobados", 3);
-		request.setAttribute("productos_pendientes", 2);
+		Usuario usuarioSession = (Usuario) request.getSession().getAttribute("usuario_login");
+		int idUsuario = usuarioSession.getId();
+		
+		//TODO recuperar datos de una VIEW
+		
+		// ArrayList<Producto> aprobados = daoProducto.getAllByUser( idUsuario, true);
+		// ArrayList<Producto> pendientes = daoProducto.getAllByUser( idUsuario, false);
+		// request.setAttribute("productos_aprobados",  aprobados.size() );
+		// request.setAttribute("productos_pendientes", pendientes.size() );
+		
+		ResumenUsuario resumen = daoProducto.getResumenByUsuario(idUsuario);
+		request.setAttribute("resumen", resumen );
+		
+		
 		
 		// CUIDADO: mirar la URL del servlet "/views/frontoffice/inicio"
 		// cuando hacemos forward se pierde lo ultimo de la url y se le suma la variabel pagina
@@ -47,8 +65,7 @@ public class InicioFrontOfficeController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		doGet(request, response);
 	}
 

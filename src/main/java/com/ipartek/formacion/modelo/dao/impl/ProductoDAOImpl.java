@@ -12,6 +12,7 @@ import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.dao.ProductoDAO;
 import com.ipartek.formacion.modelo.pojo.Categoria;
 import com.ipartek.formacion.modelo.pojo.Producto;
+import com.ipartek.formacion.modelo.pojo.ResumenUsuario;
 
 public class ProductoDAOImpl implements ProductoDAO {
 
@@ -50,6 +51,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 																									// categoria
 			" ORDER BY p.id DESC LIMIT ? ; ";
 	
+	
+	private final String SQL_VIEW_RESUMEN_USUARIO = " SELECT id_usuario, total, aprobado, pendiente FROM v_usuario_productos WHERE id_usuario = ?; ";
 	
 	private final String SQL_GET_BY_USUARIO_PRODUCTO_VALIDADO =
 	                                            "SELECT 	 p.id     'producto_id', 	 p.nombre 'producto_nombre', 	 precio, 	 imagen, 	 c.id     'categoria_id', 	 c.nombre 'categoria_nombre'	 \n" + 
@@ -293,6 +296,34 @@ public class ProductoDAOImpl implements ProductoDAO {
 	public ArrayList<Producto> getAllRangoPrecio(int precioMinimo, int precioMaximo) throws Exception {
 		throw new Exception("Sin implemntar");
 	}
+	
+	@Override
+	public ResumenUsuario getResumenByUsuario(int idUsuario) {
+		ResumenUsuario resul = new ResumenUsuario();
+		try (Connection conexion = ConnectionManager.getConnection();
+			 PreparedStatement pst = conexion.prepareStatement(SQL_VIEW_RESUMEN_USUARIO);
+			){
+			
+				pst.setInt(1, idUsuario);			
+				LOG.debug(pst);
+				
+				try( ResultSet rs = pst.executeQuery() ){				
+					if (rs.next()) {	
+						// mapper de RS al POJO
+						resul.setIdUsuario( idUsuario );
+						resul.setProductosTotal(rs.getInt("total"));
+						resul.setProductosAprobados(rs.getInt("aprobado"));
+						resul.setProductosPendientes(rs.getInt("pendiente"));
+					}
+				}	
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}		
+		return resul;
+	}
+	
+	
 
 	private Producto mapper(ResultSet rs) throws SQLException {
 
@@ -310,5 +341,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		return p;
 	}
+
+	
 
 }

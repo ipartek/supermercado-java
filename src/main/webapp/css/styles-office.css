@@ -10265,7 +10265,10 @@ body {
 **********************************************************************/
 
 .big-number {
-	font-size: 3rem;
+	font-size: 4.5rem;
+	position: absolute;
+	bottom: 1.5rem;
+	right: 0.5rem;
 }
 
 table img {
