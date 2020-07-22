@@ -20,6 +20,27 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * 
 	 */
 	void validar( int id );
+	
+	
+	/**
+	 * Eliminar un registro, pero comprobamos que pertenezca a un usuario
+	 * @param idProducto
+	 * @param idUsuario
+	 * @return Producto eliminado
+	 * @throws SeguridadException Si no puede eliminar el producto porque no pertenece al usuario
+	 */
+	Producto delete(int idProducto, int idUsuario) throws SeguridadException;
+	
+	
+	/**
+	 *
+	 * @param idProducto
+	 * @param idUsuario
+	 * @return
+	 * @throws SeguridadException
+	 */
+	Producto getById(int idProducto, int idUsuario) throws SeguridadException;
+	
 
 	/**
 	 * 

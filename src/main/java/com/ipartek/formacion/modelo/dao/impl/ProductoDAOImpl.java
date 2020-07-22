@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.modelo.ConnectionManager;
 import com.ipartek.formacion.modelo.dao.ProductoDAO;
+import com.ipartek.formacion.modelo.dao.SeguridadException;
 import com.ipartek.formacion.modelo.pojo.Categoria;
 import com.ipartek.formacion.modelo.pojo.Producto;
 import com.ipartek.formacion.modelo.pojo.ResumenUsuario;
@@ -73,9 +74,10 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 	// excuteUpdate => int numero de filas afectadas
 	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , ?,  ? ) ; ";
-	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? WHERE id = ? ; ";
+	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? WHERE id = ?; ";
 
 	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
+	private final String SQL_DELETE_BY_USER = " DELETE FROM producto WHERE id = ? AND id_usuario = ? ; ";
 
 	@Override
 	public void validar(int id) {
@@ -205,6 +207,34 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		return registro;
 	}
+	
+	
+	@Override
+	public Producto delete(int idProducto, int idUsuario) throws SeguridadException {
+		
+		
+		int affectedRows = 0;
+		
+		if ( affectedRows == 1 ) {
+			//Hemos eliminado con exito el registro
+		}else {
+			throw new SeguridadException();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public Producto getById(int idProducto, int idUsuario) throws SeguridadException {
+		
+		ResultSet rs = null;
+		
+		// preguntar si rs.next()
+		
+		
+		return null;
+	}
+	
 
 	@Override
 	public Producto delete(int id) throws Exception {
@@ -268,7 +298,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		return pojo;
 	}
 
-	@Override
+	@Override	
 	public Producto update(Producto pojo) throws Exception {
 
 		try (Connection conexion = ConnectionManager.getConnection();
@@ -276,6 +306,14 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		) {
 
+			//TODO antes de modificar comprobar el ROL del usuario
+			// si es ADMIN hacer la update que tenemos abajo
+			// si es USER comprobar que le pertenezca ??
+			
+			
+			// throw new SeguridadException( SeguridadException.MENSAJE_1 );
+			// throw new SeguridadException();
+			
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getImagen());
 			pst.setFloat(3, pojo.getPrecio());
@@ -341,6 +379,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		return p;
 	}
+
+	
 
 	
 
