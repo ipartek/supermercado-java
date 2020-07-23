@@ -71,6 +71,10 @@ public class ProductoDAOImpl implements ProductoDAO {
 	private final String SQL_GET_BY_ID = " SELECT " + "	 p.id     'producto_id', " + "	 p.nombre 'producto_nombre', "
 			+ "	 precio, " + "	 imagen, " + "	 c.id     'categoria_id', " + "	 c.nombre 'categoria_nombre'	"
 			+ " FROM producto p , categoria c " + " WHERE p.id_categoria  = c.id AND p.id = ? ; ";
+	
+	private final String SQL_GET_BY_ID_AND_USER = " SELECT " + "	 p.id     'producto_id', " + "	 p.nombre 'producto_nombre', "
+			+ "	 precio, " + "	 imagen, " + "	 c.id     'categoria_id', " + "	 c.nombre 'categoria_nombre'	"
+			+ " FROM producto p , categoria c " + " WHERE p.id_categoria  = c.id AND p.id = ? AND p.id_usuario = ? ; ";
 
 	// excuteUpdate => int numero de filas afectadas
 	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , ?,  ? ) ; ";
@@ -209,30 +213,30 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 	
 	
-	@Override
-	public Producto delete(int idProducto, int idUsuario) throws SeguridadException {
-		
-		
-		int affectedRows = 0;
-		
-		if ( affectedRows == 1 ) {
-			//Hemos eliminado con exito el registro
-		}else {
-			throw new SeguridadException();
-		}
-		
-		return null;
-	}
+
 
 	@Override
-	public Producto getById(int idProducto, int idUsuario) throws SeguridadException {
+	public Producto getById(int idProducto, int idUsuario) throws Exception, SeguridadException {
 		
-		ResultSet rs = null;
-		
-		// preguntar si rs.next()
-		
-		
-		return null;
+		Producto registro = new Producto();
+
+		try (Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID_AND_USER);) {
+
+			pst.setInt(1, idProducto);
+			pst.setInt(2, idUsuario);
+			LOG.debug(pst);
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+				registro = mapper(rs);
+			} else {
+				throw new SeguridadException();
+			}
+
+		}
+
+		return registro;
 	}
 	
 
@@ -256,6 +260,27 @@ public class ProductoDAOImpl implements ProductoDAO {
 			}
 
 		} // try
+
+		return registro;
+	}
+	
+	@Override
+	public Producto delete(int idProducto, int idUsuario) throws Exception, SeguridadException {
+		
+		// este metodo lanaza una SeguridadException, por eso no hace falta comprobarlo abajo
+		Producto registro = getById(idProducto, idUsuario);
+
+		try (Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE_BY_USER);
+			){
+
+				pst.setInt(1, idProducto);
+				pst.setInt(2, idUsuario);
+				LOG.debug(pst);
+				
+				pst.executeUpdate();			
+
+		} 
 
 		return registro;
 	}

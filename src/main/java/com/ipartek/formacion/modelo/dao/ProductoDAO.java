@@ -1,5 +1,6 @@
 package com.ipartek.formacion.modelo.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.modelo.CrudAble;
@@ -28,8 +29,9 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * @param idUsuario
 	 * @return Producto eliminado
 	 * @throws SeguridadException Si no puede eliminar el producto porque no pertenece al usuario
+	 * @throws Exception 
 	 */
-	Producto delete(int idProducto, int idUsuario) throws SeguridadException;
+	Producto delete(int idProducto, int idUsuario) throws Exception, SeguridadException;
 	
 	
 	/**
@@ -38,8 +40,9 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * @param idUsuario
 	 * @return
 	 * @throws SeguridadException
+	 * @throws Exception 
 	 */
-	Producto getById(int idProducto, int idUsuario) throws SeguridadException;
+	Producto getById(int idProducto, int idUsuario) throws Exception, SeguridadException;
 	
 
 	/**
