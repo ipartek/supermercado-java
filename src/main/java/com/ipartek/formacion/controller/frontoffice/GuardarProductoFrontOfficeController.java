@@ -17,6 +17,7 @@ import javax.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.controller.Alerta;
+import com.ipartek.formacion.modelo.dao.SeguridadException;
 import com.ipartek.formacion.modelo.dao.impl.CategoriaDAOImpl;
 import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
 import com.ipartek.formacion.modelo.pojo.Categoria;
@@ -26,12 +27,12 @@ import com.ipartek.formacion.modelo.pojo.Usuario;
 /**
  * Servlet implementation class InicioController
  */
-@WebServlet("/views/frontoffice/crear-producto")
-public class CrearProductoFrontOfficeController extends HttpServlet {
+@WebServlet("/views/frontoffice/guardar-producto")
+public class GuardarProductoFrontOfficeController extends HttpServlet {
 	
 		
 		private static final long serialVersionUID = 1L;
-		private final static Logger LOG = Logger.getLogger(CrearProductoFrontOfficeController.class);
+		private final static Logger LOG = Logger.getLogger(GuardarProductoFrontOfficeController.class);
 		private final static ProductoDAOImpl daoProducto = ProductoDAOImpl.getInstance();
 		private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		private static Validator validator = factory.getValidator();
@@ -42,11 +43,40 @@ public class CrearProductoFrontOfficeController extends HttpServlet {
 		 */
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-			// Ir al Formulario y enviamos un producto inicializado 
+			
+			String paramId = request.getParameter("id");
 			Producto p = new Producto();
-			request.setAttribute("producto", p);
-			// las categorias estan disponibles a traves del Listenner
-			request.getRequestDispatcher("formulario.jsp").forward(request, response);		
+			HttpSession session = request.getSession();			
+			Usuario usuario = new Usuario();
+			String view = "formulario.jsp";
+			
+			try {
+				
+				usuario = (Usuario)session.getAttribute("usuario_login");
+				int idUsuario = usuario.getId();
+				int idProducto = Integer.parseInt(paramId);
+				
+				// recuperar solo si es diferente de Cero, si id == 0 es un NUEVO producto 
+				if ( idProducto != 0 ) {
+					p = daoProducto.getById(idProducto, idUsuario);
+				}				
+				
+				
+			}catch (SeguridadException e) {
+				view = "/views/frontoffice/inicio";
+				LOG.error("SE estan saltando la seguridad " + usuario);
+				
+			}catch (Exception e) {
+				LOG.error(e);
+				
+			}finally {
+				request.setAttribute("producto", p);
+				request.getRequestDispatcher(view).forward(request, response);
+			}
+				
+				
+				
+						
 			
 		}
 	
@@ -56,7 +86,10 @@ public class CrearProductoFrontOfficeController extends HttpServlet {
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 			Alerta alerta = new Alerta();
-			Producto producto = new Producto();
+			Producto producto = new Producto();					
+			Usuario usuario = new Usuario();
+			HttpSession session = request.getSession();	
+			String view = "formulario.jsp";
 			
 			// recoger parametros del formulario
 			String idParametro = request.getParameter("id");
@@ -67,12 +100,23 @@ public class CrearProductoFrontOfficeController extends HttpServlet {
 			
 			try {
 			
-				int id = Integer.parseInt(idParametro);
+				int idProducto = Integer.parseInt(idParametro);
+				usuario = (Usuario)session.getAttribute("usuario_login");
+				int idUsuario = usuario.getId();
+				
+				/* **************************************************************** 
+				 * Comprobar Seguridad, siempre que no sea un nuevo Producto 
+				 * ***************************************************************/
+				if ( idProducto != 0 ) {
+					producto = daoProducto.getById(idProducto, idUsuario); // lanza SeguridadException si no le pertenece el producto
+				}
+				
+				
 				int idCategoria = Integer.parseInt(categoriaId);
 				float precioFloat = Float.parseFloat(precio);
 				
 				// crear objeto con esos parametros
-				producto.setId(id);
+				producto.setId(idProducto);
 				producto.setNombre(nombre);
 				producto.setImagen(imagen);
 				producto.setPrecio(precioFloat);
@@ -81,17 +125,21 @@ public class CrearProductoFrontOfficeController extends HttpServlet {
 				c.setId(idCategoria);
 				producto.setCategoria(c);		
 				
-				// recuperar usuario de session y setearlo en el producto
-				HttpSession session = request.getSession();
-				Usuario usuario = (Usuario)session.getAttribute("usuario_login");
+				// recuperar usuario de session y setearlo en el producto				
 				producto.setUsuario(usuario);
 				
 				
 				// validar pojo				
 				Set<ConstraintViolation<Producto>> violations = validator.validate(producto);
 				
-				if ( violations.isEmpty() ) {				
-					daoProducto.insert(producto);
+				if ( violations.isEmpty() ) {	
+					
+					/* GUARDAR PRODUCTO EN BBDD */
+					if ( idProducto == 0 ) {
+						daoProducto.insert(producto);
+					}else {
+						daoProducto.update(producto);
+					}
 					alerta = new Alerta( "success", "Una vez creado el producto, deberas esperar unas horas hasta que se validen sus datos.");
 					
 				}else {
@@ -102,6 +150,9 @@ public class CrearProductoFrontOfficeController extends HttpServlet {
 					alerta = new Alerta( "warning", errores );
 				}
 				
+			}catch (SeguridadException e) {
+				view = "/views/frontoffice/inicio";
+				LOG.error(" Intentan saltarse la seguridad " + usuario );	
 		
 			}catch (Exception e) {				
 				LOG.error(e);
@@ -111,7 +162,7 @@ public class CrearProductoFrontOfficeController extends HttpServlet {
 			
 				request.setAttribute("alerta", alerta);
 				request.setAttribute("producto", producto);
-				request.getRequestDispatcher("formulario.jsp").forward(request, response);
+				request.getRequestDispatcher(view).forward(request, response);
 			}	
 		}
 	

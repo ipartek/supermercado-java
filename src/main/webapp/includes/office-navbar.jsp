@@ -31,7 +31,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa fa-check-circle-o"></i></div>
                                 Pendientes Validar
                             </a>
-                            <a class="nav-link" href="views/frontoffice/crear-producto">
+                            <a class="nav-link" href="views/frontoffice/guardar-producto?id=0">
                                 <div class="sb-nav-link-icon"><i class="fa fa-plus-circle"></i></div>
                                 Crear Producto
                             </a>

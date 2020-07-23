@@ -7,7 +7,7 @@
               
         <h1 class="mt-2">Dar de Alta Nuevo Producto</h1>
                      
-        <form action="views/frontoffice/crear-producto" method="post">
+        <form action="views/frontoffice/guardar-producto" method="post">
         
         		<div class="form-group">
 					<label for="id">id:</label>
