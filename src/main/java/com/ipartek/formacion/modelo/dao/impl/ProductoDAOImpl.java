@@ -14,6 +14,7 @@ import com.ipartek.formacion.modelo.dao.SeguridadException;
 import com.ipartek.formacion.modelo.pojo.Categoria;
 import com.ipartek.formacion.modelo.pojo.Producto;
 import com.ipartek.formacion.modelo.pojo.ResumenUsuario;
+import com.ipartek.formacion.modelo.pojo.Usuario;
 
 public class ProductoDAOImpl implements ProductoDAO {
 
@@ -33,49 +34,34 @@ public class ProductoDAOImpl implements ProductoDAO {
 		return INSTANCE;
 	}
 
+	private final String SELECT_CAMPOS = "SELECT u.id 'usuario_id', u.nombre 'usuario_nombre', p.id  'producto_id', p.nombre 'producto_nombre', precio, imagen, c.id 'categoria_id', c.nombre 'categoria_nombre' ";
+	private final String FROM_INNER_JOIN = " FROM producto p , categoria c, usuario u WHERE p.id_categoria  = c.id AND p.id_usuario = u.id  ";
+	
 	// excuteQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT " + "	 p.id     'producto_id', " + "	 p.nombre 'producto_nombre', "
-			+ "	 precio, " + "	 imagen, " + "	 c.id     'categoria_id', " + "	 c.nombre 'categoria_nombre'	"
-			+ " FROM producto p , categoria c " + " WHERE p.id_categoria  = c.id AND fecha_validado IS NOT NULL "
-			+ " ORDER BY p.id DESC LIMIT 500; ";
+	private final String SQL_GET_ALL = SELECT_CAMPOS + FROM_INNER_JOIN + " AND fecha_validado IS NOT NULL " + " ORDER BY p.id DESC LIMIT 500; ";
 
-	private final String SQL_GET_LAST = " SELECT " + "	 p.id     'producto_id', " + "	 p.nombre 'producto_nombre', "
-			+ "	 precio, " + "	 imagen, " + "	 c.id     'categoria_id', " + "	 c.nombre 'categoria_nombre'	"
-			+ " FROM producto p , categoria c " + " WHERE p.id_categoria  = c.id AND fecha_validado IS NOT NULL "
-			+ " ORDER BY p.id DESC LIMIT ? ; ";
+	private final String SQL_GET_LAST = SELECT_CAMPOS + FROM_INNER_JOIN + " AND fecha_validado IS NOT NULL " + " ORDER BY p.id DESC LIMIT ? ; ";
 
-	private final String SQL_GET_BY_CATEGORIA = " SELECT " + "	 p.id     'producto_id', "
-			+ "	 p.nombre 'producto_nombre', " + "	 precio, " + "	 imagen, " + "	 c.id     'categoria_id', "
-			+ "	 c.nombre 'categoria_nombre'	" + " FROM producto p , categoria c "
-			+ " WHERE p.id_categoria  = c.id AND fecha_validado IS NOT NULL " + " AND c.id = ? " + // filtramos por el
+	private final String SQL_GET_BY_CATEGORIA = SELECT_CAMPOS + FROM_INNER_JOIN + "AND fecha_validado IS NOT NULL " + " AND c.id = ? " + // filtramos por el
 																									// id de la
 																									// categoria
 			" ORDER BY p.id DESC LIMIT ? ; ";
+
 	
-	
+
+	private final String SQL_GET_BY_USUARIO_PRODUCTO_VALIDADO = SELECT_CAMPOS + FROM_INNER_JOIN + " AND fecha_validado IS NOT NULL AND p.id_usuario = ? \n"
+			+ "ORDER BY p.id DESC LIMIT 500; ";
+
+	private final String SQL_GET_BY_USUARIO_PRODUCTO_SIN_VALIDAR = SELECT_CAMPOS + FROM_INNER_JOIN + " AND fecha_validado IS NULL AND p.id_usuario = ? \n"
+			+ "ORDER BY p.id DESC LIMIT 500; ";
+
+	private final String SQL_GET_BY_ID = SELECT_CAMPOS + FROM_INNER_JOIN + " AND p.id = ? ; ";
+
+	private final String SQL_GET_BY_ID_AND_USER = SELECT_CAMPOS + FROM_INNER_JOIN + " p.id = ? AND p.id_usuario = ? ; ";
+
+	//view
 	private final String SQL_VIEW_RESUMEN_USUARIO = " SELECT id_usuario, total, aprobado, pendiente FROM v_usuario_productos WHERE id_usuario = ?; ";
 	
-	private final String SQL_GET_BY_USUARIO_PRODUCTO_VALIDADO =
-	                                            "SELECT 	 p.id     'producto_id', 	 p.nombre 'producto_nombre', 	 precio, 	 imagen, 	 c.id     'categoria_id', 	 c.nombre 'categoria_nombre'	 \n" + 
-												"FROM producto p , categoria c  \n" + 
-												"WHERE p.id_categoria  = c.id AND fecha_validado IS NOT NULL AND p.id_usuario = ? \n" + 
-												"ORDER BY p.id DESC LIMIT 500; ";
-	
-	private final String SQL_GET_BY_USUARIO_PRODUCTO_SIN_VALIDAR =
-									            "SELECT 	 p.id     'producto_id', 	 p.nombre 'producto_nombre', 	 precio, 	 imagen, 	 c.id     'categoria_id', 	 c.nombre 'categoria_nombre'	 \n" + 
-												"FROM producto p , categoria c  \n" + 
-												"WHERE p.id_categoria  = c.id AND fecha_validado IS NULL AND p.id_usuario = ? \n" + 
-												"ORDER BY p.id DESC LIMIT 500; ";
-	
-
-	private final String SQL_GET_BY_ID = " SELECT " + "	 p.id     'producto_id', " + "	 p.nombre 'producto_nombre', "
-			+ "	 precio, " + "	 imagen, " + "	 c.id     'categoria_id', " + "	 c.nombre 'categoria_nombre'	"
-			+ " FROM producto p , categoria c " + " WHERE p.id_categoria  = c.id AND p.id = ? ; ";
-	
-	private final String SQL_GET_BY_ID_AND_USER = " SELECT " + "	 p.id     'producto_id', " + "	 p.nombre 'producto_nombre', "
-			+ "	 precio, " + "	 imagen, " + "	 c.id     'categoria_id', " + "	 c.nombre 'categoria_nombre'	"
-			+ " FROM producto p , categoria c " + " WHERE p.id_categoria  = c.id AND p.id = ? AND p.id_usuario = ? ; ";
-
 	// excuteUpdate => int numero de filas afectadas
 	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , ?,  ? ) ; ";
 	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? WHERE id = ?; ";
@@ -122,24 +108,23 @@ public class ProductoDAOImpl implements ProductoDAO {
 	public ArrayList<Producto> getAllByUser(int idUsuario, boolean isValidado) {
 		ArrayList<Producto> registros = new ArrayList<Producto>();
 
-		String sql = ( isValidado ) ? SQL_GET_BY_USUARIO_PRODUCTO_VALIDADO :  SQL_GET_BY_USUARIO_PRODUCTO_SIN_VALIDAR ;
-		
+		String sql = (isValidado) ? SQL_GET_BY_USUARIO_PRODUCTO_VALIDADO : SQL_GET_BY_USUARIO_PRODUCTO_SIN_VALIDAR;
+
 		try (Connection conexion = ConnectionManager.getConnection();
-				PreparedStatement pst = conexion.prepareStatement(sql);
-			) {
-			
-			// TODO mirar como hacerlo con una SQL,   "IS NOT NULL" o "IS NULL"
+				PreparedStatement pst = conexion.prepareStatement(sql);) {
+
+			// TODO mirar como hacerlo con una SQL, "IS NOT NULL" o "IS NULL"
 			// pst.setBoolean(1, isValidado); // me sustitulle con un 1 o 0
 			pst.setNull(1, java.sql.Types.NULL);
 			pst.setInt(1, idUsuario);
-			
+
 			LOG.debug(pst);
-			
-			try( ResultSet rs = pst.executeQuery() ){				
-				while (rs.next()) {	
-					registros.add(mapper(rs));	
+
+			try (ResultSet rs = pst.executeQuery()) {
+				while (rs.next()) {
+					registros.add(mapper(rs));
 				}
-			}	
+			}
 
 		} catch (Exception e) {
 			LOG.error(e);
@@ -211,13 +196,10 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		return registro;
 	}
-	
-	
-
 
 	@Override
 	public Producto getById(int idProducto, int idUsuario) throws Exception, SeguridadException {
-		
+
 		Producto registro = new Producto();
 
 		try (Connection conexion = ConnectionManager.getConnection();
@@ -238,7 +220,6 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		return registro;
 	}
-	
 
 	@Override
 	public Producto delete(int id) throws Exception {
@@ -263,24 +244,24 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		return registro;
 	}
-	
+
 	@Override
 	public Producto delete(int idProducto, int idUsuario) throws Exception, SeguridadException {
-		
-		// este metodo lanaza una SeguridadException, por eso no hace falta comprobarlo abajo
+
+		// este metodo lanaza una SeguridadException, por eso no hace falta comprobarlo
+		// abajo
 		Producto registro = getById(idProducto, idUsuario);
 
 		try (Connection conexion = ConnectionManager.getConnection();
-				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE_BY_USER);
-			){
+				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE_BY_USER);) {
 
-				pst.setInt(1, idProducto);
-				pst.setInt(2, idUsuario);
-				LOG.debug(pst);
-				
-				pst.executeUpdate();			
+			pst.setInt(1, idProducto);
+			pst.setInt(2, idUsuario);
+			LOG.debug(pst);
 
-		} 
+			pst.executeUpdate();
+
+		}
 
 		return registro;
 	}
@@ -296,7 +277,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getImagen());
 			pst.setFloat(3, pojo.getPrecio());
-			pst.setInt(4, pojo.getUsuario().getId() );
+			pst.setInt(4, pojo.getUsuario().getId());
 			pst.setInt(5, pojo.getCategoria().getId());
 			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
@@ -323,7 +304,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		return pojo;
 	}
 
-	@Override	
+	@Override
 	public Producto update(Producto pojo) throws Exception {
 
 		try (Connection conexion = ConnectionManager.getConnection();
@@ -331,14 +312,13 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		) {
 
-			//TODO antes de modificar comprobar el ROL del usuario
+			// TODO antes de modificar comprobar el ROL del usuario
 			// si es ADMIN hacer la update que tenemos abajo
 			// si es USER comprobar que le pertenezca ??
-			
-			
+
 			// throw new SeguridadException( SeguridadException.MENSAJE_1 );
 			// throw new SeguridadException();
-			
+
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getImagen());
 			pst.setFloat(3, pojo.getPrecio());
@@ -359,39 +339,37 @@ public class ProductoDAOImpl implements ProductoDAO {
 	public ArrayList<Producto> getAllRangoPrecio(int precioMinimo, int precioMaximo) throws Exception {
 		throw new Exception("Sin implemntar");
 	}
-	
+
 	@Override
 	public ResumenUsuario getResumenByUsuario(int idUsuario) {
 		ResumenUsuario resul = new ResumenUsuario();
 		try (Connection conexion = ConnectionManager.getConnection();
-			 PreparedStatement pst = conexion.prepareStatement(SQL_VIEW_RESUMEN_USUARIO);
-			){
-			
-				pst.setInt(1, idUsuario);			
-				LOG.debug(pst);
-				
-				try( ResultSet rs = pst.executeQuery() ){				
-					if (rs.next()) {	
-						// mapper de RS al POJO
-						resul.setIdUsuario( idUsuario );
-						resul.setProductosTotal(rs.getInt("total"));
-						resul.setProductosAprobados(rs.getInt("aprobado"));
-						resul.setProductosPendientes(rs.getInt("pendiente"));
-					}
-				}	
+				PreparedStatement pst = conexion.prepareStatement(SQL_VIEW_RESUMEN_USUARIO);) {
+
+			pst.setInt(1, idUsuario);
+			LOG.debug(pst);
+
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					// mapper de RS al POJO
+					resul.setIdUsuario(idUsuario);
+					resul.setProductosTotal(rs.getInt("total"));
+					resul.setProductosAprobados(rs.getInt("aprobado"));
+					resul.setProductosPendientes(rs.getInt("pendiente"));
+				}
+			}
 
 		} catch (Exception e) {
 			LOG.error(e);
-		}		
+		}
 		return resul;
 	}
-	
-	
 
 	private Producto mapper(ResultSet rs) throws SQLException {
 
 		Producto p = new Producto();
 		Categoria c = new Categoria();
+		Usuario u = new Usuario();
 
 		p.setId(rs.getInt("producto_id"));
 		p.setNombre(rs.getString("producto_nombre"));
@@ -401,12 +379,12 @@ public class ProductoDAOImpl implements ProductoDAO {
 		c.setId(rs.getInt("categoria_id"));
 		c.setNombre(rs.getString("categoria_nombre"));
 		p.setCategoria(c);
-
+		
+		u.setId(rs.getInt("usuario_id"));
+		u.setNombre(rs.getString("usuario_nombre"));
+		p.setUsuario(u);
+		
 		return p;
 	}
-
-	
-
-	
 
 }

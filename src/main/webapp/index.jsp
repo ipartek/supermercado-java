@@ -27,8 +27,9 @@
 							    <h5 class="card-title">${p.nombre}</h5>
 							    <p><span class="badge badge-secondary">${p.categoria.nombre}</span></p>
 							    <p class="precio">${p.precio} €</p>					    					    
+							    <p class="precio">${p.usuario.nombre}</p>
 							  </div>
-							</div>
+							</div>					
 							
 						</c:forEach>
 						
