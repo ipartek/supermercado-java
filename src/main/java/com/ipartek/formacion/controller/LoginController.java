@@ -1,6 +1,7 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,13 +15,16 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.modelo.dao.impl.UsuarioDAOImpl;
 import com.ipartek.formacion.modelo.pojo.Rol;
 import com.ipartek.formacion.modelo.pojo.Usuario;
+import com.ipartek.formacion.modelo.pojo.UsuarioLogeado;
 
 /**
  * Servlet implementation class LoginController
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	private static HashMap<Integer, Usuario> usuariosLogeados = new HashMap<Integer, Usuario>();  
        
     
 
@@ -59,6 +63,19 @@ public class LoginController extends HttpServlet {
 		
 		if ( usuario != null ){
 					
+			// gaurdar en contexto de aplcacion los usuario logeados
+			// TODO meterlo en un Listnner
+			// TODO usar UsuarioLogeado y recuperar info de la request, mirar los examples de Tomcat			
+			ServletContext ctx = request.getServletContext();
+			usuariosLogeados = (HashMap<Integer, Usuario>) ctx.getAttribute("usuariosLogeados");	
+			if ( usuariosLogeados == null ) {
+				usuariosLogeados = new HashMap<Integer, Usuario>();
+			}
+			usuariosLogeados.put( usuario.getId(), usuario);			
+			ctx.setAttribute("usuariosLogeados", usuariosLogeados);
+			
+			
+			
 			session.setMaxInactiveInterval( 60 * 5 ); // 5 minutos sin peticiones, se invalida la session del usuario			
 			session.setAttribute("usuario_login", usuario );			
 			
@@ -70,9 +87,11 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("alerta", new Alerta("success", "Ongi Etorri, ya estas Logeado"));
 			
 			if ( usuario.getRol().getId() == Rol.ADMINISTRADOR ) {		
-				request.getRequestDispatcher("views/backoffice/inicio").forward(request, response);
-			}else {
-				request.getRequestDispatcher("views/frontoffice/inicio").forward(request, response);
+				// request.getRequestDispatcher("views/backoffice/inicio").forward(request, response);
+				response.sendRedirect("views/backoffice/inicio");
+			}else {				
+				//request.getRequestDispatcher("views/frontoffice/inicio").forward(request, response);
+				response.sendRedirect("views/frontoffice/inicio");
 			}
 			
 			
