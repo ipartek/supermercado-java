@@ -18,7 +18,6 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.controller.Alerta;
 import com.ipartek.formacion.modelo.dao.SeguridadException;
-import com.ipartek.formacion.modelo.dao.impl.CategoriaDAOImpl;
 import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
 import com.ipartek.formacion.modelo.pojo.Categoria;
 import com.ipartek.formacion.modelo.pojo.Producto;
@@ -58,7 +57,7 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 				
 				// recuperar solo si es diferente de Cero, si id == 0 es un NUEVO producto 
 				if ( idProducto != 0 ) {
-					p = daoProducto.getById(idProducto, idUsuario);
+					p = daoProducto.checkSeguridad(idProducto, idUsuario);
 				}				
 				
 				
@@ -108,7 +107,7 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 				 * Comprobar Seguridad, siempre que no sea un nuevo Producto 
 				 * ***************************************************************/
 				if ( idProducto != 0 ) {
-					producto = daoProducto.getById(idProducto, idUsuario); // lanza SeguridadException si no le pertenece el producto
+					producto = daoProducto.checkSeguridad(idProducto, idUsuario); // lanza SeguridadException si no le pertenece el producto
 				}
 				
 				
@@ -138,7 +137,7 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 					if ( idProducto == 0 ) {
 						daoProducto.insert(producto);
 					}else {
-						daoProducto.update(producto);
+						daoProducto.updateByUser(producto);
 					}
 					alerta = new Alerta( "success", "Una vez creado el producto, deberas esperar unas horas hasta que se validen sus datos.");
 					

@@ -57,7 +57,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 	private final String SQL_GET_BY_ID = SELECT_CAMPOS + FROM_INNER_JOIN + " AND p.id = ? ; ";
 
-	private final String SQL_GET_BY_ID_AND_USER = SELECT_CAMPOS + FROM_INNER_JOIN + " p.id = ? AND p.id_usuario = ? ; ";
+	private final String SQL_GET_BY_ID_AND_USER = SELECT_CAMPOS + FROM_INNER_JOIN + " AND p.id = ? AND p.id_usuario = ? ; ";
 
 	//view
 	private final String SQL_VIEW_RESUMEN_USUARIO = " SELECT id_usuario, total, aprobado, pendiente FROM v_usuario_productos WHERE id_usuario = ?; ";
@@ -65,6 +65,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 	// excuteUpdate => int numero de filas afectadas
 	private final String SQL_INSERT = " INSERT INTO producto (nombre, imagen, precio , id_usuario, id_categoria ) VALUES ( ? , ?, ? , ?,  ? ) ; ";
 	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? WHERE id = ?; ";
+	private final String SQL_UPDATE_BY_USER = " UPDATE producto SET nombre = ?, imagen = ?, precio = ?, id_categoria = ? , fecha_validado = NULL WHERE id = ?; ";
 
 	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
 	private final String SQL_DELETE_BY_USER = " DELETE FROM producto WHERE id = ? AND id_usuario = ? ; ";
@@ -198,7 +199,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 
 	@Override
-	public Producto getById(int idProducto, int idUsuario) throws Exception, SeguridadException {
+	public Producto checkSeguridad(int idProducto, int idUsuario) throws Exception, SeguridadException {
 
 		Producto registro = new Producto();
 
@@ -248,9 +249,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 	@Override
 	public Producto delete(int idProducto, int idUsuario) throws Exception, SeguridadException {
 
-		// este metodo lanaza una SeguridadException, por eso no hace falta comprobarlo
-		// abajo
-		Producto registro = getById(idProducto, idUsuario);
+		
+		Producto registro = checkSeguridad(idProducto, idUsuario);
 
 		try (Connection conexion = ConnectionManager.getConnection();
 				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE_BY_USER);) {
@@ -334,6 +334,38 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		return pojo;
 	}
+	
+	
+	@Override
+	public Producto updateByUser(Producto pojo) throws Exception, SeguridadException {
+		
+		try (Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_UPDATE_BY_USER);
+
+		) {
+			int idProducto = pojo.getId();
+			int idUsuario = pojo.getUsuario().getId();
+			
+			checkSeguridad(idProducto, idUsuario); 
+			
+			pst.setString(1, pojo.getNombre());
+			pst.setString(2, pojo.getImagen());
+			pst.setFloat(3, pojo.getPrecio());
+			pst.setInt(4, pojo.getCategoria().getId());
+			pst.setInt(5, pojo.getId());
+			LOG.debug(pst);
+			
+			int affectedRows = pst.executeUpdate();
+			if (affectedRows != 1) {
+				throw new Exception("No se puede podificar el registro con id=" + pojo.getId());
+			}
+
+		}
+
+		return pojo;
+	}
+	
+	
 
 	@Override
 	public ArrayList<Producto> getAllRangoPrecio(int precioMinimo, int precioMaximo) throws Exception {
@@ -386,5 +418,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		
 		return p;
 	}
+
+	
 
 }

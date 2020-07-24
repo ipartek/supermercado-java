@@ -1,6 +1,5 @@
 package com.ipartek.formacion.modelo.dao;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.modelo.CrudAble;
@@ -35,14 +34,14 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	
 	
 	/**
-	 *
+	 * Comprueba que el Producto pertenezca al Usuario
 	 * @param idProducto
 	 * @param idUsuario
-	 * @return
-	 * @throws SeguridadException
-	 * @throws Exception 
+	 * @return Producto pertenecinte al idUsuario
+	 * @throws Exception
+	 * @throws SeguridadException si no pertenece el producto al Usuario
 	 */
-	Producto getById(int idProducto, int idUsuario) throws Exception, SeguridadException;
+	Producto checkSeguridad(int idProducto, int idUsuario) throws Exception, SeguridadException;
 	
 
 	/**
@@ -92,5 +91,17 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * @return ResumenUsuario
 	 */
 	ResumenUsuario getResumenByUsuario( int idUsuario);
+	
+
+	/**
+	 * Modifica un producto un Usuario normal, el cual no es Administrador.
+	 * El producto vuelve a estar pendiente de Validación
+	 * @param p Producto
+	 * @return Producto validao
+	 * @throws Exception
+	 * @throws SeguridadException
+	 */
+	Producto updateByUser( Producto p) throws Exception, SeguridadException;
+	
 	
 }
