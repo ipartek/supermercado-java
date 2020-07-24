@@ -1,5 +1,5 @@
  <head>
-  <meta http-equiv="refresh" content="3">
+  <meta http-equiv="refresh" content="60">
 </head> 
 
 <h1>BACKOFFICE</h1>

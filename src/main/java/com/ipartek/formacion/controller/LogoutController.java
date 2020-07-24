@@ -59,16 +59,9 @@ public class LogoutController extends HttpServlet {
 		
 		// ATENCIION hacer lo ultimo, no antes de trabajar con las cookies
 		HttpSession session = request.getSession();
-		session.invalidate();
+		session.invalidate(); // @see ListenerUsuarioLogeados => atributeRemoved
 		session = null;
-		
-		
-		//usuarios conectados recuperar y actualizar
-		ServletContext sc = request.getServletContext();
-		int usuariosConectados = (int)sc.getAttribute("usuarios_conectados");
-		sc.setAttribute("usuarios_conectados", --usuariosConectados);
-		
-		
+	
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 		

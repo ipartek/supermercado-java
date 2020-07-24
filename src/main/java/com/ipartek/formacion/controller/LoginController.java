@@ -24,7 +24,7 @@ import com.ipartek.formacion.modelo.pojo.UsuarioLogeado;
 public class LoginController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static HashMap<Integer, Usuario> usuariosLogeados = new HashMap<Integer, Usuario>();  
+	
        
     
 
@@ -62,28 +62,10 @@ public class LoginController extends HttpServlet {
 		Usuario usuario = dao.existe(nombre, pass);
 		
 		if ( usuario != null ){
-					
-			// gaurdar en contexto de aplcacion los usuario logeados
-			// TODO meterlo en un Listnner
-			// TODO usar UsuarioLogeado y recuperar info de la request, mirar los examples de Tomcat			
-			ServletContext ctx = request.getServletContext();
-			usuariosLogeados = (HashMap<Integer, Usuario>) ctx.getAttribute("usuariosLogeados");	
-			if ( usuariosLogeados == null ) {
-				usuariosLogeados = new HashMap<Integer, Usuario>();
-			}
-			usuariosLogeados.put( usuario.getId(), usuario);			
-			ctx.setAttribute("usuariosLogeados", usuariosLogeados);
-			
-			
 			
 			session.setMaxInactiveInterval( 60 * 5 ); // 5 minutos sin peticiones, se invalida la session del usuario			
-			session.setAttribute("usuario_login", usuario );			
+			session.setAttribute("usuario_login", usuario );	// @see ListenerUsuarioLogeados => attributeAdded		
 			
-			//usuarios conectados recuperar y actualizar, inicializado en InicioAppListenner
-			ServletContext sc = request.getServletContext();
-			int usuariosConectados = (int) sc.getAttribute("usuarios_conectados");
-			sc.setAttribute("usuarios_conectados", ++usuariosConectados);
-						
 			request.setAttribute("alerta", new Alerta("success", "Ongi Etorri, ya estas Logeado"));
 			
 			if ( usuario.getRol().getId() == Rol.ADMINISTRADOR ) {		
