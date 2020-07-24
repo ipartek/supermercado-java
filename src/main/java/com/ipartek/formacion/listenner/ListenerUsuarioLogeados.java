@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
 import com.ipartek.formacion.modelo.pojo.Usuario;
 
 /**
@@ -23,14 +22,8 @@ public class ListenerUsuarioLogeados implements HttpSessionListener, HttpSession
 
 	private static HashMap<String, Usuario> hm = null;  
 	private final static Logger LOG = Logger.getLogger(ListenerUsuarioLogeados.class);
-    /**
-     * Default constructor. 
-     */
-    public ListenerUsuarioLogeados() {
-    	LOG.trace("constructor");
-    	hm = new HashMap<String, Usuario>();  
-    }
-
+    
+	
 	/**
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
@@ -48,7 +41,8 @@ public class ListenerUsuarioLogeados implements HttpSessionListener, HttpSession
 	/**
      * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
      */
-    public void attributeAdded(HttpSessionBindingEvent event)  { 
+    @SuppressWarnings("unchecked")
+	public void attributeAdded(HttpSessionBindingEvent event)  { 
     	String nombreAtributo = event.getName();    	
     	ServletContext ctx = event.getSession().getServletContext();
     	String idSession = event.getSession().getId();
@@ -75,6 +69,7 @@ public class ListenerUsuarioLogeados implements HttpSessionListener, HttpSession
 	/**
      * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
      */
+    @SuppressWarnings("unchecked")
     public void attributeRemoved(HttpSessionBindingEvent event)  { 
     	String nombreAtributo = event.getName();
     	LOG.trace("eliminado atributo en sesion");

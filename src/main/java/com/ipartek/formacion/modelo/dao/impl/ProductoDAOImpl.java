@@ -72,8 +72,8 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 	@Override
 	public void validar(int id) {
-		// TODO Auto-generated method stub
-		// UPDATE producto SET fecha_validado = NOW() WHERE id = 15;
+		
+		//TODO UPDATE producto SET fecha_validado = NOW() WHERE id = 15;
 	}
 
 	public ArrayList<Producto> getAllByNombre(String nombre) {
@@ -113,9 +113,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 
 		try (Connection conexion = ConnectionManager.getConnection();
 				PreparedStatement pst = conexion.prepareStatement(sql);) {
-
-			// TODO mirar como hacerlo con una SQL, "IS NOT NULL" o "IS NULL"
-			// pst.setBoolean(1, isValidado); // me sustitulle con un 1 o 0
+		
 			pst.setNull(1, java.sql.Types.NULL);
 			pst.setInt(1, idUsuario);
 

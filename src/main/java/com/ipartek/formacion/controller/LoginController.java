@@ -1,9 +1,7 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.modelo.dao.impl.UsuarioDAOImpl;
 import com.ipartek.formacion.modelo.pojo.Rol;
 import com.ipartek.formacion.modelo.pojo.Usuario;
-import com.ipartek.formacion.modelo.pojo.UsuarioLogeado;
 
 /**
  * Servlet implementation class LoginController
