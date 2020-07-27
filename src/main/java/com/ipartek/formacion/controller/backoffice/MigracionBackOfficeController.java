@@ -47,19 +47,35 @@ public class MigracionBackOfficeController extends HttpServlet {
 		
 		/******** Logica de programacion **********/
 		
-		try ( Connection conexion = ConnectionManager.getConnection() ){
+		try ( Connection conexion = ConnectionManager.getConnection();
+			  PreparedStatement pst = conexion.prepareStatement(SQL)
+		  ){
+			
+			// Cuando establecemos una conexion en Java, siempre es autocomitable
+			// Con esta linea le decimos que no lo sea y deberemos hacer un COMMIT para guardar los cambios temporales
+			conexion.setAutoCommit(false);
 			
 			LOG.trace("Leer Fichero texto");
 			
 			LOG.trace("Recorrer linea a linea");
-			for (int i = 0; i < 5 ; i++) {
-				numLineas++;
+			
+			// @see: https://blog.openalfa.com/como-leer-un-fichero-de-texto-linea-a-linea-en-java
+			// usar While en vez de for
+			
+			for (int i = 0; i < 5 ; i++) {				
 				try {
-					LOG.trace("Comprobar datos correctos en la linea");
-										
-					PreparedStatement pst = conexion.prepareStatement(SQL);
+					numLineas++;
+					// obviar la 1º linea, que son la cabecera
+					
+					String linea = "Magee;Amet Risus LLC;Mar 21, 2019;(014644) 35372;Quisque@Donec.ca;16480805 5737";
+					String[] campos = linea.split(";");
+					
+					// si la linea no tiene 6 campos es ERRONEA
+					
+					
 					pst.setString(1, "persona" + i );				
 				
+					LOG.debug(pst);
 					pst.executeUpdate();
 					numInsert++;
 					LOG.trace("Insertada Persona");
@@ -69,7 +85,9 @@ public class MigracionBackOfficeController extends HttpServlet {
 					numErrores++;
 				}	
 				
-			}// end for			
+			}// end for
+			
+			conexion.commit();
 			LOG.trace("Al finalizar, realizar un commit para guardar en bbdd");
 			
 		}catch (Exception e) {			
