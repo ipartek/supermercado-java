@@ -3,6 +3,7 @@ package com.ipartek.formacion.controller.backoffice;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,28 +56,20 @@ public class MigracionBackOfficeController extends HttpServlet {
 				numLineas++;
 				try {
 					LOG.trace("Comprobar datos correctos en la linea");
-					
-					
+										
 					PreparedStatement pst = conexion.prepareStatement(SQL);
-					pst.setString(1, "persona" + i );
+					pst.setString(1, "persona" + i );				
 				
+					pst.executeUpdate();
+					numInsert++;
+					LOG.trace("Insertada Persona");
 				
-					int affectedRows = pst.executeUpdate();
-					if ( affectedRows == 1 ) {
-						numInsert++;
-						LOG.trace("Insertada Persona");
-					}else {
-						numErrores++;
-						LOG.trace("No se puede Insertar Persona");
-					}
-				}catch (Exception e) {
-					// capturar posibles Excepciones para poder seguir dentro del FOR
+				// capturar posibles Excepciones para poder seguir dentro del FOR				
+				}catch (Exception e) {					
 					numErrores++;
 				}	
 				
-			}// end for
-
-			
+			}// end for			
 			LOG.trace("Al finalizar, realizar un commit para guardar en bbdd");
 			
 		}catch (Exception e) {			
