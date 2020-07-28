@@ -1,0 +1,6 @@
+nombre;empresa;fecha nacimiento;telefono;email;numero personal
+Magee; correcto 1;Mar 21, 2019;(014644) 35372;Quisque@Donec.ca;16480805 5737
+solo 5 campos;Mar 21, 2019;(014644) 35372;Quisque@Donec.ca;16480805 5737
+Magee; nombre duplicado ;Mar 21, 2019;(014644) 35372;Quisque@Donec.ca;16480805 5737
+Campo intemerdio,Amet Risus LLC;Mar 21, 2019;(014644) 35372;Quisque@Donec.ca;16480805 5737
+Pepe;correcto2;Mar 21, 2019;(014644) 35372;Quisque@Donec.ca;16480805 5737

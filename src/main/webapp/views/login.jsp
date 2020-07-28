@@ -7,7 +7,7 @@
 	<form action="login" method="post" class="form-login" onsubmit="cifrar()">
 	
 	 	<div class="form-group">
-			<input type="text" name="nombre" value="pepe" placeholder="Tu Nombre"  class="form-control">
+			<input type="text" name="nombre" value="admin" placeholder="Tu Nombre"  class="form-control">
 		</div>
 		
 		<div class="form-group">
