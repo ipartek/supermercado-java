@@ -16,5 +16,7 @@
 <p>Titulo: <b>${titulo}</b></p>
 <p>Titulo2: <b>${titulo2}</b></p>
 
+<p>Puedes usar <code>doc.selec(String)</code> para hacer consultas mas complejas <a href="https://jsoup.org/cookbook/extracting-data/selector-syntax">leer documentación</a></p>
+
 
 <%@include file="../../includes/pie.jsp" %>

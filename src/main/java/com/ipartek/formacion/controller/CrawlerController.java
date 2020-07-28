@@ -34,31 +34,18 @@ public class CrawlerController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		Document doc = Jsoup.connect("https://www.lidl.es/es/verano/c2159")
-				       .userAgent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0")
-				       .get();
-		
+		Document doc = Jsoup.connect("http://example.com/").get();
 		String title = doc.title();
 		
-		Elements anclasConClaseProducto = doc.select("a.product span.desc-height strong ");
-		Element anclaProducto = null;
-		for (int i = 0; i < anclasConClaseProducto.size(); i++) {
-			
-			anclaProducto = anclasConClaseProducto.get(i);
-			System.out.println( anclaProducto.text() );
-			
-		}
-		
+		// puedes usar doc.selec() para hacer consultas mas complejas
+		// @see https://jsoup.org/cookbook/extracting-data/selector-syntax
 		
 		Elements anclas = doc.getElementsByTag("a");
-		Element primeraAncla = anclas.get(0);   // conseguimos la 1º ancla		
+		Element primeraAncla = anclas.get(0);
+		
 		String nuevaURL = primeraAncla.attr("href");
-				
 		Document doc2 = Jsoup.connect(nuevaURL).get();
 		String title2 = doc2.title();
-				
-		
-		
 		
 		
 		request.setAttribute("titulo", title);
