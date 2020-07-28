@@ -46,6 +46,9 @@
 <a href="views/ejemplos/custom-tag.jsp">TAG propio</a>
 <br>
 
+<a href="crawler">Parsear o Recolectar ( crawler ) desde una pagina Web - libreria jsoup.org</a>
+<br>
+
 
 
 <%@include file="../../includes/pie.jsp" %>
