@@ -14,6 +14,11 @@ footer {
     color: #FFF;
 }
 
+img.responsive {
+	width: 100%;
+	height: auto;
+}
+
 .form-login {
     width: 100%;
     max-width: 330px;

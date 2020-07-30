@@ -24,6 +24,8 @@
 <br>
 <a href="views/ejemplos/getYpost.jsp?title=GetPost">GET y POST</a>
 <br>
+<a href="views/ejemplos/rutas.jsp">Forward y Redirect</a>
+<br>
 <a href="views/ejemplos/formulario-validacion.jsp">Ejemplo Formulario Validacion</a>
 <br>
 <a href="views/ejemplos/formulario.jsp">Ejemplo Formulario Completo</a>
