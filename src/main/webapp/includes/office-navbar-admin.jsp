@@ -39,7 +39,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa fa-plus-circle"></i></div>
                                 Lanzar Proceso Migración
                             </a>
-                             <a class="nav-link" href="views/backoffice/parsear">
+                             <a class="nav-link" href="views/backoffice/crawler">
                                 <div class="sb-nav-link-icon"><i class="fa fa-plus-circle"></i></div>
                                 Parsear Web
                             </a>

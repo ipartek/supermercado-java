@@ -22,7 +22,7 @@
 						<c:forEach items="${c.productos}" var="p">	
 							
 							<div class="card">
-							  <img src="${p.imagen}" class="card-img-top" alt="${p.nombre}">
+							  <img src="imagenes/${p.imagen}" class="card-img-top" alt="${p.nombre}">
 							  <div class="card-body">
 							    <h5 class="card-title">${p.nombre}</h5>
 							    <p><span class="badge badge-secondary">${p.categoria.nombre}</span></p>

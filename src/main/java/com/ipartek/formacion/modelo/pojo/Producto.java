@@ -38,6 +38,12 @@ public class Producto {
 		this();
 		this.nombre = nombre;
 	}
+	
+	public Producto(String nombre, float precio) {
+		this();
+		this.nombre = nombre;
+		this.precio = precio;
+	}
 
 	public int getId() {
 		return id;
