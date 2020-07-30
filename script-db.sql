@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.30, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.31, for Linux (x86_64)
 --
 -- Host: localhost    Database: supermercado
 -- ------------------------------------------------------
--- Server version	5.7.30-0ubuntu0.18.04.1
+-- Server version	5.7.31-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -70,7 +70,7 @@ CREATE TABLE `producto` (
   KEY `FK_categoria` (`id_categoria`),
   CONSTRAINT `FK_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`),
   CONSTRAINT `FK_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (15,'acelgas con Jamon con brillo',1,0.00,'https://i.blogs.es/6b70d4/acelgas-arco-jamon/1366_2000.jpg',1,'2020-07-13 12:26:38',NULL),(16,'patatas',1,0.66,'https://ep01.epimg.net/elcomidista/imagenes/2017/02/22/articulo/1487804099_363696_1487804800_sumario_normal.jpg',1,'2020-07-13 12:26:38',NULL),(26,'alubias a la vizcaina',6,6.45,'https://www.cocinatis.com/media/photologue/photos/cache/CTIS123-receta-alubias-blancas-verduras-paso-6_desktop_step.jpg',2,'2020-07-13 12:26:38','2020-07-13 12:58:23'),(27,'Tortilla de patatas',6,2.35,'https://www.hogarmania.com/archivos/201610/tortilla-patatas-xl-668x400x80xX.jpg',2,'2020-07-13 12:26:38','2020-07-13 12:58:23'),(28,'Piruleta',6,2.36,'https://picsum.photos/100/100',1,'2020-07-20 11:53:25',NULL),(30,'Kinder Bueno',6,2.75,'https://picsum.photos/100/100',1,'2020-07-20 12:03:15',NULL),(32,'Ya teneis una nueva pelea',6,2.50,'https://picsum.photos/100/100',3,'2020-07-20 12:10:34',NULL);
+INSERT INTO `producto` VALUES (15,'acelgas con Jamon con brillo',1,0.00,'https://i.blogs.es/6b70d4/acelgas-arco-jamon/1366_2000.jpg',1,'2020-07-13 12:26:38',NULL),(26,'alubias a la Tolosana',6,6.00,'https://www.cocinatis.com/media/photologue/photos/cache/CTIS123-receta-alubias-blancas-verduras-paso-6_desktop_step.jpg',2,'2020-07-13 12:26:38',NULL),(27,'Tortilla de patatas',6,2.35,'https://www.hogarmania.com/archivos/201610/tortilla-patatas-xl-668x400x80xX.jpg',2,'2020-07-13 12:26:38',NULL),(28,'Piruleta',6,2.36,'https://picsum.photos/100/100',1,'2020-07-20 11:53:25',NULL),(30,'Kinder Bueno',6,2.75,'https://picsum.photos/100/100',1,'2020-07-20 12:03:15',NULL),(32,'Ya teneis una nueva pelea',6,2.50,'https://picsum.photos/100/100',3,'2020-07-20 12:10:34',NULL),(34,'Producto Editado, eplochos y Electronica',6,8.88,'https://picsum.photos/100/100',3,'2020-07-23 09:28:39',NULL),(35,'nuevo electro',6,0.00,'https://picsum.photos/100/100',3,'2020-07-30 09:06:18',NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,11 +120,12 @@ CREATE TABLE `usuario` (
   `nombre` varchar(50) NOT NULL DEFAULT '0',
   `contrasenia` varchar(50) NOT NULL DEFAULT '0',
   `id_rol` int(11) DEFAULT '0',
+  `fecha_nacimiento` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre` (`nombre`),
   KEY `FK_rol` (`id_rol`),
   CONSTRAINT `FK_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=881 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +134,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',2),(6,'pepe','e10adc3949ba59abbe56e057f20f883e',1),(7,'manolito gafotas 77','e10adc3949ba59abbe56e057f20f883e',1),(8,'Dummy','e10adc3949ba59abbe56e057f20f883e',1);
+INSERT INTO `usuario` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',2,NULL),(6,'pepe','e10adc3949ba59abbe56e057f20f883e',1,NULL),(7,'manolito gafotas 77','e10adc3949ba59abbe56e057f20f883e',1,NULL),(8,'Dummy','e10adc3949ba59abbe56e057f20f883e',1,NULL),(784,'Magee','e10adc3949ba59abbe56e057f20f883e',1,'2019-03-21'),(785,'Kermit','e10adc3949ba59abbe56e057f20f883e',1,'2021-02-19'),(786,'Oleg','e10adc3949ba59abbe56e057f20f883e',1,'2021-02-27'),(787,'Cassidy','e10adc3949ba59abbe56e057f20f883e',1,'2019-11-18'),(788,'Aaron','e10adc3949ba59abbe56e057f20f883e',1,'2020-08-01'),(789,'Hedwig','e10adc3949ba59abbe56e057f20f883e',1,'2020-09-21'),(790,'Alan','e10adc3949ba59abbe56e057f20f883e',1,'2019-09-18'),(791,'Emery','e10adc3949ba59abbe56e057f20f883e',1,'2020-03-25'),(792,'Macy','e10adc3949ba59abbe56e057f20f883e',1,'2020-09-24'),(793,'Walker','e10adc3949ba59abbe56e057f20f883e',1,'2019-04-30'),(794,'Xavier','e10adc3949ba59abbe56e057f20f883e',1,'2019-05-27'),(795,'Dale','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-14'),(796,'Cole','e10adc3949ba59abbe56e057f20f883e',1,'2019-05-07'),(797,'Zephr','e10adc3949ba59abbe56e057f20f883e',1,'2019-04-25'),(798,'Charissa','e10adc3949ba59abbe56e057f20f883e',1,'2019-05-25'),(799,'Lance','e10adc3949ba59abbe56e057f20f883e',1,'2020-04-26'),(800,'David','e10adc3949ba59abbe56e057f20f883e',1,'2020-09-20'),(801,'Ezra','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-04'),(802,'Quinn','e10adc3949ba59abbe56e057f20f883e',1,'2020-05-08'),(803,'Cherokee','e10adc3949ba59abbe56e057f20f883e',1,'2021-02-23'),(804,'Cody','e10adc3949ba59abbe56e057f20f883e',1,'2021-02-11'),(805,'Katelyn','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-04'),(806,'Carly','e10adc3949ba59abbe56e057f20f883e',1,'2020-04-02'),(807,'Asher','e10adc3949ba59abbe56e057f20f883e',1,'2019-12-24'),(808,'Larissa','e10adc3949ba59abbe56e057f20f883e',1,'2020-03-04'),(809,'Teegan','e10adc3949ba59abbe56e057f20f883e',1,'2019-07-09'),(810,'Courtney','e10adc3949ba59abbe56e057f20f883e',1,'2019-06-03'),(811,'Rhona','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-08'),(812,'Caldwell','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-12'),(813,'Wendy','e10adc3949ba59abbe56e057f20f883e',1,'2020-03-26'),(814,'Rajah','e10adc3949ba59abbe56e057f20f883e',1,'2020-03-17'),(815,'Evan','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-30'),(816,'Danielle','e10adc3949ba59abbe56e057f20f883e',1,'2021-03-07'),(817,'Camilla','e10adc3949ba59abbe56e057f20f883e',1,'2020-10-06'),(818,'Tana','e10adc3949ba59abbe56e057f20f883e',1,'2019-03-17'),(819,'Lunea','e10adc3949ba59abbe56e057f20f883e',1,'2019-06-21'),(820,'Leslie','e10adc3949ba59abbe56e057f20f883e',1,'2019-08-18'),(821,'Cruz','e10adc3949ba59abbe56e057f20f883e',1,'2019-05-12'),(822,'Eden','e10adc3949ba59abbe56e057f20f883e',1,'2019-05-25'),(823,'Byron','e10adc3949ba59abbe56e057f20f883e',1,'2020-06-22'),(824,'Ryder','e10adc3949ba59abbe56e057f20f883e',1,'2019-05-29'),(825,'Ronan','e10adc3949ba59abbe56e057f20f883e',1,'2019-06-26'),(826,'Norman','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-04'),(827,'Whoopi','e10adc3949ba59abbe56e057f20f883e',1,'2019-07-30'),(828,'Honorato','e10adc3949ba59abbe56e057f20f883e',1,'2020-01-12'),(829,'Tallulah','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-30'),(830,'Gloria','e10adc3949ba59abbe56e057f20f883e',1,'2019-04-29'),(831,'Ira','e10adc3949ba59abbe56e057f20f883e',1,'2019-08-26'),(832,'Barry','e10adc3949ba59abbe56e057f20f883e',1,'2019-11-06'),(833,'Callum','e10adc3949ba59abbe56e057f20f883e',1,'2020-01-30'),(834,'Zia','e10adc3949ba59abbe56e057f20f883e',1,'2020-05-15'),(835,'Logan','e10adc3949ba59abbe56e057f20f883e',1,'2021-03-15'),(836,'Xena','e10adc3949ba59abbe56e057f20f883e',1,'2020-11-02'),(837,'Paul','e10adc3949ba59abbe56e057f20f883e',1,'2020-12-06'),(838,'Elmo','e10adc3949ba59abbe56e057f20f883e',1,'2020-12-08'),(839,'Gil','e10adc3949ba59abbe56e057f20f883e',1,'2020-10-01'),(840,'Eliana','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-14'),(841,'Ursula','e10adc3949ba59abbe56e057f20f883e',1,'2019-03-17'),(842,'Colby','e10adc3949ba59abbe56e057f20f883e',1,'2019-09-18'),(843,'Basil','e10adc3949ba59abbe56e057f20f883e',1,'2019-08-25'),(844,'Justine','e10adc3949ba59abbe56e057f20f883e',1,'2020-02-20'),(845,'Craig','e10adc3949ba59abbe56e057f20f883e',1,'2020-10-29'),(846,'Candace','e10adc3949ba59abbe56e057f20f883e',1,'2020-04-19'),(847,'Burton','e10adc3949ba59abbe56e057f20f883e',1,'2019-08-30'),(848,'Sean','e10adc3949ba59abbe56e057f20f883e',1,'2021-03-09'),(849,'Urielle','e10adc3949ba59abbe56e057f20f883e',1,'2020-01-17'),(850,'Tanek','e10adc3949ba59abbe56e057f20f883e',1,'2020-12-08'),(851,'Guy','e10adc3949ba59abbe56e057f20f883e',1,'2020-11-23'),(852,'Uta','e10adc3949ba59abbe56e057f20f883e',1,'2020-11-26'),(853,'Desiree','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-28'),(854,'Kenneth','e10adc3949ba59abbe56e057f20f883e',1,'2019-04-20'),(855,'Talon','e10adc3949ba59abbe56e057f20f883e',1,'2019-12-23'),(856,'Yuli','e10adc3949ba59abbe56e057f20f883e',1,'2020-09-19'),(857,'Jennifer','e10adc3949ba59abbe56e057f20f883e',1,'2019-11-30'),(858,'Camille','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-02'),(859,'Amos','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-22'),(860,'Fallon','e10adc3949ba59abbe56e057f20f883e',1,'2019-07-16'),(861,'Micah','e10adc3949ba59abbe56e057f20f883e',1,'2020-11-02'),(862,'Darius','e10adc3949ba59abbe56e057f20f883e',1,'2019-06-27'),(863,'Audra','e10adc3949ba59abbe56e057f20f883e',1,'2019-09-19'),(864,'Jonas','e10adc3949ba59abbe56e057f20f883e',1,'2020-07-01'),(866,'Daryl','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-21'),(867,'Xyla','e10adc3949ba59abbe56e057f20f883e',1,'2021-02-22'),(868,'Caesar','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-03'),(869,'Carolyn','e10adc3949ba59abbe56e057f20f883e',1,'2020-03-11'),(870,'Wanda','e10adc3949ba59abbe56e057f20f883e',1,'2021-03-08'),(871,'Porter','e10adc3949ba59abbe56e057f20f883e',1,'2019-03-23'),(872,'Jordan','e10adc3949ba59abbe56e057f20f883e',1,'2019-07-27'),(873,'Cadman','e10adc3949ba59abbe56e057f20f883e',1,'2019-12-27'),(874,'Hiram','e10adc3949ba59abbe56e057f20f883e',1,'2020-05-12'),(876,'Oscar','e10adc3949ba59abbe56e057f20f883e',1,'2019-03-20'),(877,'Levi','e10adc3949ba59abbe56e057f20f883e',1,'2021-03-04'),(878,'Bell','e10adc3949ba59abbe56e057f20f883e',1,'2020-03-27'),(879,'Shoshana','e10adc3949ba59abbe56e057f20f883e',1,'2020-09-23'),(880,'Lani','e10adc3949ba59abbe56e057f20f883e',1,'2019-10-16');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,4 +221,4 @@ USE `supermercado`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-21 12:58:51
+-- Dump completed on 2020-07-30 10:52:59

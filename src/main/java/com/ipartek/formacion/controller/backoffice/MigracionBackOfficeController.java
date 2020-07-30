@@ -6,6 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +43,9 @@ public class MigracionBackOfficeController extends HttpServlet {
 		String mensaje = "";
 		int numLineas = 0;
 		int numInsert = 0;
-		int numErroresCampos = 0;
+		// int numErroresCampos = 0;
+		ArrayList<String> lineaserroneas = new ArrayList<String>();  
+		
 		int numErroresNombresDuplicados = 0;
 		long tiempoInicio = System.currentTimeMillis();
 		long tiempoFin = 0;
@@ -48,7 +54,7 @@ public class MigracionBackOfficeController extends HttpServlet {
 		//final int ID_ROL_USER = 1;
 		//final String PASSWORD = "e10adc3949ba59abbe56e057f20f883e"; // 123456 en MD5
 
-		final String SQL = " INSERT INTO usuario (nombre,contrasenia,id_rol) VALUES ( ? ,'e10adc3949ba59abbe56e057f20f883e',1); ";
+		final String SQL = " INSERT INTO usuario (nombre,contrasenia,id_rol, fecha_nacimiento) VALUES ( ? ,'e10adc3949ba59abbe56e057f20f883e',1, ?); ";
 		
 		/******** Logica de programacion **********/
 		
@@ -72,14 +78,25 @@ public class MigracionBackOfficeController extends HttpServlet {
 				try {
 					numLineas++;	
 					if (campos.length != 6 ) {
-						numErroresCampos++;
+						// numErroresCampos++;
+						lineaserroneas.add( (numLineas + 1) + " - " + linea);
 					}else {
 					
 						pst.setString(1, campos[0] );
+						
+						SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH); // Mar 25, 2020
+					    Date fecha = sdf.parse(campos[2]);
+					    LOG.debug(fecha);
+					    //TODO intentar usar pst.setDate para que sea mas elegante, pero a funcionado
+					    pst.setObject(2, fecha);
+
+						
+						
 						LOG.debug(pst);
 						int affectedRows = pst.executeUpdate();
 						if ( affectedRows != 1 ) {
-							numErroresCampos++;
+							//numErroresCampos++;
+							lineaserroneas.add((numLineas + 1) + " - " + linea);
 							LOG.warn("FALLO Inser affectedRows != 1");	
 						}else {
 							numInsert++;
@@ -113,7 +130,8 @@ public class MigracionBackOfficeController extends HttpServlet {
 			request.setAttribute("fichero", PATH_FICHERO);
 			request.setAttribute("numero_lineas", numLineas);
 			request.setAttribute("numero_insercciones", numInsert);
-			request.setAttribute("numero_errores_campos", numErroresCampos);
+			//request.setAttribute("numero_errores_campos", numErroresCampos);
+			request.setAttribute("lineaserroneas", lineaserroneas);			
 			request.setAttribute("numero_errores_nombre", numErroresNombresDuplicados);
 			
 			tiempoFin = System.currentTimeMillis();
