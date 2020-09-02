@@ -1,5 +1,6 @@
 package com.ipartek.formacion.modelo.dao.impl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +34,12 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	// excuteQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT id, nombre FROM categoria ORDER BY nombre ASC; ";
+	// private final String SQL_GET_ALL = " SELECT id, nombre FROM categoria ORDER BY nombre ASC; ";
+	
+	// CUIDADO: que la llamada a los procedimientos en Java deben ir entra {} llaves
+	private final String PA_GET_ALL = " { CALL pa_categoria_listar() }  ";
+	
+	
 	private final String SQL_GET_ALL_WITH_PRODUCTS = " SELECT c.id 'categoria_id', c.nombre 'categoria_nombre', p.id 'producto_id', p.nombre 'producto_nombre', imagen, precio FROM producto p, categoria c WHERE p.id_categoria = c.id AND p.fecha_validado IS NOT NULL ORDER BY c.nombre ASC ; ";
 	private final String SQL_GET_BY_ID = " SELECT id, nombre FROM categoria WHERE id = ?; ";
 
@@ -48,11 +54,12 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		ArrayList<Categoria> registros = new ArrayList<Categoria>();
 
 		try ( Connection conexion = ConnectionManager.getConnection();
-			  PreparedStatement pst = conexion.prepareStatement(SQL_GET_ALL);
-			  ResultSet rs = pst.executeQuery();
+			  // PreparedStatement pst = conexion.prepareStatement(SQL_GET_ALL);
+			  CallableStatement cs = conexion.prepareCall(PA_GET_ALL);
+			  ResultSet rs = cs.executeQuery();
 		) {
 
-			LOG.debug(pst);
+			LOG.debug(cs);
 			while (rs.next()) {
 				registros.add(mapper(rs));
 			} // while
