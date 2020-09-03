@@ -2,10 +2,20 @@ package com.ipartek.formacion.modelo.pojo;
 
 import java.util.ArrayList;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Categoria {
 
 	private int id;
+	
+	@NotNull
+	@NotEmpty(message = "debes de escribir un nombre")
+	@Size(min = 1, max = 100, message = "la longtidud no es correcta [0-100]")
 	private String nombre;
+	
 	private ArrayList<Producto> productos;
 	
 	public Categoria() {

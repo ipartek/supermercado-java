@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,14 +49,10 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	//exceuteUpdate => int affectedRows
 	
 	
-	//TODO para el final, cuando montemos el formulario
-	private final String SQL_INSERT = " INSERT INTO categoria ( nombre ) VALUES ( ? ) ; ";	
-	private final String SQL_UPDATE = " UPDATE categoria SET nombre = ?  WHERE id = ? ; ";
 	
-	/*
-	private final String SQL_DELETE = " DELETE FROM categoria WHERE id = ? ; ";
-	*/
-	
+	//private final String SQL_INSERT = " INSERT INTO categoria ( nombre ) VALUES ( ? ) ; ";	
+	//private final String SQL_UPDATE = " UPDATE categoria SET nombre = ?  WHERE id = ? ; ";	
+	//private final String SQL_DELETE = " DELETE FROM categoria WHERE id = ? ; ";
 	
 	private final String PA_INSERT = " { CALL pa_categoria_insertar(?,?) } ";
 	private final String PA_UPDATE = " { CALL pa_categoria_update(?,?) } ";	
@@ -182,24 +179,19 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		
 		try(
 				Connection conexion = ConnectionManager.getConnection();	
-				PreparedStatement pst = conexion.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);				
+				CallableStatement cs = conexion.prepareCall(PA_INSERT);				
 			){
 		
-				pst.setString(1, pojo.getNombre() );			
-				LOG.debug(pst);
+				cs.setString(1, pojo.getNombre() );                   // IN pNombre VARCHAR(100)
+				cs.registerOutParameter(2, java.sql.Types.INTEGER );  // OUT pIdGenerado INT
 				
-				int affectedRows = pst.executeUpdate();			
-				if ( affectedRows == 1 ) {					
-					try( ResultSet rsKeys = pst.getGeneratedKeys() ){						
-						if ( rsKeys.next() ) {
-							int id = rsKeys.getInt(1);
-							pojo.setId(id);
-						}						
-					}				
-					
-			}else {				
-				throw new Exception("No se ha podido guardar el registro " + pojo );
-			}
+				LOG.debug(cs);
+				
+				cs.execute();			
+				
+				int id = cs.getInt(2); // recojo el parametro de salida, despues de ejecutar el PA
+				
+				pojo.setId(id);
 		}
 		
 		return pojo;
@@ -210,14 +202,14 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 		try(
 				Connection conexion = ConnectionManager.getConnection();	
-				PreparedStatement pst = conexion.prepareStatement(SQL_UPDATE);				
+				CallableStatement cs = conexion.prepareCall(PA_UPDATE);				
 				
 			){
 						
-				pst.setString(1, pojo.getNombre() );				
-				pst.setInt(2, pojo.getId() );
-				LOG.debug(pst);
-				int affectedRows = pst.executeUpdate();
+				cs.setString(1, pojo.getNombre() );				
+				cs.setInt(2, pojo.getId() );
+				LOG.debug(cs);
+				int affectedRows = cs.executeUpdate();
 				if ( affectedRows != 1 ) {
 					throw new Exception("No se puede podificar el registro con id=" + pojo.getId() );
 				}
