@@ -5,5 +5,7 @@
 <jsp:include page="../../../includes/office-navbar-admin.jsp" />
     
 FORMULARIO PARA EDITAR CATEGORIAS
+
+${categoria}
   
  <jsp:include page="../../../includes/office-footer.jsp" />

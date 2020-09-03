@@ -6,12 +6,32 @@
 <jsp:include page="../../../includes/office-navbar-admin.jsp" />
     
 	<h1>${fn:length(categorias)} Categorias </h1>
+	<a href="views/backoffice/categoria?id=0">Crear Nuevo Categoria</a> 
 	  
-	 <ul class="list-group">
-	  <c:forEach items="${categorias}" var="cat">
-	  	<li class="list-group-item">${cat.id} - ${cat.nombre} </li>
-	  </c:forEach> 
-	</ul>
+	<table class="tabla table table-striped">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Nombre</td>				
+				<td>operaciones</td>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${categorias}" var="cat">
+				<tr>
+					<td>${cat.id}</td>
+					<td>${cat.nombre}</td>					
+					<td>
+						<a href="views/backoffice/categoria?id=${cat.id}" class="mr-4"> <i class="far fa-edit fa-2x" title="Editar Categoria"></i></a>
+						<a href="views/backoffice/categoria?id=${cat.id}&accion=delete"
+						   onclick="confirmar('${cat.nombre}')" 
+						   ><i class="fas fa-trash fa-2x" title="Eliminar Categoria"></i></a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+                 
   
   
  <jsp:include page="../../../includes/office-footer.jsp" />  

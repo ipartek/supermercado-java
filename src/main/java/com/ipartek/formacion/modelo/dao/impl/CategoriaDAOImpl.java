@@ -41,12 +41,25 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	
 	
 	private final String SQL_GET_ALL_WITH_PRODUCTS = " SELECT c.id 'categoria_id', c.nombre 'categoria_nombre', p.id 'producto_id', p.nombre 'producto_nombre', imagen, precio FROM producto p, categoria c WHERE p.id_categoria = c.id AND p.fecha_validado IS NOT NULL ORDER BY c.nombre ASC ; ";
-	private final String SQL_GET_BY_ID = " SELECT id, nombre FROM categoria WHERE id = ?; ";
+	
+	//private final String SQL_GET_BY_ID = " SELECT id, nombre FROM categoria WHERE id = ?; ";	
+	private final String PA_GET_BY_ID = " { CALL pa_categoria_por_id(?) } ";
 
 	//exceuteUpdate => int affectedRows
-	private final String SQL_INSERT = " INSERT INTO categoria ( nombre ) VALUES ( ? ) ; ";
-	private final String SQL_UPDATE = " UPDATE categoria SET nombre = ?  WHERE id = ? ; ";	
+	
+	
+	//TODO para el final, cuando montemos el formulario
+	private final String SQL_INSERT = " INSERT INTO categoria ( nombre ) VALUES ( ? ) ; ";	
+	private final String SQL_UPDATE = " UPDATE categoria SET nombre = ?  WHERE id = ? ; ";
+	
+	/*
 	private final String SQL_DELETE = " DELETE FROM categoria WHERE id = ? ; ";
+	*/
+	
+	
+	private final String PA_INSERT = " { CALL pa_categoria_insertar(?,?) } ";
+	private final String PA_UPDATE = " { CALL pa_categoria_update(?,?) } ";	
+	private final String PA_DELETE = " { CALL pa_categoria_delete(?) } ";
 	
 	@Override
 	public ArrayList<Categoria> getAll() {
@@ -124,12 +137,13 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		Categoria registro = new Categoria();		
 		try (
 				Connection conexion = ConnectionManager.getConnection();
-				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID);				
+				// PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_ID);
+				CallableStatement cs = conexion.prepareCall(PA_GET_BY_ID);
 			) {
 			
-				pst.setInt(1, id);
-				LOG.debug(pst);
-				ResultSet rs = pst.executeQuery();
+				cs.setInt(1, id);
+				LOG.debug(cs);
+				ResultSet rs = cs.executeQuery();
 				
 				if ( rs.next() ) {					
 					registro = mapper(rs);
@@ -148,15 +162,15 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		
 		try(
 				Connection conexion = ConnectionManager.getConnection();	
-				PreparedStatement pst = conexion.prepareStatement(SQL_DELETE);				
+				CallableStatement cs = conexion.prepareCall(PA_DELETE);
 			){
 				// recuperar antes de eliminar
 				pojo = getById(id);
 			
 				// eliminar
-				pst.setInt(1, id );			
-				LOG.debug(pst);
-				pst.executeUpdate();	
+				cs.setInt(1, id );			
+				LOG.debug(cs);
+				cs.executeUpdate();	
 			
 		}
 		
