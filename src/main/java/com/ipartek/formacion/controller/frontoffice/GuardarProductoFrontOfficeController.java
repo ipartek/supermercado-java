@@ -1,14 +1,20 @@
 package com.ipartek.formacion.controller.frontoffice;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Set;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -27,6 +33,7 @@ import com.ipartek.formacion.modelo.pojo.Usuario;
  * Servlet implementation class InicioController
  */
 @WebServlet("/views/frontoffice/guardar-producto")
+@MultipartConfig
 public class GuardarProductoFrontOfficeController extends HttpServlet {
 	
 		
@@ -93,11 +100,32 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 			// recoger parametros del formulario
 			String idParametro = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
-			String precio = request.getParameter("precio");
-			String imagen = request.getParameter("imagen");
+			String precio = request.getParameter("precio");			
 			String categoriaId = request.getParameter("categoria_id");
 			
+			
+			
+			
 			try {
+				
+				
+				// fichero
+				//String imagen = request.getParameter("imagen");
+				
+				Part filePart = request.getPart("fichero"); // Retrieves <input type="file" name="file">
+				
+				//TODO validar tamaño y extension
+				String fichNombre = filePart.getName();
+				long fichTamanio = filePart.getSize();
+				InputStream fichContent = filePart.getInputStream();
+				
+				String path =  "/home/javaee/eclipse-workspace/supermercado-java/src/main/webapp/imagenes/";
+				/*
+				 File file = new File( path + fichNombre );
+				 BufferedImage image = toBufferedImage(file);			   
+				 ImageIO.write(image, ext, file);
+				*/ 
+				
 			
 				int idProducto = Integer.parseInt(idParametro);
 				usuario = (Usuario)session.getAttribute("usuario_login");
@@ -117,7 +145,7 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 				// crear objeto con esos parametros
 				producto.setId(idProducto);
 				producto.setNombre(nombre);
-				producto.setImagen(imagen);
+				//producto.setImagen(imagen);
 				producto.setPrecio(precioFloat);
 				
 				Categoria c = new Categoria();

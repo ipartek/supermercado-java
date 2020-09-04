@@ -7,7 +7,7 @@
               
         <h1 class="mt-2">Dar de Alta Nuevo Producto</h1>
                      
-        <form action="views/frontoffice/guardar-producto" method="post">
+        <form action="views/frontoffice/guardar-producto" method="post" enctype="multipart/form-data">
         
         		<div class="form-group">
 					<label for="id">id:</label>
@@ -26,7 +26,8 @@
 				
 				<div class="form-group">
 					<label for="imagen">Imagen:</label>
-					<input type="text" name="imagen" id="imagen" value="${producto.imagen}" class="form-control" placeholder="URL de la imagen (.jpg o .png)" >
+					<!--  <input type="text" name="imagen" id="imagen" value="${producto.imagen}" class="form-control" placeholder="URL de la imagen (.jpg o .png)" > -->
+					<input type="file" name="fichero">
 				</div>
 				
 				<div class="form-group">
