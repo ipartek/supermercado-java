@@ -7,8 +7,6 @@
 </jsp:include>
 
 
-<p class="bg-danger p-2">BUG Categorias DropDown</p>
-
 <h3>${encabezado}</h3>
 	
 			

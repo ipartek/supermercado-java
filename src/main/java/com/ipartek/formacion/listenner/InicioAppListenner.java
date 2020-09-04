@@ -37,7 +37,7 @@ public class InicioAppListenner implements ServletContextListener {
          // cuando ejecutamos la App en el Servidor, al arrancar la 1º vez
     	LOG.info("Estamos arrancado la App, y soy un evento");
     	
-    	// Este contexto es para toda la Aplicacion y es accesible desde cualñquier JSP o Servlet    	
+    	// Este contexto es para toda la Aplicacion y es accesible desde cualquier JSP o Servlet, y desde cualquier cliente o usuario    	
     	ServletContext contextoAplicacion = sce.getServletContext();
     	
     	try {

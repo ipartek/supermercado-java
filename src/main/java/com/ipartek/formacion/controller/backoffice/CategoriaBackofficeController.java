@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -105,7 +106,7 @@ public class CategoriaBackofficeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//TODOS a comprobar
+		
 		// 1 todo bien
 		// 2 los datos introduciodos en el formulario no sean correctos
 		// 3 nombre categoria duplicado
@@ -140,6 +141,10 @@ public class CategoriaBackofficeController extends HttpServlet {
 						dao.insert(cat);
 					}
 					alerta = new Alerta("success", "Categoria guardada con exito");
+					
+					//actualizar las categorias del contexto
+					ServletContext contextoAplicacion = request.getServletContext();
+					contextoAplicacion.setAttribute("categorias", dao.getAll() );
 					
 				}catch (Exception e) {
 					alerta = new Alerta("warning", "El nombre de la Categoria ya existe, por favor elige otro.");
