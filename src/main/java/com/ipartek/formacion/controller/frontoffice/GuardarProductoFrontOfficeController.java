@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Set;
 
@@ -115,16 +116,14 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 				Part filePart = request.getPart("fichero"); // Retrieves <input type="file" name="file">
 				
 				//TODO validar tamaño y extension
-				String fichNombre = filePart.getName();
+				String fichNombre = filePart.getSubmittedFileName();
+				String fichExtension = filePart.getContentType();
 				long fichTamanio = filePart.getSize();
 				InputStream fichContent = filePart.getInputStream();
 				
 				String path =  "/home/javaee/eclipse-workspace/supermercado-java/src/main/webapp/imagenes/";
-				/*
-				 File file = new File( path + fichNombre );
-				 BufferedImage image = toBufferedImage(file);			   
-				 ImageIO.write(image, ext, file);
-				*/ 
+				File file = new File( path + fichNombre );
+				Files.copy(fichContent, file.toPath());
 				
 			
 				int idProducto = Integer.parseInt(idParametro);
