@@ -1,11 +1,9 @@
 package com.ipartek.formacion.controller.frontoffice;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -43,6 +41,7 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 		private final static ProductoDAOImpl daoProducto = ProductoDAOImpl.getInstance();
 		private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		private static Validator validator = factory.getValidator();
+		private static String PATH_FICHERO =  "/home/javaee/eclipse-workspace/supermercado-java/src/main/webapp/imagenes/";
 	    
 			
 		/**
@@ -80,10 +79,6 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 				request.setAttribute("producto", p);
 				request.getRequestDispatcher(view).forward(request, response);
 			}
-				
-				
-				
-						
 			
 		}
 	
@@ -102,29 +97,12 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 			String idParametro = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
 			String precio = request.getParameter("precio");			
-			String categoriaId = request.getParameter("categoria_id");
-			
-			
-			
+			String categoriaId = request.getParameter("categoria_id");						
+			Part filePart = request.getPart("fichero"); // Retrieves <input type="file" name="file">
+			//String imagen = request.getParameter("imagen");	
 			
 			try {
-				
-				
-				// fichero
-				//String imagen = request.getParameter("imagen");
-				
-				Part filePart = request.getPart("fichero"); // Retrieves <input type="file" name="file">
-				
-				//TODO validar tamaño y extension
-				String fichNombre = filePart.getSubmittedFileName();
-				String fichExtension = filePart.getContentType();
-				long fichTamanio = filePart.getSize();
-				InputStream fichContent = filePart.getInputStream();
-				
-				String path =  "/home/javaee/eclipse-workspace/supermercado-java/src/main/webapp/imagenes/";
-				File file = new File( path + fichNombre );
-				Files.copy(fichContent, file.toPath());
-				
+		
 			
 				int idProducto = Integer.parseInt(idParametro);
 				usuario = (Usuario)session.getAttribute("usuario_login");
@@ -144,7 +122,8 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 				// crear objeto con esos parametros
 				producto.setId(idProducto);
 				producto.setNombre(nombre);
-				//producto.setImagen(imagen);
+				String fichNombre = filePart.getSubmittedFileName();
+				producto.setImagen( "imagenes/" + fichNombre);
 				producto.setPrecio(precioFloat);
 				
 				Categoria c = new Categoria();
@@ -162,7 +141,9 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 					
 					/* GUARDAR PRODUCTO EN BBDD */
 					if ( idProducto == 0 ) {
-						daoProducto.insert(producto);
+						daoProducto.insert(producto);						
+						uploadImagen(filePart, fichNombre, PATH_FICHERO);
+						
 					}else {
 						daoProducto.updateByUser(producto);
 					}
@@ -190,6 +171,34 @@ public class GuardarProductoFrontOfficeController extends HttpServlet {
 				request.setAttribute("producto", producto);
 				request.getRequestDispatcher(view).forward(request, response);
 			}	
+		}
+
+
+		/**
+		 * Guardamos un fichero 
+		 * 
+		 * @param filePart file input recogido del formulario
+		 * @param fichNombre nombre de la imagen
+		 * @param path ruta donde guardamos la imagen
+		 * 
+		 * @throws IOException si no existe la imagen
+		 * @throws Exception si no es del tipo png o jpg, o tamaño mayor que 1Gb
+		 */
+		private void uploadImagen(Part filePart, String fichNombre, String path ) throws IOException, Exception {
+			
+			long fichTamanio = filePart.getSize();			
+			LOG.debug( "Fichero nombre: " + fichNombre + " tamaño: " + fichTamanio + " bytes");
+			
+			//TODO Exception si no es del tipo png o jpg, o tamaño mayor que 1Gb
+			
+			InputStream fichContent = filePart.getInputStream();				
+			File file = new File( path + fichNombre );
+			Files.copy(fichContent, file.toPath());
+			
+			
+			
+			LOG.info("Imagen subida " + PATH_FICHERO + fichNombre );
+			
 		}
 	
 	
