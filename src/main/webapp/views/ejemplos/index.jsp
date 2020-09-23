@@ -51,6 +51,9 @@
 <br>
 
 
+<a href="views/ejemplos/rest.jsp">Web Service REST</a>
+<br>
+
 
 <%@include file="../../includes/pie.jsp" %>
 
