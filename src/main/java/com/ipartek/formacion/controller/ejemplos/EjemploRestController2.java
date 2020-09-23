@@ -48,10 +48,10 @@ public class EjemploRestController2 extends HttpServlet {
 				out.flush();
 				
 				
-				response.setStatus(200);
+				response.setStatus(HttpServletResponse.SC_OK);
 				
 			}catch (Exception e) {
-				response.setStatus(204);
+				response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 			}	
 			
 	}

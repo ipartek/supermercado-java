@@ -50,7 +50,7 @@ public class EjemploRestController extends HttpServlet {
 			
 			
 			// Codido de estado, TODO usar constante
-			response.setStatus(200);
+			response.setStatus(HttpServletResponse.SC_OK);
 			
 			
 	}
@@ -59,22 +59,21 @@ public class EjemploRestController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
 	}
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
 	}
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
 	}
 
 }
