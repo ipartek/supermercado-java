@@ -30,7 +30,9 @@ public class ProductoRestController extends HttpServlet {
 	private static ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
 	private PrintWriter out = null;
 	private int id;
+	private String responseBody;
 	private int statusCode;
+	
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -57,33 +59,44 @@ public class ProductoRestController extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			
-			//conseguir id de la URL si esque nos viene					
-			id = 0;
-			String pathInfo = request.getPathInfo();
-			LOG.debug("url pathInfo:" + pathInfo );
-			if ( pathInfo != null ) {
-				String[] pathsParametros = pathInfo.split("/");
-				if ( pathsParametros.length > 0 ) {
-					id = Integer.parseInt(pathsParametros[1]);
-				}
-			}
-			
-			out = response.getWriter();
+			// respuesta vacia por si no se envia nada
+			responseBody = "{}";
+			getIdFromPath(request.getPathInfo());
 			
 			super.service(request, response);  // GET, POST, PUT o DELETE
-			LOG.debug("Se ejecuta DESPUES de GET, POST, PUT o DELETE");
 			
-			out.flush();
 			
 		}catch (Exception e) {
 			
 			e.printStackTrace();
 			LOG.error(e);
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			statusCode = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+			
+		}finally {
+			
+			// escribir respuesta
+			out = response.getWriter();
+			out.write( responseBody );
+			response.setStatus(statusCode);
+			out.flush();
+			
 		}
 		
 		
 	}
+	
+	
+	private void getIdFromPath( String pathInfo ) {						
+		id = 0;		
+		LOG.debug("url pathInfo:" + pathInfo );
+		if ( pathInfo != null ) {
+			String[] pathsParametros = pathInfo.split("/");
+			if ( pathsParametros.length > 0 ) {
+				id = Integer.parseInt(pathsParametros[1]);
+			}
+		}
+	}
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -93,28 +106,23 @@ public class ProductoRestController extends HttpServlet {
 		//LISTADO
 		if ( id == 0 ) {
 		
-			ArrayList<Producto> productos = dao.getAll();
-					
-			Gson gson = new Gson();
-			String stringBody = gson.toJson(productos);
-			out.write( stringBody );
+			ArrayList<Producto> productos = dao.getAll();			
+			responseBody = new Gson().toJson(productos);
+			statusCode = HttpServletResponse.SC_OK;
 			LOG.debug("GET: productos recuperados " + productos.size());
-			
-			response.setStatus(HttpServletResponse.SC_OK);
 			
 		//DETALLE	
 		}else {
 			
 			try {
-				Producto producto = dao.getById(id);
-				Gson gson = new Gson();
-				String stringBody = gson.toJson(producto);	
-				out.write( stringBody );
+				Producto producto = dao.getById(id);				
+				responseBody = new Gson().toJson(producto);				
+				statusCode = HttpServletResponse.SC_OK;
 				LOG.debug("GET: detalle producto " + producto.getId() );
-				response.setStatus(HttpServletResponse.SC_OK);
 				
 			}catch (Exception e) {
-				response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+				
+				statusCode = HttpServletResponse.SC_NO_CONTENT;
 			}	
 			
 		}
@@ -128,24 +136,26 @@ public class ProductoRestController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Cuidado los datos ya no vienen en parametros
-		// se enivan dentro del body de la request en fomrato json
+		// se enivan dentro del body de la request en formato json
 		// hay que usar un BufferedReader para leer esa información
-		BufferedReader bodyData = request.getReader();
-		Gson gson = new Gson();		
-		Producto producto = gson.fromJson(bodyData, Producto.class);
+		
+		BufferedReader bodyData = request.getReader();				
+		Producto producto = new Gson().fromJson(bodyData, Producto.class);
 		
 		LOG.debug("POST: productos crear  " + producto);
 		
 		try {
-			dao.insert(producto);
-			gson = new Gson();
-			String stringBody = gson.toJson(producto);	
-			out.write( stringBody );
-			response.setStatus(HttpServletResponse.SC_CREATED);	
+			
+			//TODO javax validation, si pasa las validaciones INSERT, si no 409
+			
+			dao.insert(producto);			
+			responseBody = new Gson().toJson(producto);
+			statusCode = HttpServletResponse.SC_CREATED;	
 			
 		}catch (Exception e) {
 			LOG.error(e);
-			response.setStatus(HttpServletResponse.SC_CONFLICT);
+			responseBody = "{ \"error\": \"" + e.getMessage()  + "\" }";
+			statusCode = HttpServletResponse.SC_CONFLICT;
 		}	
 		
 		
