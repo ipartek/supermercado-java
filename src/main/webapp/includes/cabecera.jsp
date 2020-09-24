@@ -58,9 +58,13 @@
 		          	</c:forEach>			          
 		        </div>
 		    </li>
-            
+		    
             <li class="nav-item"  >
               <a class="nav-link ${ ( 'ejemplos' eq param.pagina ) ? 'active' : '' }" href="views/ejemplos/index.jsp">Ejemplos</a>
+            </li>
+            
+            <li class="nav-item"  >
+              <a class="nav-link ${ ( 'api' eq param.pagina ) ? 'active' : '' }" href="views/api.jsp">API</a>
             </li>
             
             <!-- opciones cuando el usuario esta Logeado -->

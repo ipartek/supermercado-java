@@ -21,13 +21,14 @@ import com.ipartek.formacion.modelo.pojo.Producto;
 /**
  * Servlet implementation class ProductoRestController
  */
-@WebServlet("/api/producto")
+@WebServlet("/api/producto/*")
 public class ProductoRestController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = Logger.getLogger(ProductoRestController.class);  
 	private static ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
 	private PrintWriter out = null;
+	private int id;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -54,6 +55,17 @@ public class ProductoRestController extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			
+			//conseguir id de la URL si esque nos viene					
+			id = 0;
+			String pathInfo = request.getPathInfo();
+			LOG.debug("url pathInfo:" + pathInfo );
+			if ( pathInfo != null ) {
+				String[] pathsParametros = pathInfo.split("/");
+				if ( pathsParametros.length > 0 ) {
+					id = Integer.parseInt(pathsParametros[1]);
+				}
+			}
+			
 			out = response.getWriter();
 			
 			super.service(request, response);  // GET, POST, PUT o DELETE
@@ -76,15 +88,33 @@ public class ProductoRestController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//LISTADO
+		if ( id == 0 ) {
 		
-		ArrayList<Producto> productos = dao.getAll();
+			ArrayList<Producto> productos = dao.getAll();
+					
+			Gson gson = new Gson();
+			String stringBody = gson.toJson(productos);
+			out.write( stringBody );
+			LOG.debug("GET: productos recuperados " + productos.size());
+			
+			response.setStatus(HttpServletResponse.SC_OK);
+			
+		//DETALLE	
+		}else {
+			
+			try {
+				Producto producto = dao.getById(id);
+				Gson gson = new Gson();
+				String stringBody = gson.toJson(producto);	
+				out.write( stringBody );
+				response.setStatus(HttpServletResponse.SC_OK);
 				
-		Gson gson = new Gson();
-		String stringBody = gson.toJson(productos);
-		out.write( stringBody );
-		LOG.debug("GET: productos recuperados " + productos.size());
-		
-		response.setStatus(HttpServletResponse.SC_OK);
+			}catch (Exception e) {
+				response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			}	
+			
+		}
 		
 		
 	}
