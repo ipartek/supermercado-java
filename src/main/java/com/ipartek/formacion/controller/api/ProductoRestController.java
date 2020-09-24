@@ -1,9 +1,11 @@
 package com.ipartek.formacion.controller.api;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
-import com.ipartek.formacion.modelo.dao.impl.CategoriaDAOImpl;
 import com.ipartek.formacion.modelo.dao.impl.ProductoDAOImpl;
 import com.ipartek.formacion.modelo.pojo.Producto;
 
@@ -29,6 +30,7 @@ public class ProductoRestController extends HttpServlet {
 	private static ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
 	private PrintWriter out = null;
 	private int id;
+	private int statusCode;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -78,7 +80,7 @@ public class ProductoRestController extends HttpServlet {
 			e.printStackTrace();
 			LOG.error(e);
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		}	
+		}
 		
 		
 	}
@@ -108,6 +110,7 @@ public class ProductoRestController extends HttpServlet {
 				Gson gson = new Gson();
 				String stringBody = gson.toJson(producto);	
 				out.write( stringBody );
+				LOG.debug("GET: detalle producto " + producto.getId() );
 				response.setStatus(HttpServletResponse.SC_OK);
 				
 			}catch (Exception e) {
@@ -123,7 +126,29 @@ public class ProductoRestController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+		
+		// Cuidado los datos ya no vienen en parametros
+		// se enivan dentro del body de la request en fomrato json
+		// hay que usar un BufferedReader para leer esa información
+		BufferedReader bodyData = request.getReader();
+		Gson gson = new Gson();		
+		Producto producto = gson.fromJson(bodyData, Producto.class);
+		
+		LOG.debug("POST: productos crear  " + producto);
+		
+		try {
+			dao.insert(producto);
+			gson = new Gson();
+			String stringBody = gson.toJson(producto);	
+			out.write( stringBody );
+			response.setStatus(HttpServletResponse.SC_CREATED);	
+			
+		}catch (Exception e) {
+			LOG.error(e);
+			response.setStatus(HttpServletResponse.SC_CONFLICT);
+		}	
+		
+		
 	}
 
 	/**
