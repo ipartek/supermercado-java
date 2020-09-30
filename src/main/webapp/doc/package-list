@@ -1,0 +1,14 @@
+com.ipartek.formacion
+com.ipartek.formacion.controller
+com.ipartek.formacion.controller.api
+com.ipartek.formacion.controller.backoffice
+com.ipartek.formacion.controller.ejemplos
+com.ipartek.formacion.controller.frontoffice
+com.ipartek.formacion.ejemplos.modelo
+com.ipartek.formacion.listenner
+com.ipartek.formacion.modelo
+com.ipartek.formacion.modelo.dao
+com.ipartek.formacion.modelo.dao.impl
+com.ipartek.formacion.modelo.pojo
+com.ipartek.formacion.seguridad
+com.ipartek.formacion.tags

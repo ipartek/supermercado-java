@@ -10,7 +10,7 @@ public interface UsuarioDAO extends CrudAble<Usuario> {
 	/**
 	 * Busca alumnos que contengan la palabraBuscada
 	 * @param palabraBuscada palabra a buscar
-	 * @return ArrayList<Alumno>
+	 * @return {@code ArrayList<Alumno>}
 	 * 
 	 * Ej: si palabraBuscada = "a"   <br>
 	 *     lista [ "ander", "pepe", "manolo"] <br>

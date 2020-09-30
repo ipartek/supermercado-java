@@ -90,7 +90,7 @@ public class ListenerUsuarioLogeados implements HttpSessionListener, HttpSession
     }
 
 	/**
-     * @see HttpSessionAttributeListener#attributeRepla)ced(HttpSessionBindingEvent)
+     * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
      */
     public void attributeReplaced(HttpSessionBindingEvent event)  { 
     	LOG.trace("modificado atributo en sesion");

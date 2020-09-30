@@ -8,7 +8,7 @@ import com.ipartek.formacion.modelo.pojo.ResumenUsuario;
 
 /**
  * Hereda los metodos basicos de la interfaz CrudAble
- * Ademas definie un nuevo:  ArrayList<Producto> getAllByNombre( String nombre )
+ * Ademas definie un nuevo:  {@code ArrayList<Producto>} getAllByNombre( String nombre )
  * @author javaee
  *
  */
@@ -38,7 +38,7 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * @param idProducto
 	 * @param idUsuario
 	 * @return Producto pertenecinte al idUsuario
-	 * @throws Exception
+	 * @throws Exception por sintaxis
 	 * @throws SeguridadException si no pertenece el producto al Usuario
 	 */
 	Producto checkSeguridad(int idProducto, int idUsuario) throws Exception, SeguridadException;
@@ -63,7 +63,7 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	/**
 	 * Obtiene los ultimos registros ordenador por id descentente
 	 * @param numReg int numero de registros a recuperar
-	 * @return ArrayList<Producto>
+	 * @return {@code ArrayList<Producto>}
 	 */
 	ArrayList<Producto> getLast( int numReg );
 	
@@ -72,7 +72,7 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * Obtienes los productos de una Categoria
 	 * @param idCategoria int identificador de la Categoria
 	 * @param numReg int numero de registgros a mostrar
-	 * @return ArrayList<Producto>
+	 * @return {@code ArrayList<Producto>}
 	 */
 	ArrayList<Producto> getAllByCategoria( int idCategoria, int numReg );
 	
@@ -81,7 +81,7 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * @param precioMinimo
 	 * @param precioMaximo
 	 * @return
-	 * @throws Exception
+	 * @throws Exception sintaxis
 	 */
 	ArrayList<Producto> getAllRangoPrecio( int precioMinimo, int precioMaximo ) throws Exception;
 	
@@ -98,8 +98,8 @@ public interface ProductoDAO extends CrudAble<Producto> {
 	 * El producto vuelve a estar pendiente de Validación
 	 * @param p Producto
 	 * @return Producto validao
-	 * @throws Exception
-	 * @throws SeguridadException
+	 * @throws Exception sintaxis
+	 * @throws SeguridadException sin permisos
 	 */
 	Producto updateByUser( Producto p) throws Exception, SeguridadException;
 	

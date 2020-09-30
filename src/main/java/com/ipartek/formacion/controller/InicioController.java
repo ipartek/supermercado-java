@@ -17,14 +17,14 @@ import com.ipartek.formacion.modelo.pojo.Producto;
 /**
  * Obtiene todos los productos categorizados para listar
  * 
- * @parametro idCategoria id categoria, si es null muestra todas, else muestra productos de esa categoria
- * @parametro categoria  nombre del categotegoria
+ * #parametro idCategoria id categoria, si es null muestra todas, else muestra productos de esa categoria
+ * #parametro categoria  nombre del categotegoria
  * 
  * 
- * @atributo encabezado titulo para h3 en index.jsp
- * @atributo categoriasConProductos ArrayList<Categoria>, que contiene tambien todos los productos de cada categoria
+ * #atributo encabezado titulo para h3 en index.jsp
+ * #atributo categoriasConProductos {@code ArrayList<Categoria>}, que contiene tambien todos los productos de cada categoria
  * 
- * @view index.jsp
+ * #view index.jsp
  * 
  */
 @WebServlet("/inicio")

@@ -1,5 +1,15 @@
 package com.ipartek.formacion.modelo.pojo;
 
+/**
+ * Pojo para gestionar un Usuario
+ * @see com.ipartek.formacion.modelo.pojo.Rol
+ * 
+ * 
+ * @author Ander Uraga
+ * @version 1.0
+ * 
+ *
+ */
 public class Usuario {
 	
 	private int id;
@@ -7,6 +17,10 @@ public class Usuario {
 	private String contrasenia;	
 	private Rol rol;
 	
+	/**
+	 * Construimos un usuario con id = 0 y rol = Rol.USUARIO
+	 * @see com.ipartek.formacion.modelo.pojo.Rol
+	 */
 	public Usuario() {
 		super();
 		this.id = 0;
@@ -34,6 +48,7 @@ public class Usuario {
 	public String getContrasenia() {
 		return contrasenia;
 	}
+
 
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
