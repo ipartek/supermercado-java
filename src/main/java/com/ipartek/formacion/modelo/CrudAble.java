@@ -17,7 +17,7 @@ public interface CrudAble<P>  {
 	P getById(int id) throws Exception;
 	
 	P delete(int id)  throws Exception;
-	
+
 	P insert( P pojo )  throws Exception;
 	
 	P update ( P pojo )  throws Exception;

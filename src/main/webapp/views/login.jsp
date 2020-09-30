@@ -26,7 +26,7 @@
 	
 	</form>
 	
-	
+	<p class="text-center"><a href="views/registro.jsp" class="mt-4 btn btn-outline-primary">Registarte como nuevo usuario</a></p>
 
 <%@include file="../includes/pie.jsp" %>
 

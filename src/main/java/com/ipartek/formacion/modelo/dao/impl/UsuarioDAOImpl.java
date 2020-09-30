@@ -112,6 +112,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuario;
 	}
 
+	
+		
+	/**
+	 * Inserta un nuevo usuario en la tabla <b>usuario</b>
+	 * @param usuario necesitamos que esten rellenos los atributos de: <b>nombre</b>, <b>contrasenia</b> y <b>Rol (solo su id)</b>
+	 * @see com.ipartek.formacion.modelo.pojo.Rol
+	 * @return Usuario con el id actualizado
+	 * @throws Exception Si el nombre del usuario ya existe ne la bbdd
+	 */
 	@Override
 	public Usuario insert(Usuario pojo) throws Exception {
 
