@@ -30,4 +30,13 @@ public interface UsuarioDAO extends CrudAble<Usuario> {
 	 */
 	Usuario existe ( String nombre, String password ); 
 	
+	/**
+	 * busca por nombre exacto del usuario en la tabla usuario
+	 * SELECT * FROM usuario WHERE nombre = ?;
+	 * @param nombre String nombre a buscar
+	 * @return true si encuentra el usuario, false en caso contrario
+	 */
+	boolean buscarByNombre( String nombre );
+
+	
 }

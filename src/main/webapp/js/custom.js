@@ -9,6 +9,34 @@ function init() {
 	
 }
 
+/**
+ * Funcion asociada al evento keyenter para el id:input#nombre
+ * llama mediante Ajax a un servicio rest pra comprobar si existe el nombre usuario en la bbdd
+ *   
+ */
+function buscarUsuario(event) {
+	//console.debug(event);
+	const nombre = event.target.value;
+	console.debug(`valor del input ${nombre}`);
+	
+	
+	//TODO llamada Ajax
+	
+	let elNombreHelp = document.getElementById('nombreHelp');
+	if ( nombre == 'ander' ){
+		elNombreHelp.innerHTML = 'nombre no disponible';
+		elNombreHelp.classList.add('text-danger');
+		elNombreHelp.classList.remove('text-success');
+		
+	}else{
+		elNombreHelp.innerHTML = 'nombre disponible';
+		elNombreHelp.classList.add('text-success');
+		elNombreHelp.classList.remove('text-danger');
+		
+	}
+	
+	
+}
 
 function cifrar() {
 		
