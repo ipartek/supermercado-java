@@ -10,6 +10,16 @@ function init() {
 }
 
 /**
+ * Cambia el tipo de un input para que sea 'text' o 'password'
+ * @param idElemnt id del elemento a cambiar
+ */
+function showHidePass( idElement ){
+	
+	let elInput = document.getElementById(idElement);	
+	elInput.type = ( elInput.type == 'password' ) ? 'text' : 'password';
+}
+
+/**
  * Funcion asociada al evento keyenter para el id:input#nombre
  * llama mediante Ajax a un servicio rest pra comprobar si existe el nombre usuario en la bbdd
  *   

@@ -12,6 +12,7 @@
 		
 		<div class="form-group">
 			<input type="password" id="pass" value="123456" name="pass" placeholder="Tu Contraseña"  class="form-control">
+			<i class="fas fa-eye" onclick="showHidePass('pass')"></i>
 		</div>
 		
 		<div class="form-group">
