@@ -30,7 +30,7 @@
 		</div>
 							
 				
-		<input type="submit" value="Guardar" class="btn btn-primary btn-block">
+		<input type="submit" id="btnLogin" disabled="disabled" value="Guardar" class="btn btn-primary btn-block">
 	</form>
 	
 

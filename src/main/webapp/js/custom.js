@@ -19,6 +19,9 @@ function buscarUsuario(event) {
 	const nombre = event.target.value;
 	console.debug(`valor del input ${nombre}`);
 	
+	let elNombreHelp = document.getElementById('nombreHelp');
+	let elBtnLogin = document.getElementById('btnLogin');
+	
 	const url = `http://localhost:8080/supermerkado-master/api/usuario?nombre=${nombre}`;
 	//llamada Ajax
 	var xhttp = new XMLHttpRequest();
@@ -26,17 +29,19 @@ function buscarUsuario(event) {
 	xhttp.send();
 	xhttp.onreadystatechange = function() {     
 		
-		let elNombreHelp = document.getElementById('nombreHelp');
+		
 	    if (this.readyState == 4 && this.status == 200) {            
 	       elNombreHelp.innerHTML = 'nombre no disponible';
 		   elNombreHelp.classList.add('text-danger');
 		   elNombreHelp.classList.remove('text-success');
+		   elBtnLogin.setAttribute('disabled','disabled');
 	    }
 
 		if (this.readyState == 4 && this.status == 204) {
 		   elNombreHelp.innerHTML = 'nombre disponible';
 		   elNombreHelp.classList.add('text-success');
-		   elNombreHelp.classList.remove('text-danger');
+		   elNombreHelp.classList.remove('text-danger');		  
+ 		   elBtnLogin.removeAttribute('disabled');
 		}	
 
 

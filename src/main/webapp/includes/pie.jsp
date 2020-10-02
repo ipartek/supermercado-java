@@ -22,7 +22,7 @@
  	<script src="js/md5.min.js"></script>
 
     <!-- nuestro javascript -->
-    <script src="js/custom.js"></script>
+    <script src="js/custom.js?v=1"></script>
     
     
   </body>
