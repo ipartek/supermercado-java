@@ -19,24 +19,31 @@ function buscarUsuario(event) {
 	const nombre = event.target.value;
 	console.debug(`valor del input ${nombre}`);
 	
-	
-	//TODO llamada Ajax
-	
-	let elNombreHelp = document.getElementById('nombreHelp');
-	if ( nombre == 'ander' ){
-		elNombreHelp.innerHTML = 'nombre no disponible';
-		elNombreHelp.classList.add('text-danger');
-		elNombreHelp.classList.remove('text-success');
+	const url = `http://localhost:8080/supermerkado-master/api/usuario?nombre=${nombre}`;
+	//llamada Ajax
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("GET", url );   
+	xhttp.send();
+	xhttp.onreadystatechange = function() {     
 		
-	}else{
-		elNombreHelp.innerHTML = 'nombre disponible';
-		elNombreHelp.classList.add('text-success');
-		elNombreHelp.classList.remove('text-danger');
-		
-	}
+		let elNombreHelp = document.getElementById('nombreHelp');
+	    if (this.readyState == 4 && this.status == 200) {            
+	       elNombreHelp.innerHTML = 'nombre no disponible';
+		   elNombreHelp.classList.add('text-danger');
+		   elNombreHelp.classList.remove('text-success');
+	    }
+
+		if (this.readyState == 4 && this.status == 204) {
+		   elNombreHelp.innerHTML = 'nombre disponible';
+		   elNombreHelp.classList.add('text-success');
+		   elNombreHelp.classList.remove('text-danger');
+		}	
+
+
+	};// onreadystatechange
 	
-	
-}
+}//buscarUsuario
+
 
 function cifrar() {
 		

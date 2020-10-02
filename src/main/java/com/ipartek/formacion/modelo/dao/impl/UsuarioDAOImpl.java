@@ -20,9 +20,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	// exceuteQuerys => ResultSet
 	static final String SQL_GET_ALL_BY_NOMBRE = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE nombre LIKE ? LIMIT 500 ;   ";
-	static final String SQL_GET_ALL           = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id ORDER BY u.id DESC LIMIT 500 ; ";
-	static final String SQL_GET_BY_ID         = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.id = ? ; ";
-	static final String SQL_EXISTE            = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre = ? AND contrasenia = ? ; ";
+	static final String SQL_GET_ALL = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id ORDER BY u.id DESC LIMIT 500 ; ";
+	static final String SQL_GET_BY_ID = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.id = ? ; ";
+	static final String SQL_BUSCAR_POR_NOMBRE = " SELECT id FROM usuario WHERE nombre = ? ; ";
+	static final String SQL_EXISTE = " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol' FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre = ? AND contrasenia = ? ; ";
 
 	// executeUpdate => int
 	static final String SQL_INSERT = " INSERT INTO usuario(nombre, contrasenia, id_rol) VALUES( ? , ? , ? ); ";
@@ -53,8 +54,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 				ResultSet rs = pst.executeQuery();) {
 
 			LOG.debug(pst);
-			while (rs.next()) {				
-				usuarios.add( mapper(rs) );
+			while (rs.next()) {
+				usuarios.add(mapper(rs));
 			}
 
 		} catch (Exception e) {
@@ -112,19 +113,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuario;
 	}
 
-	
-		
-
 	@Override
 	public Usuario insert(Usuario pojo) throws Exception {
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);) {
 
-			pst.setString(1, pojo.getNombre() );
-			pst.setString(2, pojo.getContrasenia() );
-			pst.setInt(3, pojo.getRol().getId() );
-			
+			pst.setString(1, pojo.getNombre());
+			pst.setString(2, pojo.getContrasenia());
+			pst.setInt(3, pojo.getRol().getId());
+
 			LOG.debug(pst);
 			int affectedRows = pst.executeUpdate();
 			if (affectedRows == 1) {
@@ -179,7 +177,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			try (ResultSet rs = pst.executeQuery()) {
 
 				while (rs.next()) {
-					registros.add( mapper(rs) );
+					registros.add(mapper(rs));
 				} // while
 
 			} // 2º try
@@ -201,15 +199,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 		) {
 
-			pst.setString(1 , nombre);
-			pst.setString(2 , password);
+			pst.setString(1, nombre);
+			pst.setString(2, password);
 
 			LOG.debug(pst);
 			try (ResultSet rs = pst.executeQuery()) {
 
 				if (rs.next()) {
 					usuario = mapper(rs);
-				} 
+				}
 
 			} // 2º try
 
@@ -219,26 +217,47 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 		return usuario;
 	}
-	
-	
-	private Usuario mapper( ResultSet rs ) throws SQLException {
-		
+
+	@Override
+	public boolean buscarByNombre(String nombre) {
+
+		boolean encontrado = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_BUSCAR_POR_NOMBRE);) {
+
+			pst.setString(1, nombre);
+			LOG.debug(pst);
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					encontrado = true;
+				}
+			} // 2º try
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return encontrado;
+
+	}
+
+	private Usuario mapper(ResultSet rs) throws SQLException {
+
 		Usuario usuario = new Usuario();
-		
+
 		usuario.setId(rs.getInt("id"));
 		usuario.setNombre(rs.getString("nombre"));
-		usuario.setContrasenia( rs.getString("contrasenia"));
-		
-		//rol
+		usuario.setContrasenia(rs.getString("contrasenia"));
+
+		// rol
 		Rol rol = new Rol();
 		rol.setId(rs.getInt("id_rol"));
 		rol.setNombre(rs.getString("nombre_rol"));
-		
+
 		// setear el rol al usuario
 		usuario.setRol(rol);
-		
+
 		return usuario;
-		
+
 	}
 
 }
