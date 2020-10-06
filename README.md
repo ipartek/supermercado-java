@@ -2,12 +2,7 @@
 
 Proyecto Web **Java EE** siguiendo el patrón de **MVC** contra una bbdd **Mysql**
 CMS para gestionar los productos de un supermercado. 
-Tenemos dos roles diferentes para iniciar sesion:
 
-1. Administrador   **[admin,123456]** : Permisos Totales para cambiar cualquier producto
-2. Usuario Normal  **[pepe, 123456]** : Permismos solo para sus productos
-
-*Las contraseñas estan haseadas en MD5 dentro de la bbdd.*
 
 ![screenshot 1]( screenshot1.jpg?raw=true)
 
@@ -62,6 +57,15 @@ Para realizar la conexión a la bbdd cambiar el siguiente fichero **src/main/web
 ## Ejecutar Proyecto
 
 Al ser un proyecto web necesitamos un servidor de aplicaciones, en nuestro caso recomendamos **Apache Tomcat 9.0**.
+
+Podemos navegar por los diferentes enlaces de la cabecera puesto que son públicos.
+Si queremos entrar a los paneles de Administración deberemos *Iniciar Sesión*.
+Tenemos dos roles diferentes:
+
+1. Administrador   **[admin,123456]** : Permisos Totales para cambiar cualquier producto
+2. Usuario Normal  **[pepe, 123456]** : Permismos solo para sus productos
+
+*Las contraseñas estan haseadas en MD5 dentro de la bbdd.*
 
 
 ## Estructura Clases del proyecto
