@@ -9,6 +9,8 @@ Tenemos dos roles diferentes para iniciar sesion:
 
 *Las contraseñas estan haseadas en MD5 dentro de la bbdd.*
 
+![screenshot 1]( screenshot1.jpg?raw=true)
+
 
 ## Técnologia
 
@@ -25,11 +27,13 @@ Tenemos dos roles diferentes para iniciar sesion:
 Para ver mas detalles sobre las depencias de este proyecto mirar el [pom.xml](https://github.com/ipartek/supermercado-java/blob/master/pom.xml)
 
 
--- TODO screenshot --
+
 
 ## configuración de la bbdd
 
 Para crear la bbdd disponemos de un script **script-db.sql** en la raiz del proyecto, el cual crear el esquema **supermercado** y las tablas necesarias, ademas de insertar datos de prueba.
+
+![screenshot 2]( screenshot2.jpg?raw=true)
 
 Para realizar la conexión a la bbdd cambiar el siguiente fichero **src/main/webapp/META-INF/context.xml**
 
